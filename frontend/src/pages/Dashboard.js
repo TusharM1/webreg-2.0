@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from "react-router-dom";
 
 const Dashboard = () => {
     return (
-        <h1>Dashboard</h1>
+        <header>
+            <h1>Dashboard</h1>
+        </header>
     );
 };
 
