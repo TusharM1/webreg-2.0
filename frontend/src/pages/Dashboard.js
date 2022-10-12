@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
+import React from 'react';
 
-const Dashboard = () => {
+const Dashboard = (token) => {
+    // console.log("Here Dashboard");
+
     return (
-        <header>
+        <main>
             <h1>Dashboard</h1>
-        </header>
+        </main>
     );
 };
 

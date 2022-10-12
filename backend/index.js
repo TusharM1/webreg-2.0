@@ -1,20 +1,24 @@
 const express = require("express");
-const app = express();
-const http = require("http");
-const { Server } = require("socket.io");
 const cors = require("cors");
 
+const app = express();
 app.use(cors());
+app.use(express.json());
 
-const server = http.createServer(app);
+const loginRouter = require("./routes/Login");
+app.use("/login", loginRouter);
 
-const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    }
-})
+const tokenRouter = require("./routes/Token");
+app.use("/token", tokenRouter);
 
-server.listen(3001, () => {
+app.listen(3001, () => {
     console.log("Backend server initialized on port 3001");
 })
+
+// app.post("/login", (req, res) => {
+//     const username = req.get("username");
+//     const password = req.get("password");
+//     console.log(`Login request with ${username} and ${password} from ${req.body}`);
+//     console.log(req.body);
+//     res.send("here");
+// });
