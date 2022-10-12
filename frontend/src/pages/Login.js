@@ -1,11 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import {saveToken} from "./auth/Token";
-// import saveToken from './auth/useToken'
-// import axios from "axios";
-// import * as PropTypes from "prop-types";
+import { saveToken } from "./auth/useToken";
 
-// const Login = ({ setToken }) => {
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,23 +14,6 @@ const Login = () => {
         })).json();
     }
 
-    // const login = () => {
-    //     const data = { username: username, password: password };
-    //     axios.post("http://localhost:3001/login", data).then((response) => {
-    //         if (response.data.error) {
-    //             alert(response.data.error);
-    //         } else {
-    //             localStorage.setItem("accessToken", response.data.token);
-    //             setAuthState({
-    //                 username: response.data.username,
-    //                 id: response.data.id,
-    //                 status: true,
-    //             });
-    //             history.push("/");
-    //         }
-    //     });
-    // };
-
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,9 +21,6 @@ const Login = () => {
             username,
             password
         }))["token"];
-        // console.log("Token" + JSON.stringify(token));
-        // setToken(token);
-        // saveToken(token);
         saveToken(token);
         navigate("/dashboard");
     };
@@ -64,9 +40,5 @@ const Login = () => {
         </main>
     );
 };
-
-// Login.propTypes = {
-//     saveToken: PropTypes.func.isRequired
-// };
 
 export default Login;

@@ -1,21 +1,25 @@
-// import { useState } from 'react';
-//
-// export default function useToken() {
-//     const getToken = () => {
-//         const tokenString = localStorage.getItem('token');
-//         const userToken = JSON.parse(tokenString);
-//         if (userToken)
-//             return userToken.token;
-//         return undefined;
-//     };
-//
-//     const [token, setToken] = useState(getToken());
-//
-//     const saveToken = userToken => {
-//         // localStorage.setItem('token', JSON.stringify(userToken));
-//         localStorage.setItem('token', userToken);
-//         setToken(userToken.token);
-//     };
-//
-//     return { setToken: saveToken, token };
-// }
+export function getToken() {
+    const token = localStorage.getItem('token');
+    if (token)
+        return token;
+    return undefined;
+}
+
+export async function validToken(token) {
+    if (!token)
+        return false;
+    const tokenString = await fetch('http://localhost:3001/token', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"token": token})
+    });
+    const tokenJSON = await tokenString.json();
+    // console.log("Here: " + tokenJSON["valid"]);
+    return tokenJSON["valid"].toString() === "true";
+}
+
+export function saveToken(token) {
+    if (token && token !== "invalid") {
+        localStorage.setItem('token', token);
+    }
+}

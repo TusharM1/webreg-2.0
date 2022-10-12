@@ -14,11 +14,3 @@ app.use("/token", tokenRouter);
 app.listen(3001, () => {
     console.log("Backend server initialized on port 3001");
 })
-
-// app.post("/login", (req, res) => {
-//     const username = req.get("username");
-//     const password = req.get("password");
-//     console.log(`Login request with ${username} and ${password} from ${req.body}`);
-//     console.log(req.body);
-//     res.send("here");
-// });

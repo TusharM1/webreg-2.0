@@ -1,8 +1,6 @@
 import React from 'react';
 
-const Dashboard = (token) => {
-    // console.log("Here Dashboard");
-
+const Dashboard = () => {
     return (
         <main>
             <h1>Dashboard</h1>

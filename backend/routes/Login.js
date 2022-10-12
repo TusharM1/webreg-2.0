@@ -9,15 +9,11 @@ router.post("/",  (req, res) => {
     if (req.body) {
         const { username, password } = req.body;
         if (username && password && users[username][0] === password) {
-            res.json({
-                token: users[username][1]
-            });
+            res.json({ token: users[username][1] });
             return;
         }
     }
-    res.json({
-        token: 'invalid'
-    });
+    res.json({ token: 'invalid' });
 });
 
 module.exports = router;

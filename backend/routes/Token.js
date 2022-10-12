@@ -7,15 +7,11 @@ router.post("/",  (req, res) => {
     if (req.body) {
         const { token } = req.body;
         if (tokens.has(token)) {
-            res.json({
-                valid: true
-            });
+            res.json({ valid: true });
             return;
         }
     }
-    res.json({
-        valid: false
-    });
+    res.json({ valid: false });
 });
 
 module.exports = router;
