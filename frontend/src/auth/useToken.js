@@ -1,13 +1,9 @@
 import axios from "axios";
+import { useState } from "react";
 
-export function getToken() {
-    const token = localStorage.getItem('token');
-    if (token)
-        return token;
-    return undefined;
-}
+export const [token, setToken] = useState(localStorage.getItem('token'));
 
-export const validateToken = async (token) => {
+export const validateToken = async () => {
     if (!token)
         return false;
     return axios.post("http://localhost:3001/token", { token })
@@ -16,10 +12,12 @@ export const validateToken = async (token) => {
 
 export function saveToken(token) {
     if (token && token !== "invalid") {
+        setToken(token);
         localStorage.setItem("token", token);
     }
 }
 
 export function deleteToken() {
+    setToken("");
     localStorage.removeItem("token");
 }

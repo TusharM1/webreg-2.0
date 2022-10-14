@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { saveToken } from "../auth/useToken";
+// import { saveToken } from "../auth/useToken";
 import axios from "axios";
+// import {useToken2} from "../auth/useToken2";
 
-const Login = () => {
+const Login = (setToken) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,7 +17,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = (await loginUser(username, password))["token"];
-        saveToken(token);
+        setToken(token);
         navigate("/dashboard");
     };
 
