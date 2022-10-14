@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function useToken() {
     const tokenValue = localStorage.getItem("token");
@@ -22,20 +22,12 @@ export function useToken() {
     }
 
     const validate = async () => {
-        // console.log("useToken validate");
-        return (await axios.post("http://localhost:3001/token", {token: tokenValue}).then(response => response.data["valid"]))
+        return (await axios.post("http://localhost:3001/token", {token: tokenValue})
+            .then(response => response.data["valid"]))
     }
-
-    // useEffect(() => {
-    //     // console.log("loading " + loading);
-    //
-    // });
-
-    // console.log("Here " + loading);
 
     if (loading) {
         validate().then(valid => {
-            // console.log("Valid: " + valid);
             if (valid) {
                 setToken(tokenValue);
             } else {
@@ -44,26 +36,6 @@ export function useToken() {
             setLoading(false);
         });
     }
-
-
-    // useEffect(() => {
-    //     // console.log("loading " + loading);
-    //     const validate = async () => {
-    //         if (loading) {
-    //             setLoading(false);
-    //             console.log("token: " + token + " " + tokenValue);
-    //             const valid = (await axios.post("http://localhost:3001/token", {token: tokenValue})
-    //                 .then(response => response.data["valid"]));
-    //             console.log("Valid: " + valid);
-    //             if (valid) {
-    //                 setToken(tokenValue);
-    //             } else {
-    //                 deleteToken();
-    //             }
-    //         }
-    //     }
-    //     void validate();
-    // });
 
     return [token, saveToken];
 }

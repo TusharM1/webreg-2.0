@@ -15,22 +15,19 @@ const Login = ({ setToken }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await loginUser(username, password);
-        console.log(token);
         setToken(token);
         navigate("/dashboard");
     };
-
-    // console.log("setToken " + setToken.data());
 
     return (
         <main>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <span>Username: </span>
-                <input type="text" onChange={e => setUsername(e.target.value)}/>
+                <input type="text" autoComplete="on" onChange={e => setUsername(e.target.value)}/>
                 <br/>
                 <span>Password: </span>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
+                <input type="password" autoComplete="on" onChange={e => setPassword(e.target.value)}/>
                 <br/>
                 <button type="submit">Submit</button>
             </form>
