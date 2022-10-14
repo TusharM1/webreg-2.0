@@ -9,8 +9,8 @@ import {useToken2} from "./auth/useToken2";
 // import { deleteToken, validateToken } from "./auth/useToken";
 
 function App() {
-    const [loading, setLoading] = useState(true);
-    const [token, setToken] = useToken2(setLoading);
+    // const [loading, setLoading] = useState(true);
+    const [token, setToken] = useToken2();
     const location = useLocation();
 
     // useEffect(() => {
@@ -22,9 +22,9 @@ function App() {
     //     });
     // });
 
-    console.log("Page Loaded");
+    console.log("Page Loaded " + location.pathname);
 
-    if (loading) {
+    if (token === "loading") {
         return <div></div>;
     }
 

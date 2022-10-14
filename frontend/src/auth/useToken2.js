@@ -1,8 +1,13 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-export function useToken2(setLoading) {
-    const [token, setToken] = useState(localStorage.getItem('token'));
+export function useToken2() {
+    const tokenValue = localStorage.getItem("token");
+    // let loading = !!tokenValue;
+    const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState(loading ? "loading" : "");
+    // if (tokenValue)
+    //     setToken("loading");
 
     const deleteToken = () => {
         setToken("");
@@ -19,21 +24,28 @@ export function useToken2(setLoading) {
         }
     }
 
-    useEffect(() => {
-        const validate = async () => {
-            axios.post("http://localhost:3001/token", { token })
-                .then(response => {
-                    const valid = response.data["valid"];
-                    if (!valid) {
-                        deleteToken();
-                    }
-                    setLoading("false");
-                    console.log("useToken2 useEffect " + valid);
-                });
+    const validate = async () => {
+        console.log("useToken2 validate");
+        return (await axios.post("http://localhost:3001/token", {tokenValue})
+            .then(response => response.data["valid"])).valueOf();
+    }
 
+    useEffect(() => {
+        console.log("loading " + loading);
+        if (loading) {
+            setLoading(false);
+            const valid = validate();
+            if (valid) {
+                setToken(tokenValue);
+            } else {
+                deleteToken();
+            }
         }
-        void validate();
-        console.log("useeffect")
+            // setLoading("false");
+        // console.log("useToken2 useEffect " + tokenValue + " " + loading);
+    });
+        // void validate();
+        // console.log("useeffect")
 
         // const valid = axios.post("http://localhost:3001/token", { token })
         //     .then(response => response.data["valid"]);
@@ -42,7 +54,7 @@ export function useToken2(setLoading) {
         //     deleteToken();
         // }
         // setLoading("false");
-    });
+    // });
 
     return [token, saveToken];
 }
