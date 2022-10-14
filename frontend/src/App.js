@@ -5,17 +5,27 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
-import { getToken, validToken } from "./pages/auth/useToken";
+import { deleteToken, getToken, validateToken } from "./auth/useToken";
 
 function App() {
+    const [loading, setLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
     const token = getToken();
+    const location = useLocation();
 
     useEffect(() => {
-        validToken(token).then(result => setAuthenticated(result));
+        validateToken(token).then(result => {
+            setLoading(false);
+            if (!result)
+                deleteToken();
+            setAuthenticated(result);
+        });
     });
 
-    const location = useLocation();
+    if (loading) {
+        return <div></div>;
+    }
+
     if (location.pathname === "/login" && authenticated) {
         return <Navigate replace to="/dashboard"/>
     }

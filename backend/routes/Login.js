@@ -8,6 +8,7 @@ const users = {
 router.post("/",  (req, res) => {
     if (req.body) {
         const { username, password } = req.body;
+        console.log(username + " " + password);
         if (username && password && users[username][0] === password) {
             res.json({ token: users[username][1] });
             return;

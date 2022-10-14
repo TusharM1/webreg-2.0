@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { saveToken } from "./auth/useToken";
+import { saveToken } from "../auth/useToken";
+import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    async function loginUser(credentials) {
-        return (await fetch('http://localhost:3001/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(credentials)
-        })).json();
+    async function loginUser(username, password) {
+        return axios.post("http://localhost:3001/login", { username, password })
+            .then(response => response.data);
     }
 
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = (await loginUser({
-            username,
-            password
-        }))["token"];
+        const token = (await loginUser(username, password))["token"];
         saveToken(token);
         navigate("/dashboard");
     };

@@ -6,11 +6,15 @@ app.use(cors());
 app.use(express.json());
 
 const loginRouter = require("./routes/Login");
-app.use("/login", loginRouter);
-
 const tokenRouter = require("./routes/Token");
+
+app.use("/login", loginRouter);
 app.use("/token", tokenRouter);
 
-app.listen(3001, () => {
-    console.log("Backend server initialized on port 3001");
-})
+const db = require("./models");
+db.sequelize.sync().then(() => {
+    app.listen(3001, () => {
+        console.log("Backend server initialized on port 3001");
+    });
+});
+
