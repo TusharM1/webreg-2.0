@@ -1,17 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
+// const tokens = new Set(["admin_token", "b"])
 const tokens = new Set(["admin_token"])
 
 router.post("/",  (req, res) => {
+    console.log(req.body);
+    process.stdout.write("Requested authentication for token: " + req.body.token + ", result: ");
     if (req.body) {
         const { token } = req.body;
-        console.log("Requested authentication for token: " + token);
         if (tokens.has(token)) {
+            console.log("valid");
             res.json({ valid: true });
             return;
         }
     }
+    console.log("invalid");
     res.json({ valid: false });
 });
 

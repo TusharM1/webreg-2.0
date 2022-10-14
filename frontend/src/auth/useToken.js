@@ -1,23 +1,65 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const [token, setToken] = useState(localStorage.getItem('token'));
+export function useToken() {
+    const tokenValue = localStorage.getItem("token");
+    const [loading, setLoading] = useState(!!tokenValue);
+    const [token, setToken] = useState(loading ? "loading" : "");
 
-export const validateToken = async () => {
-    if (!token)
-        return false;
-    return axios.post("http://localhost:3001/token", { token })
-        .then(response => response.data["valid"]);
-}
-
-export function saveToken(token) {
-    if (token && token !== "invalid") {
-        setToken(token);
-        localStorage.setItem("token", token);
+    const deleteToken = () => {
+        setToken("");
+        localStorage.removeItem("token");
     }
-}
 
-export function deleteToken() {
-    setToken("");
-    localStorage.removeItem("token");
+    const saveToken = (token) => {
+        if (token && token !== "invalid") {
+            setToken(token);
+            localStorage.setItem("token", token);
+        }
+        else {
+            deleteToken();
+        }
+    }
+
+    // const validate = async () => {
+    //     // console.log("useToken validate");
+    //     return (await axios.post("http://localhost:3001/token", {token}).then(response => response.data["valid"]))
+    // }
+    //
+    // useEffect(() => {
+    //     // console.log("loading " + loading);
+    //     if (loading) {
+    //         setLoading(false);
+    //         const valid = validate();
+    //         console.log("Valid: " + valid);
+    //         if (valid) {
+    //             setToken(tokenValue);
+    //         } else {
+    //             deleteToken();
+    //         }
+    //     }
+    // });
+
+
+    useEffect(() => {
+        // console.log("loading " + loading);
+        const validate = async () => {
+            if (loading) {
+                setLoading(false);
+                console.log("token: " + token + " " + tokenValue);
+                const valid = (await axios.post("http://localhost:3001/token", {token: tokenValue})
+                    .then(response => response.data["valid"]));
+                console.log("Valid: " + valid);
+                if (valid) {
+                    setToken(tokenValue);
+                } else {
+                    deleteToken();
+                }
+            }
+        }
+        void validate();
+
+    });
+
+    return [token, saveToken];
 }

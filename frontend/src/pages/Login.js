@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-// import { saveToken } from "../auth/useToken";
 import axios from "axios";
-// import {useToken2} from "../auth/useToken2";
 
-const Login = (setToken) => {
+const Login = ({ setToken }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     async function loginUser(username, password) {
-        return axios.post("http://localhost:3001/login", { username, password })
-            .then(response => response.data);
+        return await axios.post("http://localhost:3001/login", {username, password})
+            .then(response => response.data["token"]);
     }
 
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = (await loginUser(username, password))["token"];
+        const token = await loginUser(username, password);
+        console.log(token);
         setToken(token);
         navigate("/dashboard");
     };
+
+    // console.log("setToken " + setToken.data());
 
     return (
         <main>
