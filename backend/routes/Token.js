@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-// const tokens = new Set(["admin_token", "b"])
-const tokens = new Set(["admin_token"])
+const tokens = new Set(["admin_token", "b"])
+// const tokens = new Set(["admin_token"])
 
 router.post("/",  (req, res) => {
     console.log(req.body);
