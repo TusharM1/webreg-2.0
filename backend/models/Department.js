@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         departmentName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         }
     }, {
-        createdAt: false,
-        updatedAt: false
+        timestamps: false,
+        freezeTableName: true
     });
 }

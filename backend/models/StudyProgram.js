@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("School", {
-        schoolNumber: {
+    return sequelize.define("StudyProgram", {
+        studyProgramCode: {
             type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
         },
-        schoolName: {
+        name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         }
     }, {
         timestamps: false,
