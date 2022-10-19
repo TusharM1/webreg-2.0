@@ -5,15 +5,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true
         },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         token: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        fullName: {
             type: DataTypes.STRING,
             allowNull: false,
         },

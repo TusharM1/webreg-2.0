@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import {useContext, useState} from "react";
+import {UserContext} from "../context/UserContext";
 
 export function useToken() {
     const tokenValue = localStorage.getItem("token");
     const [loading, setLoading] = useState(!!tokenValue);
     const [token, setToken] = useState(loading ? "loading" : "");
+
+    const context = useContext(UserContext);
 
     const deleteToken = () => {
         setToken("");

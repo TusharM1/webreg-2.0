@@ -5,16 +5,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const loginRouter = require("./routes/Login");
-const tokenRouter = require("./routes/Token");
+const authRouter = require("./routes/Auth");
+app.use("/auth", authRouter);
 
-app.use("/login", loginRouter);
-app.use("/token", tokenRouter);
+const semesterRouter = require("./routes/Semesters");
+app.use("/semesters", semesterRouter);
 
 const db = require("./models");
-db.sequelize.sync().then(() => {
+const reload = false;
+db.sequelize.sync({ force: reload, logging: false }).then(() => {
     app.listen(3001, () => {
         console.log("Backend server initialized on port 3001");
     });
 });
-
