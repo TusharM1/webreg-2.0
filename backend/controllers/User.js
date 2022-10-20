@@ -50,4 +50,4 @@ function formattedUser(user) {
     };
 }
 
-module.exports = {getUserFromCredentials, getUserFromToken}
+module.exports = { getUserFromCredentials, getUserFromToken }

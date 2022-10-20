@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DataContext } from "../user/DataContext";
+import { useNavigate } from "react-router-dom";
 
-const Header = ({ information }) => {
-    // let userInformationDiv = null;
-    // if (information.loggedIn) {
-    //     userInformationDiv =
-    //         <div>
-    //             <span>{information.name} ({information.netID})</span>
-    //             <button>Log Out</button>
-    //         </div>;
-    // }
-    // else {
-    //     userInformationDiv =
-    //         <div>
-    //             <button>Log In</button>
-    //         </div>;
-    // }
+const Header = ({ path }) => {
+    const { data, clearData } = useContext(DataContext);
+    const navigate = useNavigate();
 
     return (
         <header>
             <h1>Web Registration System</h1>
-            {/*<span>Semester: {information.semesterName}</span>*/}
-            {/*{userInformationDiv}*/}
+            {data.token ?
+                <div>
+                    <span>Semester: {data.semesters.selectedSemester}</span>
+                    <span>{data.profile.fullName} ({data.profile.netID})</span>
+                    <button onClick={() => { clearData(); navigate("/"); }}>Log Out</button>
+                </div> :
+                path === "/" ?
+                    <div>
+                        <button onClick={() => navigate("/login")}>Log In</button>
+                    </div> :
+                    <></>
+            }
         </header>
     )
 };

@@ -16,10 +16,6 @@ export const defaultData = {
     }
 };
 
-export const cloneJSON = (json) => {
-    return JSON.parse(JSON.stringify(json));
-}
-
 export const cloneJSONAndOverride = (json, newData) => {
     let copy = JSON.parse(JSON.stringify(json));
     for (const key in newData) {
@@ -35,7 +31,7 @@ export function useData() {
     let loadingData = loading ? cloneJSONAndOverride(defaultData, { token: "loading" }) : defaultData;
     const [data, setData] = useState(loadingData);
 
-    const deleteData = () => {
+    const clearData = () => {
         setData(defaultData);
         localStorage.removeItem("token");
     }
@@ -49,8 +45,10 @@ export function useData() {
             }
             setData(cloneJSONAndOverride(data, { token: newData.token, profile } ));
             localStorage.setItem("token", newData["token"]);
+            return true;
         } else {
-            deleteData();
+            clearData();
+            return false;
         }
     }
 
@@ -70,5 +68,5 @@ export function useData() {
         });
     }
 
-    return [data, saveData];
+    return [data, saveData, clearData];
 }
