@@ -8,8 +8,9 @@ app.use(express.json());
 const authRouter = require("./routes/Auth");
 app.use("/auth", authRouter);
 
-const semesterRouter = require("./routes/Semesters");
-app.use("/semesters", semesterRouter);
+// TODO implement semesters
+// const semesterRouter = require("./routes/Semesters");
+// app.use("/semesters", semesterRouter);
 
 const db = require("./models");
 const reload = false;
