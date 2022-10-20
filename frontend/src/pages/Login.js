@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {UserContext} from "../context/UserContext";
 
-const Login = ({ saveUser }) => {
+const Login = ({ setToken }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const { userData, setUserData } = useContext(UserContext);
 
     async function loginUser(username, password) {
         return await axios.post("http://localhost:3001/auth", {
@@ -19,8 +22,10 @@ const Login = ({ saveUser }) => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const user = await loginUser(username, password);
-        saveUser(user);
+        const data = await loginUser(username, password);
+        setToken(data["token"]);
+        // todo fill in here
+        // setUserData(data)
         navigate("/dashboard");
     };
 

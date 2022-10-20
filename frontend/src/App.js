@@ -5,18 +5,18 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
-// import { useToken } from "./auth/useToken";
+import { useToken } from "./auth/useToken";
 import { UserContext, defaultUserData } from "./context/UserContext";
 // import {useUser} from "./auth/useUser";
 
 function App() {
-    // const [userData, setUserData] = useState(defaultUserData);
-    // const [token, setToken] = useToken();
-    const [user, saveUser] = useUser();
+    const [userData, setUserData] = useState(defaultUserData);
+    const [token, setToken] = useToken(setUserData);
+    // const [user, saveUser] = useUser();
     const location = useLocation();
 
     // const token = user["token"];
-    console.log("Location: " + location.pathname + ", Token: " + userData);
+    console.log("Location: " + location.pathname + ", Token: " + token);
 
     if (token === "loading") {
         return <div></div>;
@@ -30,11 +30,11 @@ function App() {
     }
 
     return (
-        <UserContext.Provider value={{userData, setUserData}}>
+        <UserContext.Provider value={{ userData, setUserData }}>
             <Header/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login saveUser={saveUser}/>}/>
+                <Route path="/login" element={<Login setToken={setToken}/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
             </Routes>
             <Footer/>

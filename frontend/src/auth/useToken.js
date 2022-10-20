@@ -7,8 +7,6 @@ export function useToken() {
     const [loading, setLoading] = useState(!!tokenValue);
     const [token, setToken] = useState(loading ? "loading" : "");
 
-    const context = useContext(UserContext);
-
     const deleteToken = () => {
         setToken("");
         localStorage.removeItem("token");

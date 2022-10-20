@@ -1,17 +1,11 @@
 import React from "react";
 
-export const UserContext = React.createContext({
-    userData: null,
-    setUserData: (userData) => {}
-});
-
 export const defaultUserData = {
-    data: {
+    user: {
         netID: null,
         fullName: null,
         role: null
     },
-    token: null,
     semesters: {
         selectedSemester: null,
         register: [],
@@ -19,4 +13,9 @@ export const defaultUserData = {
         drop: []
     }
 };
+
+export const UserContext = React.createContext({
+    userData: defaultUserData,
+    setUserData: (userData) => {}
+});
 
