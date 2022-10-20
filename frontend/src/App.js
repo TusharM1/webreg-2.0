@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
 import { DataContext } from "./user/DataContext";
 import { useData } from "./user/useData";
+import "./styles/app.css";
 
 function App() {
     const [data, saveData, clearData] = useData();
