@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {UserContext} from "../context/UserContext";
 
-const Login = ({ setToken }) => {
-    const [username, setUsername] = useState("");
+const Login = () => {
+    const [netID, setNetID] = useState("");
     const [password, setPassword] = useState("");
 
-    const { userData, setUserData } = useContext(UserContext);
+    const { saveData } = useContext(UserContext);
 
     async function loginUser(username, password) {
         return await axios.post("http://localhost:3001/auth", {
@@ -22,10 +22,11 @@ const Login = ({ setToken }) => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await loginUser(username, password);
-        setToken(data["token"]);
+        const data = await loginUser(netID, password);
+        // setToken(data["token"]);
         // todo fill in here
         // setUserData(data)
+        saveData(data);
         navigate("/dashboard");
     };
 
@@ -33,8 +34,8 @@ const Login = ({ setToken }) => {
         <main>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <span>Username: </span>
-                <input type="text" autoComplete="on" onChange={e => setUsername(e.target.value)}/>
+                <span>NetID: </span>
+                <input type="text" autoComplete="on" onChange={e => setNetID(e.target.value)}/>
                 <br/>
                 <span>Password: </span>
                 <input type="password" autoComplete="on" onChange={e => setPassword(e.target.value)}/>

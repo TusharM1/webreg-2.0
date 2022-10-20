@@ -1,21 +1,10 @@
 import React from "react";
+// import {cloneJSON, defaultData} from "../auth/useData";
 
-export const defaultUserData = {
-    user: {
-        netID: null,
-        fullName: null,
-        role: null
-    },
-    semesters: {
-        selectedSemester: null,
-        register: [],
-        plan: [],
-        drop: []
-    }
-};
+// export const UserContext = React.createContext({
+//     data: defaultData,
+//     setData: (data) => {}
+// });
 
-export const UserContext = React.createContext({
-    userData: defaultUserData,
-    setUserData: (userData) => {}
-});
+export const UserContext = React.createContext(undefined);
 

@@ -1,16 +1,17 @@
 const { User } = require('../models')
 
 const getUserFromCredentials = async (netID, password) => {
-    const user = (await User.findByPk(netID)).get();
+    const user = (await User.findByPk(netID));
     if (user) {
-        if (!user.isActive) {
+        const userData = user.get();
+        if (!userData.isActive) {
             return {
                 error: true,
                 message: "Deactivated User"
             }
         }
-        if (user.password === password)
-            return formattedUser(user);
+        if (userData.password === password)
+            return formattedUser(userData);
     }
     return {
         error: true,
@@ -23,15 +24,16 @@ const getUserFromToken = async (token) => {
         where: {
             token: token
         }
-    })).get();
+    }));
     if (user) {
-        if (!user.isActive) {
+        const userData = user.get();
+        if (!userData.isActive) {
             return {
                 error: true,
                 message: "Deactivated User"
             }
         }
-        return formattedUser(user);
+        return formattedUser(userData);
     }
     return {
         error: true,

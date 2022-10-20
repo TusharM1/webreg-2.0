@@ -1,24 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Header from "./pages/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
-import { useToken } from "./auth/useToken";
-import { UserContext, defaultUserData } from "./context/UserContext";
-// import {useUser} from "./auth/useUser";
+// import { useToken } from "./auth/useToken";
+import { UserContext } from "./context/UserContext";
+import {useData} from "./auth/useData";
+// import {useData} from "./auth/useData";
 
 function App() {
-    const [userData, setUserData] = useState(defaultUserData);
-    const [token, setToken] = useToken(setUserData);
-    // const [user, saveUser] = useUser();
+    // const [userData, setUserData] = useState(defaultUserData);
+    // const [token, setToken] = useToken(setUserData);
+    const [data, saveData] = useData();
     const location = useLocation();
 
-    // const token = user["token"];
-    console.log("Location: " + location.pathname + ", Token: " + token);
+    const token = data["token"];
+    console.log("Location: " + location.pathname + ", Data: ");
+    console.log(data);
 
-    if (token === "loading") {
+    if (data["token"] === "loading") {
         return <div></div>;
     }
 
@@ -30,11 +32,11 @@ function App() {
     }
 
     return (
-        <UserContext.Provider value={{ userData, setUserData }}>
+        <UserContext.Provider value={{ data, saveData }}>
             <Header/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login setToken={setToken}/>}/>
+                <Route path="/login" element={<Login />}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
             </Routes>
             <Footer/>
