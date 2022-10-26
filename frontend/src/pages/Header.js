@@ -1,33 +1,48 @@
 import React, { useContext } from 'react';
 import { DataContext } from "../user/DataContext";
 import { useNavigate } from "react-router-dom";
-import "../styles/header.css";
+// import "../styles/header.css";
+
+import Button from 'react-bootstrap/Button';
+import {Container, Navbar, Form} from "react-bootstrap";
 
 const Header = ({ path }) => {
     const { data, clearData } = useContext(DataContext);
     const navigate = useNavigate();
 
     return (
-        <header>
-            <h1>Web Registration System</h1>
-            {data.token ?
-                <div id={"headerContainer"}>
-                    <span id={"semester"}>Semester: {data.semesters.selectedSemester}</span>
-                    <div id={"logout"}>
-                        <span>{data.profile.fullName} ({data.profile.netID})</span>
-                        <button onClick={() => { clearData(); navigate("/"); }}>Log Out</button>
-                    </div>
-                </div> :
-                path === "/" ?
-                    <div id={"headerContainer"}>
-                        <div id={"login"}>
-                            <button onClick={() => navigate("/login")}>Log In</button>
-                        </div>
-                    </div> :
-                    <></>
-            }
-        </header>
+        <Navbar bg="light">
+            <Container fluid>
+                <Navbar.Brand>Web Registration System</Navbar.Brand>
+                {data.token ?
+                    <>
+                        {path === "/dashboard" ?
+                            <>
+                                <Navbar.Text>Semester: </Navbar.Text>
+                                <Form.Select style={{width: "auto"}} className="ms-2" aria-label="Select Semester">
+                                    <option value="Semester 1">Semester 1</option>
+                                    <option value="Semester 2">Semester 2</option>
+                                </Form.Select>
+                            </> : <></>
+                        }
+                        <Navbar.Collapse className="justify-content-end">
+                            <Navbar.Text>{data.profile.fullName} ({data.profile.netID})</Navbar.Text>
+                            <Button className="ms-2" onClick={() => { clearData(); navigate("/"); }}>Log Out</Button>
+                        </Navbar.Collapse>
+                    </> :
+                    <>
+                        {path === "/" ?
+                            <Navbar.Collapse className="justify-content-end">
+                                <Button onClick={() => navigate("/login")}>Log In</Button>
+                            </Navbar.Collapse> : <></>
+                        }
+                    </>
+                }
+            </Container>
+        </Navbar>
     )
 };
+
+
 
 export default Header;
