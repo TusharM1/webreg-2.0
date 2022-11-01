@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DataContext } from "../user/DataContext";
+import {Container} from "react-bootstrap";
 
 const Login = () => {
     const [netID, setNetID] = useState("");
@@ -33,7 +34,7 @@ const Login = () => {
     };
 
     return (
-        <main>
+        <Container fluid>
             <span>Login</span>
             <form onSubmit={handleSubmit}>
                 <span>NetID: </span>
@@ -44,7 +45,7 @@ const Login = () => {
                 <br/>
                 <button type="submit">Submit</button>
             </form>
-        </main>
+        </Container>
     );
 };
 

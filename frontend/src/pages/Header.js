@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { DataContext } from "../user/DataContext";
 import { useNavigate } from "react-router-dom";
-// import "../styles/header.css";
 
 import Button from 'react-bootstrap/Button';
 import {Container, Navbar, Form} from "react-bootstrap";
@@ -11,9 +10,9 @@ const Header = ({ path }) => {
     const navigate = useNavigate();
 
     return (
-        <Navbar bg="light">
+        <Navbar className={"bg-light-red"} >
             <Container fluid>
-                <Navbar.Brand>Web Registration System</Navbar.Brand>
+                <Navbar.Brand className={"color-light"}>Web Registration System</Navbar.Brand>
                 {data.token ?
                     <>
                         {path === "/dashboard" ?

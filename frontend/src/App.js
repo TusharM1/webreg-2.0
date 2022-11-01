@@ -7,8 +7,8 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
 import { DataContext } from "./user/DataContext";
 import { useData } from "./user/useData";
-// import "./styles/app.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Row} from "react-bootstrap";
 
 function App() {
     const [data, saveData, clearData] = useData();
@@ -20,6 +20,10 @@ function App() {
         // + JSON.stringify(data, null, 4)
         + token
     );
+
+    if (path === "/home") {
+        return <Navigate replace to="/"/>
+    }
 
     if (token === "loading") {
         return <div></div>;
@@ -34,13 +38,19 @@ function App() {
 
     return (
         <DataContext.Provider value={{ data, saveData, clearData }}>
-            <Header path={path}/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/dashboard" element={<Dashboard/>}/>
-            </Routes>
-            <Footer/>
+            <Container fluid className={"h-100"}>
+                <Row className={"h-100 flex-column"}>
+                    <Header path={path}/>
+                    <main className={"flex-grow-1 bg-light-white"}>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/dashboard" element={<Dashboard/>}/>
+                        </Routes>
+                    </main>
+                    <Footer/>
+                </Row>
+            </Container>
         </DataContext.Provider>
     );
 }
