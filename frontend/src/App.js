@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Container, Row } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./pages/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -7,8 +9,6 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
 import { DataContext } from "./user/DataContext";
 import { useData } from "./user/useData";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Row} from "react-bootstrap";
 
 function App() {
     const [data, saveData, clearData] = useData();
@@ -16,10 +16,7 @@ function App() {
 
     const token = data["token"];
     const path = location.pathname;
-    console.log("Location: " + path + ", Data: "
-        // + JSON.stringify(data, null, 4)
-        + token
-    );
+    console.log("Location: " + path + ", Data: " + token);
 
     if (path === "/home") {
         return <Navigate replace to="/"/>
