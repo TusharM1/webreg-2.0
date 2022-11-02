@@ -1,21 +1,20 @@
 import React from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-// import '../styles/dashboard.css';
+import { Col, Container, Row } from "react-bootstrap";
 
 const Dashboard = () => {
     return (
-        <Container fluid>
-            <Row>
-                <Col>
+        <Container fluid className={"h-100"}>
+            <Row className={"h-100"}>
+                <Col className={"h-100"} style={{background: "lightpink"}}>
                     Degree Navigator
                 </Col>
-                <Col>
-                    <Row>Search Courses</Row>
-                    <Row>View Courses</Row>
+                <Col className={"h-100"}>
+                    <Row style={{height: "40%", background: "lightcoral"}}>Search Courses</Row>
+                    <Row style={{height: "60%", background: "lightblue"}}>View Courses</Row>
                 </Col>
-                <Col>
-                    <Row>View Schedule</Row>
-                    <Row>Schedule Information</Row>
+                <Col className={"h-100"}>
+                    <Row style={{height: "60%", background: "lightgreen"}}>View Schedule</Row>
+                    <Row style={{height: "40%", background: "lightsalmon"}}>Schedule Information</Row>
                 </Col>
             </Row>
         </Container>
