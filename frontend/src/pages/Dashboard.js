@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Container, Row, Tab, Tabs} from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { DegreeNavigator } from "../components/DegreeNavigator";
 import { SearchCourses } from "../components/SearchCourses";
 import { ViewCourses } from "../components/ViewCourses";
@@ -11,18 +11,6 @@ const Dashboard = () => {
         <Container fluid className={"h-100"}>
             <Row className={"h-100"}>
                 <Col className={"h-100"}>
-                    {/*<Tabs*/}
-                    {/*    defaultActiveKey="profile"*/}
-                    {/*    // id="uncontrolled-tab-example"*/}
-                    {/*    // className="mb-3"*/}
-                    {/*>*/}
-                    {/*    <Tab eventKey="degree" title="Degree Navigator">*/}
-                    {/*        <DegreeNavigator/>*/}
-                    {/*    </Tab>*/}
-                    {/*    <Tab eventKey="search" title="Search Courses">*/}
-                    {/*        <Sonnet />*/}
-                    {/*    </Tab>*/}
-                    {/*</Tabs>*/}
                     <Row style={{height: "100%", background: "lightpink"}}>
                         <DegreeNavigator/>
                     </Row>

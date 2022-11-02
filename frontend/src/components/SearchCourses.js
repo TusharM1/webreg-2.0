@@ -1,5 +1,10 @@
 import React from 'react';
+import {Container} from "react-bootstrap";
 
 export function SearchCourses() {
-    return <span>Search Courses</span>
+    return (
+        <Container fluid>
+            <span>Search Courses</span>
+        </Container>
+    );
 }
