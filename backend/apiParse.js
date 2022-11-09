@@ -27,6 +27,7 @@ request(url, options, (error, res, body) => {
             let contentCourseString = `'${body[i]['offeringUnitCode']}:${body[i]['subject']}:${body[i]['courseNumber']}'`
             let contentSchoolNumber = `'${body[i]['offeringUnitCode']}'`
             let contentDepartmentNumber = `'${body[i]['subject']}'`
+            let contentCourseNumber =`'${body[i]['courseNumber']}'`
             let contentName = `'${body[i]['title']}'`
             let contentDescription;
             if (body[i]['courseDescription'] != null){
@@ -52,13 +53,13 @@ request(url, options, (error, res, body) => {
             }
             
             let contentIsActive = true
-            // content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`
-            // fs.appendFile('./test.txt', content, err => {
-            //     if (err) {
-            //       console.error(err);
-            //     }
-            //   });
-            console.log(body[0]['sections'][0]);
+            content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentCourseNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`
+            fs.appendFile('./test.txt', content, err => {
+                if (err) {
+                  console.error(err);
+                }
+              });
+            //adconsole.log(body[0]['sections'][0]);
             for (j=0; j<body[i]["sections"].length; j++){ //Sections
  
                 for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++){ //section meeting times
