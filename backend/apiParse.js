@@ -16,14 +16,10 @@ request(url, options, (error, res, body) => {
     };
 
     if (!error && res.statusCode == 200) {
-        // do something with JSON, using the 'body' variable
-        //console.log(body.title)
-        //console.log(typeof(body))
-       // console.log(body[30]["title"])
-       //console.log(body[0])
+        
+        console.log(body[0]);
+
        for (i = 0; i<body.length; i++){
-            //console.log(body[i]["title"])
-            //console.log(body[i]["openSections"])
             let contentCourseString = `'${body[i]['offeringUnitCode']}:${body[i]['subject']}:${body[i]['courseNumber']}'`
             let contentSchoolNumber = `'${body[i]['offeringUnitCode']}'`
             let contentDepartmentNumber = `'${body[i]['subject']}'`
@@ -54,12 +50,12 @@ request(url, options, (error, res, body) => {
             
             let contentIsActive = true
             content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentCourseNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`
-            fs.appendFile('./test.txt', content, err => {
+            fs.appendFile('./csCourses.txt', content, err => {
                 if (err) {
                   console.error(err);
                 }
               });
-            //adconsole.log(body[0]['sections'][0]);
+            
             for (j=0; j<body[i]["sections"].length; j++){ //Sections
  
                 for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++){ //section meeting times
