@@ -5,6 +5,7 @@ let url = "https://sis.rutgers.edu/oldsoc/courses.json?subject=198&semester=1202
 let options = {json: true};
 
 const fs = require('fs');
+const { getSystemErrorMap } = require('util');
 
 let content = '';
 
@@ -51,13 +52,13 @@ request(url, options, (error, res, body) => {
             }
             
             let contentIsActive = true
-            content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`
-            fs.appendFile('./test.txt', content, err => {
-                if (err) {
-                  console.error(err);
-                }
-              });
-            
+            // content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`
+            // fs.appendFile('./test.txt', content, err => {
+            //     if (err) {
+            //       console.error(err);
+            //     }
+            //   });
+            console.log(body[0]['sections'][0]);
             for (j=0; j<body[i]["sections"].length; j++){ //Sections
  
                 for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++){ //section meeting times
