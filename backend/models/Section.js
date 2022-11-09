@@ -23,11 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         professor: {
             type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: "User",
-                key: "netID"
-            }
+            allowNull: false
         },
         capacity: {
             type: DataTypes.INTEGER,

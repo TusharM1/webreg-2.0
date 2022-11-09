@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("StudentProgramStudent", {
+    return sequelize.define("StudyProgramStudent", {
         netID: {
             type: DataTypes.STRING,
             allowNull: false,
