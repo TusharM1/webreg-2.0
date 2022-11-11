@@ -1,8 +1,12 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+
 
 const Home = () => {
     return (
-        <span>Home</span>
+        <span>Home2
+            <Button onClick={() => console.log("test")}>Search Class</Button>
+        </span>
     );
 };
 
