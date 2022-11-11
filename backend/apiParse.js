@@ -90,10 +90,44 @@ request(url, options, (error, res, body) => {
                 let sectionMeetingTypeCounter = 0;
 
                 for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++){ //section meeting times aka section BLOCK
+
+
                     let sectionIndex = `'${body[i]["sections"][j]['index']}'`; //String
                     let blockDay = `'${body[i]["sections"][j]['meetingTimes'][k]['meetingDay']}'`; //String
-                    let blockStart =`'${body[i]["sections"][j]['meetingTimes'][k]['startTime']}'`; //Time
-                    let blockEnd = `'${body[i]["sections"][j]['meetingTimes'][k]['endTime']}'`; //Time
+                    let blockStart;
+                    let blockEnd;
+                    if (body[i]["sections"][j]['meetingTimes'][k]['startTime'] == null){
+                        blockStart =`'${body[i]["sections"][j]['meetingTimes'][k]['startTime']}'`; //Time
+                        blockEnd = `'${body[i]["sections"][j]['meetingTimes'][k]['endTime']}'`; //Time
+                    }
+                    else {
+                        let isAm = (body[i]["sections"][j]['meetingTimes'][k]['pmCode'] == 'p');
+                        if (!isAm) { //is a pm course
+                            let hourStart = Number(body[i]["sections"][j]['meetingTimes'][k]['startTime'].substring(0,2)) + 12;
+                            if (hourStart>=24){
+                                hourStart -= 24;
+                                if (hourStart == 0){
+                                    hourStart = '00';
+                                }
+                            }
+                            let minuteStart = body[i]["sections"][j]['meetingTimes'][k]['startTime'].substring(2,4);
+                            let hourEnd = Number(body[i]["sections"][j]['meetingTimes'][k]['endTime'].substring(0,2)) + 12;
+                            let minuteEnd = body[i]["sections"][j]['meetingTimes'][k]['endTime'].substring(2,4);
+                            blockStart = hourStart + ':' + minuteStart;
+                            blockEnd = hourEnd + ':' + minuteEnd;
+                        }
+                        else if (isAm){
+                            let hourStart = Number(body[i]["sections"][j]['meetingTimes'][k]['startTime'].substring(0,2));
+                            let minuteStart = body[i]["sections"][j]['meetingTimes'][k]['startTime'].substring(2,4);
+                            let hourEnd = Number(body[i]["sections"][j]['meetingTimes'][k]['endTime'].substring(0,2));
+                            let minuteEnd = body[i]["sections"][j]['meetingTimes'][k]['endTime'].substring(2,4);
+                            if (hourEnd < hourStart){
+                                hourEnd +=12;
+                            }
+                            blockStart = hourStart + ':' + minuteStart;
+                            blockEnd = hourEnd + ':' + minuteEnd;
+                        }
+                    }
                     let location = `'${body[i]["sections"][j]['meetingTimes'][k]['campusLocation']}'`;//String
                     let meetingType = ``;
                     if (location == `'O'`){
