@@ -22,6 +22,8 @@ request(url, options, (error, res, body) => {
         //console.log(body[0]["sections"][0]['instructors'][0]['name']);
         //console.log(body[10]);
         //console.log(body[10]['sections'][0]['meetingTimes']);
+        //console.log(body[10]['sections'][0]['meetingTimes'][0]['startTime']);
+
        for (i = 0; i<body.length; i++){
             let contentCourseString = `'${body[i]['offeringUnitCode']}:${body[i]['subject']}:${body[i]['courseNumber']}'`
             let contentSchoolNumber = `'${body[i]['offeringUnitCode']}'`
@@ -89,12 +91,13 @@ request(url, options, (error, res, body) => {
 
                 for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++){ //section meeting times aka section BLOCK
                     let sectionIndex = `'${body[i]["sections"][j]['index']}'`; //String
-                    let blockDay = `'${body[i]["sections"][j]['meetingTimes']['meetingDay']}'`; //String
-                    let blockStart =`'${body[i]["sections"][j]['meetingTimes']['startTime']}'`; //Time
-                    let blockEnd = `'${body[i]["sections"][j]['meetingTimes']['endTime']}'`; //Time
-                    let location = `'${body[i]["sections"][j]['meetingTimes']['campusLocation']}'`;//String
+                    let blockDay = `'${body[i]["sections"][j]['meetingTimes'][k]['meetingDay']}'`; //String
+                    let blockStart =`'${body[i]["sections"][j]['meetingTimes'][k]['startTime']}'`; //Time
+                    let blockEnd = `'${body[i]["sections"][j]['meetingTimes'][k]['endTime']}'`; //Time
+                    let location = `'${body[i]["sections"][j]['meetingTimes'][k]['campusLocation']}'`;//String
                     let meetingType = ``;
-                    if (location == 'O'){
+                    if (location == `'O'`){
+                        console.log("Hey Dummy");
                         meetingType = `'Online'`; //String
                         sectionMeetingTypeCounter++;
                     }
