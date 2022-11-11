@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
         },
         blockDay: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             primaryKey: true
         },
         blockStart: {
             type: DataTypes.TIME,
-            allowNull: false,
+            allowNull: true,
             primaryKey: true
         },
         blockEnd: {
             type: DataTypes.TIME,
-            allowNull: false
+            allowNull: true
         },
         location: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         meetingType: {
             type: DataTypes.STRING,
