@@ -25,15 +25,14 @@ export function SearchCourses() {
             test: data.test 
         };
        // alert('Test: ' + userData.courseString);
-
-        const res = axios.post("http://localhost:3001/search", userData).then((response) =>{
+        
+        axios.post("http://localhost:3001/search", userData).then((response) =>{
             console.log(response.status);
             console.log("course name: " + response.data.courseName
                                 + " courseNumber: " + response.data.courseNumber
-                                + " isActive: " + response.data.isActive);
+                                + " isActive: " + response.data.isActive
+                                + " indexes: " + response.data.indexList);
         });
-        console.log("a: " + res[0]);
-        //console.log("returned: " + res.data);
     };
     
 

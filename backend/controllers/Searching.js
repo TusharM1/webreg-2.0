@@ -1,4 +1,5 @@
 const { Course } = require('../models');
+const { Section } = require('../models');
 const { Op } = require("sequelize");
 
 const getSearchedCourses = async (token) => {
@@ -14,8 +15,9 @@ const getSearchedCourses = async (token) => {
         ],
         raw: true
     }));
-    //console.log(currentSemester[0]["isActive"]);
+    //find the indexes for that course
     const hold = formatSemester(currentSemester[0]);
+    //console.log(currentSemester[0]["isActive"]);
     console.log("heyo: " + hold.courseName);
     if(hold){
         const isActive = hold.isActive;
@@ -26,22 +28,21 @@ const getSearchedCourses = async (token) => {
                 message: "Deactivated Course"
             }
         }
-        console.log("here: " + hold);
-        return hold;
+        //console.log("here: " + hold);
+        //return hold;
     }
-
-   /* let result = []
-
-    if (currentSemester.length > 0)
-        result.push(formatSemester(currentSemester[0]))
-
-    if (nextSemester.length > 0)
-        result.push(formatSemester(nextSemester[0]))
-    */
-
-    // console.log(currentSemester);
-    // console.log(nextSemester);
-
+    console.log("creating query to search for indexes of the course");
+    const indexes = (await Section.findAll({
+        where: {
+            courseString : hold.courseName
+        },
+        order: [
+            ["sectionIndex", "ASC"]
+        ],
+        raw: true
+    }));
+    console.log("printing here: " + indexes);
+    const result = formatResult(hold, indexes);
     return result;
 }
 
@@ -50,6 +51,16 @@ function formatSemester(semester) {
         courseName: semester.courseString,
         courseNumber: semester.courseNumber,
         isActive: semester.isActive
+    }
+}
+
+function formatResult(course, indexes){
+    console.log("setting course name to : " + course.courseName);
+    return{
+        courseName: course.courseName,
+        courseNumber: course.courseNumber,
+        isActive: course.isActive,
+        indexList: indexes
     }
 }
 
