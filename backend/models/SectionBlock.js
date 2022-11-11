@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("SectionBlock", {
         sectionIndex: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
             references: {
