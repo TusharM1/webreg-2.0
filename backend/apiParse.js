@@ -97,7 +97,6 @@ request(url, options, (error, res, body) => {
                     let location = `'${body[i]["sections"][j]['meetingTimes'][k]['campusLocation']}'`;//String
                     let meetingType = ``;
                     if (location == `'O'`){
-                        console.log("Hey Dummy");
                         meetingType = `'Online'`; //String
                         sectionMeetingTypeCounter++;
                     }
