@@ -21,21 +21,23 @@ module.exports = (sequelize, DataTypes) => {
                 key: "departmentNumber"
             }
         },
+        courseNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false
         },
         description: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         numberOfCredits: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
         prerequisites: {
-            type: DataTypes.STRING(1024),
-            allowNull: false
+            type: DataTypes.STRING(1024)
         },
         isActive: {
             type: DataTypes.TINYINT,

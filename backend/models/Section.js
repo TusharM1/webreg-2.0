@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("Section", {
         sectionIndex: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
         },
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         sectionNumber: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         sectionType: {
@@ -23,11 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         professor: {
             type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: "User",
-                key: "netID"
-            }
+            allowNull: false
         },
         capacity: {
             type: DataTypes.INTEGER,
