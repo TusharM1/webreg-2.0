@@ -1,12 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("SectionBlock", {
-        id:{ //can't figure out a way to do this without having this id
-            type: DataTypes.STRING,
-            primaryKey: true
-        },
         sectionIndex: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: "Section",
                 key: "sectionIndex"
@@ -14,19 +11,21 @@ module.exports = (sequelize, DataTypes) => {
         },
         blockDay: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false,
+            primaryKey: true
         },
         blockStart: {
             type: DataTypes.TIME,
-            allowNull: true,
+            allowNull: false,
+            primaryKey: true
         },
         blockEnd: {
             type: DataTypes.TIME,
-            allowNull: true
+            allowNull: false
         },
         location: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         meetingType: {
             type: DataTypes.STRING,
