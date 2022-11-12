@@ -1,0 +1,19 @@
+table {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tableHeader {
+    width: 80px;
+    position: relative;
+    text-align: end;
+    vertical-align: top;
+    top: -10px;
+}
+
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+

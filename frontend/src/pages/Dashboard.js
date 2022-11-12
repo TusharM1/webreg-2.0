@@ -1,8 +1,7 @@
 import React from 'react';
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import { DegreeNavigator } from "../components/DegreeNavigator";
-import { SearchCourses } from "../components/SearchCourses";
-import { ViewCourses } from "../components/ViewCourses";
+import { CourseEngine } from "../components/CourseEngine";
 import { ScheduleInformation } from "../components/ScheduleInformation";
 import { ViewSchedule } from "../components/ViewSchedule";
 
@@ -11,17 +10,28 @@ const Dashboard = () => {
         <Container fluid className={"h-100"}>
             <Row className={"h-100"}>
                 <Col className={"h-100"}>
-                    <Row style={{height: "100%", background: "lightpink"}}>
-                        <DegreeNavigator/>
-                    </Row>
+                    <Tab.Container transition={false} defaultActiveKey={"degreeNavigator"}>
+                        <Nav variant="tabs">
+                            <Nav.Item>
+                                <Nav.Link eventKey="degreeNavigator">Degree Navigator</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="searchCourses">Search Courses</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                        <Tab.Content className="h-100">
+                            <Tab.Pane className={"h-100"} eventKey="degreeNavigator" title="DegreeNavigator">
+                                <Row style={{height: "60%", background: "lightpink"}}><DegreeNavigator/></Row>
+                                <Row style={{height: "40%", background: "lightsalmon"}}><ScheduleInformation/></Row>
+                            </Tab.Pane>
+                            <Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
+                                <Row style={{height: "100%", background: "lightblue"}}><CourseEngine/></Row>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Tab.Container>
                 </Col>
-                <Col className={"h-100"}>
-                    <Row style={{height: "40%", background: "lightcoral"}}><SearchCourses/></Row>
-                    <Row style={{height: "60%", background: "lightblue"}}><ViewCourses/></Row>
-                </Col>
-                <Col className={"h-100"}>
-                    <Row style={{height: "60%", background: "lightgreen"}}><ViewSchedule/></Row>
-                    <Row style={{height: "40%", background: "lightsalmon"}}><ScheduleInformation/></Row>
+                <Col className={"h-100 d-flex flex-column"}>
+                    <Row style={{height: "100%", background: "lightgreen"}}><ViewSchedule/></Row>
                 </Col>
             </Row>
         </Container>

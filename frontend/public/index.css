@@ -18,6 +18,10 @@ html, body, #app {
     background: #FCD0D0
 }
 
+.bg-light-coral {
+    background: lightcoral
+}
+
 .bg-dark-grey {
     background: #2B2D42
 }
