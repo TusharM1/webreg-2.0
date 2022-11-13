@@ -1,0 +1,7 @@
+INSERT INTO `webreg`.`User` VALUES ('tm757', 'Tushar Mahajan','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('gb472', 'Gent Blaku','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('ass199', 'Abdullah Salem','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('jdp231', 'Jacob Park','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('gu41', 'Goutham Ummettala','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('jd456', 'Jane Doe','password', UUID(), 'student', TRUE);
+INSERT INTO `webreg`.`User` VALUES ('bb123', 'Billy Bob','password', UUID(), 'admin', TRUE);

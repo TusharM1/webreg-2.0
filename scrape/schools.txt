@@ -1,0 +1,14 @@
+INSERT INTO school VALUES('01','School of Arts & Sciences');
+INSERT INTO school VALUES('03','Military Science');
+INSERT INTO school VALUES('04','School of Communication & Info (U)');
+INSERT INTO school VALUES('05','Graduate School of Education (U)');
+INSERT INTO school VALUES('07','Mason Gross School of the Arts (U)');
+INSERT INTO school VALUES('09','School of Social Work (U)');
+INSERT INTO school VALUES('10','Bloustein School of Planning (U)');
+INSERT INTO school VALUES('11','School of Environmental & Biological Sci');
+INSERT INTO school VALUES('13','Grad School of Applied & Prof Psych (U)');
+INSERT INTO school VALUES('14','School of Engineering');
+INSERT INTO school VALUES('30','Ernest Mario School of Pharmacy (U)');
+INSERT INTO school VALUES('33','Rutgers Business School- NB campus (U)');
+INSERT INTO school VALUES('37','School of Management & Labor Rel (U)');
+INSERT INTO school VALUES('77','School of Nursing - New Brunswick (U)');
