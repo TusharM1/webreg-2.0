@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("SectionBlock", {
-        id:{ //can't figure out a way to do this without having this id
+        id: {
             type: DataTypes.STRING,
             primaryKey: true
         },
