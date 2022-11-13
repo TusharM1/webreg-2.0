@@ -136,7 +136,7 @@ request(url, options, (error, res, body) => {
                     }
                     else {
                         meetingType = `'In-Person'`; //String
-                        let SectionBlockPrint = `INSERT INTO sectionBlock VALUES ( ${sectionIndex}, ${blockDay}, ${blockStart}, ${blockEnd}, ${location}, ${meetingType});\n`;
+                        let SectionBlockPrint = `INSERT INTO sectionBlock VALUES ( uuid(), ${sectionIndex}, ${blockDay}, ${blockStart}, ${blockEnd}, ${location}, ${meetingType});\n`;
                         fs.appendFile('./csSectionsBlocks.txt', SectionBlockPrint, err => {
                         if (err) {
                           console.error(err);
