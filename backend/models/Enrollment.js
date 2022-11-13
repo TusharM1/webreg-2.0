@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         sectionIndex: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: "Section",
