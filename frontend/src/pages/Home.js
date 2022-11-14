@@ -2,7 +2,8 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <span>Home</span>
+        <span>Home2
+        </span>
     );
 };
 

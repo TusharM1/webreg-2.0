@@ -6,7 +6,9 @@ const router = express.Router();
 router.post("/",  async (req, res) => {
     const { data } = req.body;
     if (req.body) {
+        console.log("foobar: " + req.body);
         const { type } = req.body;
+        console.log("foo: " + type);
         if (type === "login") {
             const { netID, password } = data;
             if (netID && password) {
