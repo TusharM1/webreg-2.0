@@ -5,7 +5,6 @@ const { Op } = require("sequelize");
 const getSearchedCourses = async (token) => {
 
     // find semester where start is before this data and end is after
-    console.log("creating query for class: " + token);
     const currentSemester = (await Course.findAll({
         where: {
             name : token
@@ -15,23 +14,19 @@ const getSearchedCourses = async (token) => {
         ],
         raw: true
     }));
+
     //find the indexes for that course
     const hold = formatSemester(currentSemester[0]);
-    //console.log(currentSemester[0]["isActive"]);
-    console.log("heyo: " + hold.courseName);
     if(hold){
         const isActive = hold.isActive;
         if (!isActive) {
-            console.log("here....");
             return {
                 error: true,
                 message: "Deactivated Course"
             }
         }
-        //console.log("here: " + hold);
-        //return hold;
     }
-    console.log("creating query to search for indexes of the course");
+    //console.log("creating query to search for indexes of the course");
     const indexes = (await Section.findAll({
         where: {
             courseString : hold.courseName
@@ -41,12 +36,18 @@ const getSearchedCourses = async (token) => {
         ],
         raw: true
     }));
-    console.log("printing here: " + indexes);
     const result = formatResult(hold, indexes);
     return result;
 }
 
 function formatSemester(semester) {
+    if(!semester){
+        return{
+            courseName : "",
+            courseNumber: 0,
+            isActive: false
+        }
+    }
     return {
         courseName: semester.courseString,
         courseNumber: semester.courseNumber,
@@ -55,7 +56,7 @@ function formatSemester(semester) {
 }
 
 function formatResult(course, indexes){
-    console.log("setting course name to : " + course.courseName);
+    //console.log("setting course name to : " + course.courseName);
     return{
         courseName: course.courseName,
         courseNumber: course.courseNumber,

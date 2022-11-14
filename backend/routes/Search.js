@@ -1,4 +1,4 @@
-const { getSearchedCourses } = require("../controllers/Searching");
+    const { getSearchedCourses } = require("../controllers/Searching");
 
 const express = require("express");
 const router = express.Router();
@@ -6,22 +6,19 @@ const router = express.Router();
 router.post("/",  async (req, res) => {
     const { data } = req.body;
     if (req.body) {
-            //console.log(req.body);
-            console.log(req.body["courseString"]);
+            //console.log(req.body["courseString"]);
             const courseName = req.body["courseString"];
-            console.log("searching for: " + courseName);
             if (courseName) {
                 // get class data
                 const course = await getSearchedCourses(courseName);
-                if (course.error) {
+                if (course.error || !course) {
                     res.json(course);
                     return;
                 }
-                console.log(course);
+                //console.log(course);
                 // print user data
                 console.log("Requested course data for course name: " + courseName +
                                                     ", returning: " + JSON.stringify(course));
-                // return
                 res.json(course);
                 return;
             }

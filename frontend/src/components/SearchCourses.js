@@ -28,15 +28,23 @@ export function SearchCourses() {
         
         axios.post("http://localhost:3001/search", userData).then((response) =>{
             console.log(response.status);
-            console.log("course name: " + response.data.courseName
+            /*console.log("course name: " + response.data.courseName
                                 + " courseNumber: " + response.data.courseNumber
                                 + " isActive: " + response.data.isActive
-                                + " indexes: " + response.data.indexList);
-            let result = "";
-            for(let i = 0; i < response.data.indexList.length; i++){
-                result += response.data.indexList[i].sectionIndex + " | ";
+                                + " indexes: " + response.data.indexList);*/
+            if(response.data.courseName === undefined){//failed input
+                alert("COURSE NOT FOUND");
             }
-            alert("Course: " + response.data.courseName + "\nIndexes: " + result);
+            else{
+                let result = "";
+                for(let i = 0; i < response.data.indexList.length; i++){
+                    result += response.data.indexList[i].sectionIndex + " | ";
+                }
+                alert("Course: " + response.data.courseName + "\nIndexes: " + result);
+            }
+        }).catch((err) => {
+            let message = typeof err.response !== "undefined" ? err.response.data.message : err.message;
+            console.log("error FAIL FAIL : " + message);
         });
     };
     
@@ -58,8 +66,10 @@ export function SearchCourses() {
             
             <Table>
                 <thead>
-                    <th>Course String</th>
-                    <th>Course Name</th>
+                    <tr>
+                        <th>Course String</th>
+                        <th>Course Name</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
