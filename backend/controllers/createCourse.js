@@ -3,11 +3,20 @@ const { Course } = require('../models');
 // const {Op, Sequelize} = require("sequelize");
 const Sequelize = require("sequelize");
 
-const createCourseFunction = async () => { //NO IDEA WHAT TO PUT HERE, mayvbe the ["courseString"], values["courseString"].subString(0,2), values["courseString"].subString(3,6), values["courseString"].subString(7,10), values["name"], "null", values["credits"],"null"
-   
-    //INSERT HERE STUFF FROM backend/controlers/search from main. 
+const createCourseFunction = async (coursestring, schoolNum, departmentNum, courseNum, namE, credits ) => {
+    const confirmation = await Course.create({
+        courseString: coursestring,
+        schoolNumber: schoolNum,
+        departmentNumber:departmentNum,
+        courseNumber:courseNum,
+        name:namE,
+        description: null,
+        numberOfCredits: credits,
+        prerequisites:null,
+        isActive: true
+    });
 
-    // return courses;
+    return confirmation;
 }
 
-module.exports = { searchCoursesAndSections }
+module.exports = { createCourseFunction }

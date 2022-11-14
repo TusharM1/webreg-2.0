@@ -1,49 +1,48 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { Accordion, Container } from "react-bootstrap";
-import {Course} from '../backend/models/Course.js'
-
-
-
-
-
-
-// const  createClass= async (courseString, name, credits) => {
-//     const data = await axios.post("http://localhost:3001/auth", {
-//         type: "login",
-//         data: {
-//             netID: netID,
-//             password: password
-//         }
-//     }).then(response => response.data);
-//     const saved = saveData(data);
-//     if (saved) {
-//         navigate("/dashboard");
-//     }
-//     console.log(data["message"]);
-// };
-
-
-
-
-
+import axios from "axios";
+import {DataContext} from "../user/DataContext";
+import { elementType } from 'prop-types';
 
 
 export function AdminUI() {
+    const { data } = useContext(DataContext);
+
+    // console.log("Hey this is line 10 of AdminUI.js");
+    const createCourse = async (coursestring, schoolNum,departmentNum,courseNum, namE, credits) => {
+        //alert(coursestring);
+        axios.post("http://localhost:3001/createCourse", {
+            token: data.token,
+            coursestring: coursestring,
+            schoolNum: schoolNum,
+            departmentNum: departmentNum,
+            courseNum:courseNum,
+            namE:namE,
+            credits:credits
+        }
+        ).then((response) => {
+            alert(JSON.stringify(response.data));
+        }).catch(() => {console.log("Hey this is line 23 of AdminUI.js")});
+    };
     return (
         <Container fluid>
-            <form>
-                <input name='courseString' placeholder='00:000:000'></input>
-                <input name='name' placeholder='Name'></input>
-                {/* <input id='description' placeholder='Description'></input> */}
-                <input name='credits' placeholder='Number of credits'></input>
-                {/* <input id='prerequisites' placeholder='Prerequisites'></input> */}
-                <button type='submit' id='createClass' 
-                    onSubmit={async (values, actions) => {
-                        await createCourses(values["courseString"], values["courseString"].subString(0,2), values["courseString"].subString(3,6), values["courseString"].subString(7,10), values["name"], "null", values["credits"],"null");
-                        //maybe this instead:
-                        //
-                        actions.resetForm();
-                    }}>
+            <form onSubmit={async (values, actions) => {
+                let coursestring = document.getElementById("courseString").value;
+                let schoolNum = coursestring.substring(0,2);
+                let departmentNum = coursestring.substring(3,6);
+                let courseNum = coursestring.substring(7,10);
+                let namE = document.getElementById("namE").value;
+                let credits = document.getElementById("credits").value;
+                await createCourse(coursestring,schoolNum,departmentNum,courseNum,namE,credits);
+                //alert("LINE 40-ish of AdminUI");
+                actions.resetForm();
+                }}> 
+                
+                <input id='courseString' placeholder='00:000:000'></input>
+                <input id='namE' placeholder='Name'></input>
+                
+                <input id='credits' placeholder='Number of credits'></input>
+                <button type='submit' id='createClass'>
                     CreateClass
                 </button>
             </form>
