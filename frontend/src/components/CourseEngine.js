@@ -1,21 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { Accordion, Container } from "react-bootstrap";
 import axios from "axios";
+import {DataContext} from "../user/DataContext";
+import { Field, Form, Formik } from "formik";
 
 export function CourseEngine() {
-    const [data, setData] = useState({courseQuery: ""});
+    const { data } = useContext(DataContext);
 
-    const handleChange = (e) => {
-        setData({...data, [e.target.name]: e.target.value});
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const courseQuery = {
-            courseQuery: data.courseQuery
-        }
-
-        axios.post("http://localhost:3001/search", courseQuery).then((response) => {
+    const searchCourses = async (courseQuery) => {
+        axios.post("http://localhost:3001/search", {
+            token: data.token,
+            courseQuery: courseQuery
+        }).then((response) => {
             alert(JSON.stringify(response.data));
         }).catch(() => {});
     };
@@ -24,17 +20,23 @@ export function CourseEngine() {
         <Container fluid>
             <div className={"h-25 bg-light-coral"}>
                 <span>Search Courses</span>
-                <form onSubmit={handleSubmit}>
-                    <label>Course Name:
-                        <input
-                            type="text"
-                            name="courseQuery"
-                            value={data.courseQuery}
-                            onChange={handleChange}
-                        />
-                    </label>
-                    <input type="submit"/>
-                </form>
+                <Formik initialValues={{ courseQuery: ''}}
+                    onSubmit={async (values, actions) => {
+                        await searchCourses(values["courseQuery"]);
+                        actions.resetForm();
+                    }}>
+                    {(formik) => (
+                        <Form>
+                            <label>Course Name:</label>
+                            <Field
+                                type="text"
+                                name="courseQuery"
+                                onChange={formik.handleChange}
+                            />
+                            <button type="submit" disabled={!(formik.isValid && formik.dirty)}>Login</button>
+                        </Form>
+                    )}
+                </Formik>
             </div>
             <span>View Courses</span>
             <div className={"d-flex justify-content-between w-100"}>
