@@ -3,16 +3,72 @@ import { Accordion, Container } from "react-bootstrap";
 import axios from "axios";
 import {DataContext} from "../user/DataContext";
 import { Field, Form, Formik } from "formik";
+import "../styles/viewer.css"
 
 export function CourseEngine() {
     const { data } = useContext(DataContext);
+
+    const [courses, setCourses] = useState([]);
+
+    function CourseViewer() {
+        if (courses === [])
+            return <></>;
+
+        let count = 0;
+        let courseList = []
+        for (let i = 0; i < courses.length; i++) {
+            const courseEventKey = count;
+            count++;
+
+            const sections = courses[i].sections;
+            let sectionList = []
+            for (let j = 0; j < sections.length; j++) {
+                const section = (
+                    <Accordion.Item eventKey={count.toString()}>
+                        <Accordion.Header>{sections[j].sectionNumber}</Accordion.Header>
+                        <Accordion.Body>
+                            <p>{sections[j].sectionType}</p>
+                            <p>{sections[j].professor}</p>
+                            <p>{sections[j].numberOfCredits}</p>
+                            <p>{sections[j].capacity}</p>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                );
+                count++;
+                sectionList.push(section);
+            }
+
+            const course = (
+                <Accordion.Item eventKey={courseEventKey.toString()}>
+                    <Accordion.Header>
+                        <div className={"d-flex justify-content-between w-100"}>
+                            <span>{courses[i].courseString}</span>
+                            <span>{courses[i].name}</span>
+                        </div>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                        <Accordion alwaysOpen className={"flex-grow-1"}>
+                            {sectionList}
+                        </Accordion>
+                    </Accordion.Body>
+                </Accordion.Item>
+            );
+            courseList.push(course);
+        }
+
+        return (
+            <Accordion alwaysOpen style={{height: "600px"}}>
+                {courseList}
+            </Accordion>
+        );
+    }
 
     const searchCourses = async (courseQuery) => {
         axios.post("http://localhost:3001/search", {
             token: data.token,
             courseQuery: courseQuery
         }).then((response) => {
-            alert(JSON.stringify(response.data));
+            setCourses(response.data);
         }).catch(() => {});
     };
 
@@ -28,59 +84,22 @@ export function CourseEngine() {
                     {(formik) => (
                         <Form>
                             <label>Course Name:</label>
-                            <Field
-                                type="text"
-                                name="courseQuery"
-                                onChange={formik.handleChange}
-                            />
+                            <Field type="text"
+                                    name="courseQuery"
+                                    onChange={formik.handleChange}/>
                             <button type="submit" disabled={!(formik.isValid && formik.dirty)}>Login</button>
                         </Form>
                     )}
                 </Formik>
             </div>
-            <span>View Courses</span>
-            <div className={"d-flex justify-content-between w-100"}>
-                <span>Course String</span>
-                <span>Course Name</span>
+            <div className={"h-75 overflow-scroll"}>
+                <span>View Courses</span>
+                <div className={"d-flex justify-content-between w-100"}>
+                    <span>Course String</span>
+                    <span>Course Name</span>
+                </div>
+                <CourseViewer/>
             </div>
-            <Accordion alwaysOpen className={"flex-grow-1"}>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                        <div className={"d-flex justify-content-between w-100"}>
-                            <span>XX:YYY:ZZZ</span>
-                            <span>Course 1</span>
-                        </div>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <Accordion alwaysOpen className={"flex-grow-1"}>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Section 1</Accordion.Header>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>Section 2</Accordion.Header>
-                            </Accordion.Item>
-                        </Accordion>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="3">
-                    <Accordion.Header>
-                        <div className={"d-flex justify-content-between w-100"}>
-                            <span>XX:YYY:ZZZ</span>
-                            <span>Course 2</span>
-                        </div>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <Accordion alwaysOpen className={"flex-grow-1"}>
-                            <Accordion.Item eventKey="4">
-                                <Accordion.Header>Section 1</Accordion.Header>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="5">
-                                <Accordion.Header>Section 2</Accordion.Header>
-                            </Accordion.Item>
-                        </Accordion>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
         </Container>
     );
 }

@@ -9,7 +9,7 @@ const Dashboard = () => {
     return (
         <Container fluid className={"h-100"}>
             <Row className={"h-100"}>
-                <Col className={"h-100"}>
+                <Col className={"h-100 d-flex flex-column"}>
                     <Tab.Container transition={false} defaultActiveKey={"degreeNavigator"}>
                         <Nav variant="tabs">
                             <Nav.Item>
@@ -19,7 +19,7 @@ const Dashboard = () => {
                                 <Nav.Link eventKey="searchCourses">Search Courses</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                        <Tab.Content className="h-100">
+                        <Tab.Content className={"flex-grow-1"}>
                             <Tab.Pane className={"h-100"} eventKey="degreeNavigator" title="DegreeNavigator">
                                 <Row style={{height: "60%", background: "lightpink"}}><DegreeNavigator/></Row>
                                 <Row style={{height: "40%", background: "lightsalmon"}}><ScheduleInformation/></Row>
