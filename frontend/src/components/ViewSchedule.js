@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Container} from "react-bootstrap";
 import "../styles/schedule.css"
 
@@ -21,8 +21,6 @@ const timesTable = [
 ]
 
 export function ViewSchedule() {
-    const [schedule, setSchedule] = useState();
-
     const config = {
         days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         // startTime: "08:00",
@@ -31,15 +29,15 @@ export function ViewSchedule() {
         granularity: 5
     }
 
-    const data = [
-        {
-            day: "Monday",
-            label: "Event 1",
-            startTime: "10:10",
-            endTime: "11:10",
-            color: "blue"
-        }
-    ]
+    // const data = [
+    //     {
+    //         day: "Monday",
+    //         label: "Event 1",
+    //         startTime: "10:10",
+    //         endTime: "11:10",
+    //         color: "blue"
+    //     }
+    // ]
 
     return (
         <Container fluid className={"bg-light"}>
@@ -52,8 +50,8 @@ export function ViewSchedule() {
                     </tr>
                 </thead>
                 <tbody>
-                    {timesTable.map((time) =>
-                        <tr>
+                    {timesTable.map((time, index) =>
+                        <tr key={index}>
                             <th className={"tableHeader"}>{time}</th>
                             <td>A</td>
                             <td>B</td>

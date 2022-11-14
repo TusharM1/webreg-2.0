@@ -1,11 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Accordion, Container } from "react-bootstrap";
+import axios from "axios";
 
 export function CourseEngine() {
+    const [data, setData] = useState({courseQuery: ""});
+
+    const handleChange = (e) => {
+        setData({...data, [e.target.name]: e.target.value});
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const courseQuery = {
+            courseQuery: data.courseQuery
+        }
+
+        axios.post("http://localhost:3001/search", courseQuery).then((response) => {
+            alert(JSON.stringify(response));
+        }).catch(() => {});
+    };
+
     return (
         <Container fluid>
             <div className={"h-25 bg-light-coral"}>
                 <span>Search Courses</span>
+                <form onSubmit={handleSubmit}>
+                    <label>Course Name:
+                        <input
+                            type="text"
+                            name="courseQuery"
+                            value={data.courseQuery}
+                            onChange={handleChange}
+                        />
+                    </label>
+                    <input type="submit"/>
+                </form>
             </div>
             <span>View Courses</span>
             <div className={"d-flex justify-content-between w-100"}>
