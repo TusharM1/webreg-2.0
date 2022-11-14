@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
+import { Col, Container, Nav, Row, Tab, TabContent } from "react-bootstrap";
 import { DegreeNavigator } from "../components/DegreeNavigator";
 import { CourseEngine } from "../components/CourseEngine";
 import { ScheduleInformation } from "../components/ScheduleInformation";
