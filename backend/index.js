@@ -8,6 +8,8 @@ app.use(express.json());
 const authRouter = require("./routes/Auth");
 app.use("/auth", authRouter);
 
+
+
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");
 // app.use("/semesters", semesterRouter);
