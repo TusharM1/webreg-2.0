@@ -1,68 +1,64 @@
 const { Course } = require('../models');
 const { Section } = require('../models');
-const { Op } = require("sequelize");
+const {Op, Sequelize} = require("sequelize");
 
-const getSearchedCourses = async (token) => {
-
-    // find semester where start is before this data and end is after
-    const currentSemester = (await Course.findAll({
+const searchCoursesAndSections = async (courseQuery) => {
+    const searchedCourses = (await Course.findAll({
         where: {
-            name : token
+            [Op.and]: [{
+                name: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('name')), 'LIKE', '%' + courseQuery + '%'),
+                isActive: true
+            }]
         },
         order: [
-            ["courseNumber", "ASC"]
+            ["courseString", "ASC"]
         ],
         raw: true
     }));
 
-    //find the indexes for that course
-    const hold = formatSemester(currentSemester[0]);
-    if(hold){
-        const isActive = hold.isActive;
-        if (!isActive) {
-            return {
-                error: true,
-                message: "Deactivated Course"
+    const searchedSections = await Promise.all(searchedCourses.map(async (course) =>
+        await Section.findAll({
+            where: {
+                courseString: course["courseString"]
+            },
+            order: [
+                ["sectionIndex", "ASC"]
+            ],
+            raw: true
+        }
+    )));
+
+    let courses = []
+    for (let i = 0; i < searchedCourses.length; i++) {
+        let sections = []
+        for (let j = 0; j < searchedSections[i].length; j++) {
+            let currentSection = searchedSections[i][j];
+            let section = {
+                sectionIndex: currentSection.sectionIndex,
+                sectionNumber: currentSection.sectionNumber,
+                sectionType: currentSection.sectionType,
+                professor: currentSection.professor,
+                capacity: currentSection.capacity,
+                comments: currentSection.comments
             }
+            sections.push(section);
         }
-    }
-    //console.log("creating query to search for indexes of the course");
-    const indexes = (await Section.findAll({
-        where: {
-            courseString : hold.courseName
-        },
-        order: [
-            ["sectionIndex", "ASC"]
-        ],
-        raw: true
-    }));
-    const result = formatResult(hold, indexes);
-    return result;
-}
 
-function formatSemester(semester) {
-    if(!semester){
-        return{
-            courseName : "",
-            courseNumber: 0,
-            isActive: false
+        let course = {
+            courseString: searchedCourses[i].courseString,
+            schoolNumber: searchedCourses[i].schoolNumber,
+            departmentNumber: searchedCourses[i].departmentNumber,
+            courseNumber: searchedCourses[i].courseNumber,
+            name: searchedCourses[i].name,
+            description: searchedSections[i].name,
+            numberOfCredits: searchedCourses[i].numberOfCredits,
+            prerequisites: searchedCourses[i].prerequisites,
+            sections: sections
         }
+        courses.push(course);
     }
-    return {
-        courseName: semester.courseString,
-        courseNumber: semester.courseNumber,
-        isActive: semester.isActive
-    }
+
+    return courses;
 }
 
-function formatResult(course, indexes){
-    //console.log("setting course name to : " + course.courseName);
-    return{
-        courseName: course.courseName,
-        courseNumber: course.courseNumber,
-        isActive: course.isActive,
-        indexList: indexes
-    }
-}
-
-module.exports = {getSearchedCourses}
+module.exports = { searchCoursesAndSections }
