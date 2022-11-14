@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.post("/",  async (req, res) => {
     const { data } = req.body;
-    if (req.body) {
-        console.log("foobar: " + req.body);
+    if (data) {
         const { type } = req.body;
         console.log("foo: " + type);
         if (type === "login") {

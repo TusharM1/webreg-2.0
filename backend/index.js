@@ -8,8 +8,14 @@ app.use(express.json());
 const authRouter = require("./routes/Auth");
 app.use("/auth", authRouter);
 
+const tokenMiddleware = require("./middleware/Token")
+app.use(tokenMiddleware);
+
 const searchRouter = require("./routes/Search");
 app.use("/search", searchRouter);
+
+const scheduleRouter = require("./routes/Schedule");
+app.use("/schedule", scheduleRouter);
 
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");
