@@ -16,7 +16,7 @@ export function CourseEngine() {
         }
 
         axios.post("http://localhost:3001/search", courseQuery).then((response) => {
-            alert(JSON.stringify(response));
+            alert(JSON.stringify(response.data));
         }).catch(() => {});
     };
 
