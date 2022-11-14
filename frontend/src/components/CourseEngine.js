@@ -87,7 +87,7 @@ export function CourseEngine() {
                             <Field type="text"
                                     name="courseQuery"
                                     onChange={formik.handleChange}/>
-                            <button type="submit" disabled={!(formik.isValid && formik.dirty)}>Login</button>
+                            <button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</button>
                         </Form>
                     )}
                 </Formik>
