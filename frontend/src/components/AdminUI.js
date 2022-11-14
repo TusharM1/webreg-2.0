@@ -39,7 +39,9 @@ export function AdminUI() {
                 {/* <input id='prerequisites' placeholder='Prerequisites'></input> */}
                 <button type='submit' id='createClass' 
                     onSubmit={async (values, actions) => {
-                        await Course.create(values["courseString"], values["courseString"].subString(0,2), values["courseString"].subString(3,6), values["courseString"].subString(7,10), values["name"], "null", values["credits"],"null");
+                        await createCourses(values["courseString"], values["courseString"].subString(0,2), values["courseString"].subString(3,6), values["courseString"].subString(7,10), values["name"], "null", values["credits"],"null");
+                        //maybe this instead:
+                        //
                         actions.resetForm();
                     }}>
                     CreateClass
