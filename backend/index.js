@@ -17,6 +17,9 @@ app.use("/search", searchRouter);
 const scheduleRouter = require("./routes/Schedule");
 app.use("/schedule", scheduleRouter);
 
+const studyProgramsRouter = require("./routes/StudyPrograms");
+app.use("/studyPrograms", studyProgramsRouter);
+
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");
 // app.use("/semesters", semesterRouter);

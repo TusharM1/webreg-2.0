@@ -3,19 +3,19 @@ const router = express.Router();
 
 router.post("/",  async (req, res) => {
     res.json({
-        message: "View Schedule"
+        message: "View Programs of Study"
     });
 });
 
 router.post("/add",  async (req, res) => {
     res.json({
-        message: "Add course to schedule"
+        message: "Add Programs of Study"
     });
 });
 
 router.post("/remove",  async (req, res) => {
     res.json({
-        message: "Remove course from schedule"
+        message: "Remove Programs of Study"
     });
 });
 
