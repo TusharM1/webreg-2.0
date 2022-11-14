@@ -32,7 +32,7 @@ function App() {
     else if (path === "/dashboard" && !token) {
         return <Navigate replace to="/login"/>
     }
-
+    
     return (
         <DataContext.Provider value={{ data, saveData, clearData }}>
             <Container fluid className={"h-100"}>
