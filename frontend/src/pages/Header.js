@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { DataContext } from "../user/DataContext";
+import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
