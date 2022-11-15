@@ -14,6 +14,9 @@ app.use("/createCourse", createCourseRouter);
 const removeCourseRouter = require("./routes/removeCourse");
 app.use("/removeCourse", removeCourseRouter);
 
+const updateCourseRouter = require("./routes/updateCourse");
+app.use("/updateCourse", updateCourseRouter);
+
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");
 // app.use("/semesters", semesterRouter);

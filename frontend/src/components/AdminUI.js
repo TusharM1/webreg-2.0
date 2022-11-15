@@ -35,6 +35,18 @@ export function AdminUI() {
         }).catch(() => {console.log("Hey this is line 36 of AdminUI.js")});
     };
 
+    const updateCourse = async (coursestring, namE, credits) => {
+        axios.post("http://localhost:3001/updateCourse", {
+            token: data.token,
+            coursestring: coursestring,
+            namE: namE,
+            credits: credits
+        }
+        ).then((response) => {
+            alert(JSON.stringify(response.data));
+        }).catch(() => {console.log("Hey this is line 47 of AdminUI.js")});
+    };
+
 
     return (
         <Container fluid>
@@ -68,6 +80,23 @@ export function AdminUI() {
                 <input id='courseStringDeletor' placeholder='00:000:000'></input>
                 <button type='submit' id='removeClass'>
                     Remove Class
+                </button>
+                
+            </form>
+            <form onSubmit={async (values, actions) => {
+                let coursestring = document.getElementById("courseStringChanger").value;
+                let namE = document.getElementById("namEChanger").value;
+                let credits = document.getElementById("creditsChanger").value;
+                await updateCourse(coursestring, namE, credits);
+                actions.resetForm();
+                }}> 
+                
+                <input id='courseStringChanger' placeholder='00:000:000'></input>
+                <input id='namEChanger' placeholder='new Name'></input>
+                <input id='creditsChanger' placeholder='new Number of credits'></input>
+
+                <button type='submit' id='updateClass'>
+                    Update Class
                 </button>
                 
             </form>
