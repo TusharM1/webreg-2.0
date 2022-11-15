@@ -8,7 +8,7 @@ app.use(express.json());
 const authRouter = require("./routes/Auth");
 app.use("/auth", authRouter);
 
-const tokenMiddleware = require("./middleware/Token")
+const tokenMiddleware = require("./middleware/Token");
 app.use(tokenMiddleware);
 
 const searchRouter = require("./routes/Search");
@@ -36,7 +36,7 @@ app.use("/updateCourse", updateCourseRouter);
 const db = require("./models");
 const reload = false;
 db.sequelize.sync({ force: reload, logging: false }).then(() => {
-    app.listen(3001, () => {
-        console.log("Backend server initialized on port 3001");
-    });
+	app.listen(3001, () => {
+		console.log("Backend server initialized on port 3001");
+	});
 });

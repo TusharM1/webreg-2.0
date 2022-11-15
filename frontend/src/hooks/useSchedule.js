@@ -1,46 +1,46 @@
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 
 export const defaultSchedule = {
-    status: "loading",
-    courseSections: []
+	status: "loading",
+	courseSections: []
 };
 
 export function useSchedule() {
-    const [schedule, setSchedule] = useState(defaultSchedule);
+	const [schedule, setSchedule] = useState(defaultSchedule);
 
-    const addSection = (section) => {
-        // post add section
-        // on success, update schedule
-        // on fail, report error
-    }
+	const addSection = (section) => {
+		// post add section
+		// on success, update schedule
+		// on fail, report error
+	};
 
-    const removeSection = (section) => {
-        // post remove section
-        // on success, update schedule
-        // on fail, report error
-    }
+	const removeSection = (section) => {
+		// post remove section
+		// on success, update schedule
+		// on fail, report error
+	};
 
-    const swapSection = (section) => {
-        // post swap section
-        // on success, update schedule
-        // on fail, report error
-    }
+	const swapSection = (section) => {
+		// post swap section
+		// on success, update schedule
+		// on fail, report error
+	};
 
-    const initializeSchedule = (token) => {
-        const getInfo = async () => {
-            return await axios.post("http://localhost:3001/schedule", {
-                token: token,
-            });
-        };
-        getInfo().then(response => setSchedule(response.data));
+	const initializeSchedule = (token) => {
+		const getInfo = async () => {
+			return await axios.post("http://localhost:3001/schedule", {
+				token: token
+			});
+		};
+		getInfo().then(response => setSchedule(response.data));
 
-        // post get schedule
-        // put the schedule as loading in the meantime
-        // update the schedule after populated
-    }
+		// post get schedule
+		// put the schedule as loading in the meantime
+		// update the schedule after populated
+	};
 
-    // initializeSchedule();
+	// initializeSchedule();
 
-    return [schedule, initializeSchedule, addSection, removeSection, swapSection];
+	return [schedule, initializeSchedule, addSection, removeSection, swapSection];
 }
