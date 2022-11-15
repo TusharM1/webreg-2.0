@@ -4,9 +4,9 @@ import { DegreeNavigator } from "../components/DegreeNavigator";
 import { CourseEngine } from "../components/CourseEngine";
 import { ScheduleInformation } from "../components/ScheduleInformation";
 import { ViewSchedule } from "../components/ViewSchedule";
-import {ScheduleContext} from "../contexts/ScheduleContext";
-import {useData} from "../hooks/useData";
-import {useSchedule} from "../hooks/useSchedule";
+import { ScheduleContext } from "../contexts/ScheduleContext";
+import { useData } from "../hooks/useData";
+import { useSchedule } from "../hooks/useSchedule";
 
 const Dashboard = () => {
     const [ data ] = useData();

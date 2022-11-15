@@ -1,12 +1,9 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Container} from "react-bootstrap";
-import axios from "axios";
-import {DataContext} from "../contexts/DataContext";
-import {ScheduleContext} from "../contexts/ScheduleContext";
-// import {ScheduleContext} from "../contexts/ScheduleContext";
+import React, {useContext, useState} from "react";
+import { Container } from "react-bootstrap";
+import { DataContext } from "../contexts/DataContext";
+import { ScheduleContext } from "../contexts/ScheduleContext";
 
 export function ScheduleInformation() {
-    // const { schedule } = useContext(ScheduleContext);
     const { data } = useContext(DataContext);
     const [ loaded, setLoaded ] = useState(false);
 
