@@ -4,7 +4,7 @@ import { DegreeNavigator } from "../components/DegreeNavigator";
 import { CourseEngine } from "../components/CourseEngine";
 import { ScheduleInformation } from "../components/ScheduleInformation";
 import { ViewSchedule } from "../components/ViewSchedule";
-import { DataContext } from "../user/DataContext";
+import { DataContext } from "../contexts/DataContext";
 import { useContext } from 'react';
 import { AdminUI } from '../components/AdminUI';
 
@@ -71,10 +71,16 @@ else if (data["profile"]["role"] == "admin"){
                             <Nav.Item>
                                 <Nav.Link eventKey="Create or Remove Courses">Create or Remove Courses</Nav.Link>
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="searchCourses">Search Courses</Nav.Link>
+                            </Nav.Item>
                         </Nav>
                         <Tab.Content className="h-100">
                             <Tab.Pane className={"h-100"} eventKey="Create or Remove Courses" title="Create or Remove Courses">
                                 <Row style={{height: "100%", background: "lightblue"}}><AdminUI/></Row>
+                            </Tab.Pane>
+                            <Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
+                                <Row style={{height: "100%", background: "lightblue"}}><CourseEngine/></Row>
                             </Tab.Pane>
                         </Tab.Content>
                     </Tab.Container>

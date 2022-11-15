@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { Accordion, Container } from "react-bootstrap";
 import axios from "axios";
-import {DataContext} from "../user/DataContext";
+import {DataContext} from "../contexts/DataContext";
 import { elementType } from 'prop-types';
 
 
