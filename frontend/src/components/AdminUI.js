@@ -24,6 +24,18 @@ export function AdminUI() {
             alert(JSON.stringify(response.data));
         }).catch(() => {console.log("Hey this is line 23 of AdminUI.js")});
     };
+
+    const removeCourse = async (coursestring) => {
+        axios.post("http://localhost:3001/removeCourse", {
+            token: data.token,
+            coursestring: coursestring
+        }
+        ).then((response) => {
+            alert(JSON.stringify(response.data));
+        }).catch(() => {console.log("Hey this is line 36 of AdminUI.js")});
+    };
+
+
     return (
         <Container fluid>
             <form onSubmit={async (values, actions) => {
@@ -45,6 +57,19 @@ export function AdminUI() {
                 <button type='submit' id='createClass'>
                     CreateClass
                 </button>
+
+            </form>
+            <form onSubmit={async (values, actions) => {
+                let coursestring = document.getElementById("courseStringDeletor").value;
+                await removeCourse(coursestring);
+                actions.resetForm();
+                }}> 
+                
+                <input id='courseStringDeletor' placeholder='00:000:000'></input>
+                <button type='submit' id='removeClass'>
+                    Remove Class
+                </button>
+                
             </form>
         </Container>
     );

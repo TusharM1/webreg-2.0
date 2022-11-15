@@ -11,6 +11,9 @@ app.use("/auth", authRouter);
 const createCourseRouter = require("./routes/createCourse");
 app.use("/createCourse", createCourseRouter);
 
+const removeCourseRouter = require("./routes/removeCourse");
+app.use("/removeCourse", removeCourseRouter);
+
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");
 // app.use("/semesters", semesterRouter);

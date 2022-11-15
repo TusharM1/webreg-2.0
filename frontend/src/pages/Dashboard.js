@@ -50,14 +50,14 @@ else if (data["profile"]["role"] == "admin"){
         <Container fluid className={"h-100"}>
             <Row className={"h-100"}>
                 <Col className={"h-100"}>
-                    <Tab.Container transition={false} defaultActiveKey={"searchCourses"}>
+                    <Tab.Container transition={false} defaultActiveKey={"Create or Remove Courses"}>
                         <Nav variant="tabs">
                             <Nav.Item>
-                                <Nav.Link eventKey="searchCourses">Search Courses</Nav.Link>
+                                <Nav.Link eventKey="Create or Remove Courses">Create or Remove Courses</Nav.Link>
                             </Nav.Item>
                         </Nav>
                         <Tab.Content className="h-100">
-                            <Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
+                            <Tab.Pane className={"h-100"} eventKey="Create or Remove Courses" title="Create or Remove Courses">
                                 <Row style={{height: "100%", background: "lightblue"}}><AdminUI/></Row>
                             </Tab.Pane>
                         </Tab.Content>
