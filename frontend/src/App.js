@@ -7,8 +7,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./pages/Footer";
-import { DataContext } from "./contexts/DataContext";
-import { useData } from "./hooks/useData";
+import { DataContext } from "./user/DataContext";
+import { useData } from "./user/useData";
 
 function App() {
     const [data, saveData, clearData] = useData();

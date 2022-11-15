@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import { Accordion, Container } from "react-bootstrap";
-import { DataContext } from "../contexts/DataContext";
-// import {ScheduleContext} from "../contexts/ScheduleContext";
+import { DataContext } from "../user/DataContext";
 
 export function DegreeNavigator() {
     const { data } = useContext(DataContext);
-    // const { schedule } = useContext(ScheduleContext);
 
     return (
         <Container fluid className={"d-flex flex-column"}>

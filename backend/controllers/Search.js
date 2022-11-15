@@ -38,7 +38,6 @@ const searchCoursesAndSections = async (courseQuery) => {
                 sectionNumber: currentSection.sectionNumber,
                 sectionType: currentSection.sectionType,
                 professor: currentSection.professor,
-                filled: 0,
                 capacity: currentSection.capacity,
                 comments: currentSection.comments
             }

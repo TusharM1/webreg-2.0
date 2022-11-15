@@ -12,7 +12,7 @@ router.post("/",  async (req, res) => {
             // add semester data
             const semesters = await getEditableSemestersFromUser(token);
 
-            // print hooks data
+            // print user data
             console.log("Requested semester data for token: " + token +
                                                 ", returning: " + data);
             // return

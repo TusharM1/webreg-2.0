@@ -46,7 +46,7 @@ function formattedUser(user) {
         netID: user.netID,
         fullName: user.fullName,
         token: user.token,
-        role: user.role,
+        role: user.role
     };
 }
 
