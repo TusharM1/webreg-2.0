@@ -5,19 +5,23 @@ import { CourseEngine } from "../components/CourseEngine";
 import { ScheduleInformation } from "../components/ScheduleInformation";
 import { ViewSchedule } from "../components/ViewSchedule";
 import {ScheduleContext} from "../contexts/ScheduleContext";
-// import {useData} from "../hooks/useData";
+import {useData} from "../hooks/useData";
 import {useSchedule} from "../hooks/useSchedule";
 
 const Dashboard = () => {
-    const [schedule] = useSchedule();
+    const [ data ] = useData();
+    const [ schedule, initializeSchedule ] = useSchedule(data.token);
 
-    if (schedule.status === "loading") {
-        console.log("Loading schedule information");
-        return;
-    }
+    console.log(schedule)
+    console.log(initializeSchedule)
+
+    // if (schedule.status === "loading") {
+    //     console.log("Loading schedule information");
+    //     return;
+    // }
 
     return (
-        <ScheduleContext.Provider>
+        <ScheduleContext.Provider value={{schedule, initializeSchedule}}>
             <Container fluid className={"h-100"}>
                 <Row className={"h-100"}>
                     <Col className={"h-100 d-flex flex-column"}>

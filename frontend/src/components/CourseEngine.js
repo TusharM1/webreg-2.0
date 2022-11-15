@@ -31,8 +31,8 @@ export function CourseEngine() {
                         <Accordion.Body>
                             <p>{sections[j].sectionType}</p>
                             <p>{sections[j].professor}</p>
-                            <p>{sections[j].numberOfCredits}</p>
-                            <p>{sections[j].capacity}</p>
+                            <p>{sections[j].numberOfCredits} number of credits</p>
+                            <p>{sections[j].filled} / {sections[j].capacity} spots filled</p>
                         </Accordion.Body>
                     </Accordion.Item>
                 );

@@ -27,13 +27,20 @@ export function useSchedule() {
         // on fail, report error
     }
 
-    const initializeSchedule = () => {
+    const initializeSchedule = (token) => {
+        const getInfo = async () => {
+            return await axios.post("http://localhost:3001/schedule", {
+                token: token,
+            });
+        };
+        getInfo().then(response => setSchedule(response.data));
+
         // post get schedule
         // put the schedule as loading in the meantime
         // update the schedule after populated
     }
 
-    initializeSchedule();
+    // initializeSchedule();
 
-    return [schedule, addSection, removeSection, swapSection];
+    return [schedule, initializeSchedule, addSection, removeSection, swapSection];
 }
