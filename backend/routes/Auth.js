@@ -11,14 +11,14 @@ router.post("/",  async (req, res) => {
         if (type === "login") {
             const { netID, password } = data;
             if (netID && password) {
-                // get user data
+                // get hooks data
                 const user = await getUserFromCredentials(netID, password);
                 if (user.error) {
                     res.json(user);
                     return;
                 }
-                // print user data
-                console.log("Requested user data for netID: " + netID +
+                // print hooks data
+                console.log("Requested hooks data for netID: " + netID +
                                                     ", password: " + password +
                                                     ", returning: " + JSON.stringify(user));
                 // return
@@ -29,14 +29,14 @@ router.post("/",  async (req, res) => {
         else if (type === "token") {
             const { token } = data;
             if (token) {
-                // get user data
+                // get hooks data
                 const user = await getUserFromToken(token);
                 if (user.error) {
                     res.json(user);
                     return;
                 }
-                // print user data
-                console.log("Requested user data for token: " + token +
+                // print hooks data
+                console.log("Requested hooks data for token: " + token +
                                                             ", returning: " + JSON.stringify(user));
                 // return
                 res.json(user);

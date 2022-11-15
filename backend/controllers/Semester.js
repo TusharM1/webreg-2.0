@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const moment = require("moment");
 
 const getEditableSemestersFromUser = async (token) => {
-    // return 1 or 2 semesters and whether the user is allowed to register for classes
+    // return 1 or 2 semesters and whether the hooks is allowed to register for classes
     // ex: fall 2022 and winter 2022
 
     // return current semester and next semester if currently in a semester
@@ -59,8 +59,8 @@ const getEditableSemestersFromUser = async (token) => {
 }
 
 function getUserPermissionForSemester(startDate, token) {
-    // calculate number of credits for user
-    // determine when the user is able to register for classes for the given semester
+    // calculate number of credits for hooks
+    // determine when the hooks is able to register for classes for the given semester
 
     /*
     modes:

@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
 import { Accordion, Container } from "react-bootstrap";
 import axios from "axios";
-import {DataContext} from "../user/DataContext";
+import {DataContext} from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css"
+// import {ScheduleContext} from "../contexts/ScheduleContext";
 
 export function CourseEngine() {
     const { data } = useContext(DataContext);
+    // const { schedule } = useContext(ScheduleContext);
 
     const [courses, setCourses] = useState([]);
 
