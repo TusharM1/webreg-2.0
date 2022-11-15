@@ -28,12 +28,13 @@ export function CourseEngine() {
                         <Accordion.Header>{sections[j].sectionNumber}</Accordion.Header>
                         <Accordion.Body>
                             <p>{sections[j].sectionType}</p>
-                            <p>{sections[j].professor}</p>
-                            <p>{sections[j].numberOfCredits} number of credits</p>
+                            <p>Taught by {sections[j].professor}</p>
+                            <p>{courses[i].numberOfCredits} credits</p>
                             <p>{sections[j].filled} / {sections[j].capacity} spots filled</p>
                         </Accordion.Body>
                     </Accordion.Item>
                 );
+                console.log(sections[j]);
                 count++;
                 sectionList.push(section);
             }
