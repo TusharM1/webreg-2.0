@@ -12,8 +12,8 @@ const StudentDashboard = () => {
 	const { data } = useContext(DataContext);
 	const [schedule, initializeSchedule] = useSchedule(data.token);
 
-	console.log(schedule);
-	console.log(initializeSchedule);
+	// console.log(schedule);
+	// console.log(initializeSchedule);
 
 	// if (schedule.status === "loading") {
 	//     console.log("Loading schedule information");

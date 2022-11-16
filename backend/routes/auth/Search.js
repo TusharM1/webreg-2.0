@@ -1,4 +1,4 @@
-const { searchCoursesAndSections } = require("../controllers/Search");
+const { searchCoursesAndSections } = require("../../controllers/Search");
 
 const express = require("express");
 const router = express.Router();

@@ -5,31 +5,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const authRouter = require("./routes/Auth");
-app.use("/auth", authRouter);
+// --- UNAUTHENTICATED API ---
 
-const tokenMiddleware = require("./middleware/Token");
-app.use(tokenMiddleware);
+const unauthRouter = require("./routes/UnauthRouter");
+app.use("/", unauthRouter);
 
-const searchRouter = require("./routes/Search");
-app.use("/search", searchRouter);
+// --- AUTHENTICATED API ---
 
-const scheduleRouter = require("./routes/Schedule");
-app.use("/schedule", scheduleRouter);
-
-const studyProgramsRouter = require("./routes/StudyPrograms");
-app.use("/studyPrograms", studyProgramsRouter);
-
-const adminMiddleware = require("./middleware/Admin");
-app.use(adminMiddleware);
-
-const adminCourseRouter = require("./routes/Course");
-app.use("/admin/course", adminCourseRouter);
-
-
-// TODO implement semesters
-// const semesterRouter = require("./routes/Semesters");
-// app.use("/semesters", semesterRouter);
+const authRouter = require("./routes/auth/authRouter");
+app.use("/", authRouter);
 
 const db = require("./models");
 const reload = false;

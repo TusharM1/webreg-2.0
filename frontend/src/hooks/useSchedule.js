@@ -29,7 +29,7 @@ export function useSchedule() {
 
 	const initializeSchedule = (token) => {
 		const getInfo = async () => {
-			return await axios.post("http://localhost:3001/schedule", {
+			return await axios.post("http://localhost:3001/student/schedule", {
 				token: token
 			});
 		};

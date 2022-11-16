@@ -2,6 +2,7 @@ const { User } = require("../models");
 
 const getUserFromCredentials = async (netID, password) => {
 	const user = (await User.findByPk(netID));
+
 	if (user) {
 		const userData = user.get();
 		if (!userData.isActive) {
@@ -13,6 +14,7 @@ const getUserFromCredentials = async (netID, password) => {
 		if (userData.password === password)
 			return formattedUser(userData);
 	}
+
 	return {
 		error: true,
 		message: "Incorrect credentials"
@@ -25,6 +27,7 @@ const getUserFromToken = async (token) => {
 			token: token
 		}
 	}));
+
 	if (user) {
 		const userData = user.get();
 		if (!userData.isActive) {
@@ -35,6 +38,7 @@ const getUserFromToken = async (token) => {
 		}
 		return formattedUser(userData);
 	}
+
 	return {
 		error: true,
 		message: "Incorrect credentials"

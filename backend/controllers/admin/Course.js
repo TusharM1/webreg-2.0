@@ -1,5 +1,17 @@
 const { Course } = require("../../models");
-const { courseNumbersToString } = require("../../util/CourseUtils");
+
+function courseNumbersToString(schoolNumber, departmentNumber, courseNumber) {
+	return schoolNumber + ":" + departmentNumber + ":" + courseNumber;
+}
+
+function courseStringToNumbers(courseString) {
+	const numbers = courseString.split(":");
+	return {
+		schoolNumber: numbers[0],
+		departmentNumber: numbers[1],
+		courseNumber: numbers[2]
+	}
+}
 
 const createCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
 	return await Course.create({
@@ -38,4 +50,4 @@ const removeCourse = async (schoolNumber, departmentNumber, courseNumber) => {
 };
 
 
-module.exports = { createCourse, editCourse, removeCourse };
+module.exports = { createCourse, editCourse, removeCourse, courseNumbersToString, courseStringToNumbers };

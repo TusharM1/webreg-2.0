@@ -1,7 +1,7 @@
-const { Enrollment } = require("../models");
+const { Enrollment } = require("../../models");
 
 const findEnrollments = async (netID) => {
-	const enrollments = (await Enrollment.findAll({
+	return (await Enrollment.findAll({
 		where: {
 			netID: netID
 		},
@@ -10,7 +10,6 @@ const findEnrollments = async (netID) => {
 		],
 		raw: true
 	}));
-
-	return enrollments;
 };
+
 module.exports = { findEnrollments };

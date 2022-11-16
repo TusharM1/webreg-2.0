@@ -1,6 +1,6 @@
 const express = require("express");
-const { getUserFromToken } = require("../controllers/User");
-const { findEnrollments } = require("../controllers/Schedule");
+const { getUserFromToken } = require("../../../controllers/User");
+const { findEnrollments } = require("../../../controllers/student/Schedule");
 const router = express.Router();
 
 router.post("/", async (req, res) => {

@@ -46,7 +46,7 @@ export function ViewSchedule() {
 				<thead>
 				<tr>
 					<th className={"tableHeader"}></th>
-					{config.days.map((day) => <th>{day}</th>)}
+					{config.days.map((day) => <th key={day}>{day}</th>)}
 				</tr>
 				</thead>
 				<tbody>
