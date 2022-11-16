@@ -20,14 +20,12 @@ app.use("/schedule", scheduleRouter);
 const studyProgramsRouter = require("./routes/StudyPrograms");
 app.use("/studyPrograms", studyProgramsRouter);
 
-const createCourseRouter = require("./routes/createCourse");
-app.use("/createCourse", createCourseRouter);
+const adminMiddleware = require("./middleware/Admin");
+app.use(adminMiddleware);
 
-const removeCourseRouter = require("./routes/removeCourse");
-app.use("/removeCourse", removeCourseRouter);
+const adminCourseRouter = require("./routes/Course");
+app.use("/admin/course", adminCourseRouter);
 
-const updateCourseRouter = require("./routes/updateCourse");
-app.use("/updateCourse", updateCourseRouter);
 
 // TODO implement semesters
 // const semesterRouter = require("./routes/Semesters");

@@ -24,7 +24,7 @@ export function CourseEngine() {
 			let sectionList = [];
 			for (let j = 0; j < sections.length; j++) {
 				const section = (
-					<Accordion.Item eventKey={count.toString()}>
+					<Accordion.Item key={count.toString()} eventKey={count.toString()}>
 						<Accordion.Header>{sections[j].sectionNumber}</Accordion.Header>
 						<Accordion.Body>
 							<p>{sections[j].sectionType}</p>
@@ -34,13 +34,12 @@ export function CourseEngine() {
 						</Accordion.Body>
 					</Accordion.Item>
 				);
-				console.log(sections[j]);
 				count++;
 				sectionList.push(section);
 			}
 
 			const course = (
-				<Accordion.Item eventKey={courseEventKey.toString()}>
+				<Accordion.Item key={count.toString()} eventKey={courseEventKey.toString()}>
 					<Accordion.Header>
 						<div className={"d-flex justify-content-between w-100"}>
 							<span>{courses[i].courseString}</span>
@@ -70,7 +69,6 @@ export function CourseEngine() {
 			courseQuery: courseQuery
 		}).then((response) => {
 			setCourses(response.data);
-		}).catch(() => {
 		});
 	};
 

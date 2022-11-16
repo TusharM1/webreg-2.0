@@ -5,10 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./pages/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import StudentDashboard from "./pages/StudentDashboard";
 import Footer from "./pages/Footer";
 import { DataContext } from "./contexts/DataContext";
 import { useData } from "./hooks/useData";
+import { AdminDashboard } from "./pages/AdminDashboard";
 
 function App() {
 	const [data, saveData, clearData] = useData();
@@ -41,7 +42,9 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Home/>}/>
 							<Route path="/login" element={<Login/>}/>
-							<Route path="/dashboard" element={<Dashboard/>}/>
+							{data.profile.role === "admin" ?
+								<Route path="/dashboard" element={<AdminDashboard/>}/>:
+								<Route path="/dashboard" element={<StudentDashboard/>}/>}
 						</Routes>
 					</main>
 					<Footer/>
