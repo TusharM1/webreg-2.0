@@ -7,21 +7,23 @@ router.post("/", async (req, res) => {
 	if (req.body) {
 		const courseQuery = req.body["courseQuery"];
 		if (courseQuery) {
-			// get class data
-			const course = await searchCoursesAndSections(courseQuery);
-			if (course.error || !course) {
-				res.json(course);
+			const courses = await searchCoursesAndSections(courseQuery);
+			if (!courses || courses.error) {
+				res.json({
+					status: "failure",
+					message: "Cannot search query: + " + courseQuery + ", error: " + JSON.stringify(courses.error)
+				});
 				return;
 			}
 
-			console.log("Requested course data for course query: " + courseQuery + ", found " + course.length);
+			console.log("Requested course data for course query: " + courseQuery + ", found " + courses.length);
 
-			res.json(course);
+			res.json(courses);
 			return;
 		}
 	}
-	console.log("Invalid request body: " + req.body);
-	res.json({ error: true, message: "Incorrect Credentials" });
+
+	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body)});
 });
 
 module.exports = router;

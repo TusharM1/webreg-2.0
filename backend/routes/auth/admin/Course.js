@@ -14,7 +14,7 @@ router.post("/create", async (req, res) => {
 
 		if (schoolNumber && departmentNumber && courseNumber && courseName && numberOfCredits) {
 			const confirmation = await createCourse(schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits);
-			if (!confirmation && confirmation.error) {
+			if (!confirmation || confirmation.error) {
 				res.json({
 					status: "failure",
 					message: "Unsuccessfully created course, error: " + JSON.stringify(confirmation.error)
@@ -41,7 +41,7 @@ router.post("/edit", async (req, res) => {
 
 		if (schoolNumber && departmentNumber && courseNumber && courseName && numberOfCredits) {
 			const confirmation = await editCourse(schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits);
-			if (!confirmation && confirmation.error) {
+			if (!confirmation || confirmation.error) {
 				res.json({
 					status: "failure",
 					message: "Unsuccessfully edited course, error: " + JSON.stringify(confirmation.error)
@@ -66,7 +66,7 @@ router.post("/remove", async (req, res) => {
 
 		if (schoolNumber && departmentNumber && courseNumber) {
 			const confirmation = await removeCourse(schoolNumber, departmentNumber, courseNumber);
-			if (!confirmation && confirmation.error) {
+			if (!confirmation || confirmation.error) {
 				res.json({
 					status: "failure",
 					message: "Unsuccessfully removed course, error: " + JSON.stringify(confirmation.error)

@@ -1,5 +1,4 @@
-const { Course } = require("../models");
-const { Section } = require("../models");
+const { Course, Section, Enrollment } = require("../models");
 const { Op, Sequelize } = require("sequelize");
 
 const searchCoursesAndSections = async (courseQuery) => {
@@ -16,8 +15,8 @@ const searchCoursesAndSections = async (courseQuery) => {
 		raw: true
 	}));
 
-	const searchedSections = await Promise.all(searchedCourses.map(async (course) =>
-		await Section.findAll({
+	const searchedSections = await Promise.all(searchedCourses.map(async (course) => {
+		const sections = await Section.findAll({
 				where: {
 					courseString: course["courseString"]
 				},
@@ -26,19 +25,36 @@ const searchCoursesAndSections = async (courseQuery) => {
 				],
 				raw: true
 			}
-		)));
+		);
+
+		let registeredStudents = await Promise.all(sections.map(async (section) => {
+			const count = await Enrollment.findAndCountAll({
+				where: {
+					sectionIndex: section["sectionIndex"]
+				}
+			});
+			if (!count || count.error) {
+				return 0;
+			}
+			else {
+				return count["count"];
+			}
+		}));
+
+		return [sections, registeredStudents]
+	}));
 
 	let courses = [];
 	for (let i = 0; i < searchedCourses.length; i++) {
 		let sections = [];
-		for (let j = 0; j < searchedSections[i].length; j++) {
-			let currentSection = searchedSections[i][j];
+		for (let j = 0; j < searchedSections[i][0].length; j++) {
+			let currentSection = searchedSections[i][0][j];
 			let section = {
 				sectionIndex: currentSection.sectionIndex,
 				sectionNumber: currentSection.sectionNumber,
 				sectionType: currentSection.sectionType,
 				professor: currentSection.professor,
-				filled: 0,
+				filled: searchedSections[i][1][j],
 				capacity: currentSection.capacity,
 				comments: currentSection.comments
 			};
