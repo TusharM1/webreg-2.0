@@ -7,11 +7,10 @@ import "../styles/viewer.css";
 
 export function CourseEngine() {
 	const { data } = useContext(DataContext);
-
 	const [courses, setCourses] = useState([]);
 
 	function CourseViewer() {
-		if (courses === [])
+		if (courses.length === 0)
 			return <></>;
 
 		let count = 0;
@@ -56,14 +55,17 @@ export function CourseEngine() {
 			courseList.push(course);
 		}
 
+		console.log("Found " + courseList.length + " courses");
+
 		return (
-			<Accordion alwaysOpen style={{ height: "600px" }}>
+			<Accordion className={"overflow-scroll"} alwaysOpen style={{ height: "600px" }}>
 				{courseList}
 			</Accordion>
 		);
 	}
 
 	const searchCourses = async (courseQuery) => {
+		console.log("Searching query: " + courseQuery);
 		axios.post("http://localhost:3001/search", {
 			token: data.token,
 			courseQuery: courseQuery
@@ -92,7 +94,7 @@ export function CourseEngine() {
 					)}
 				</Formik>
 			</div>
-			<div className={"h-75 overflow-scroll"}>
+			<div className={"h-75"}>
 				<span>View Courses</span>
 				<div className={"d-flex justify-content-between w-100"}>
 					<span>Course String</span>

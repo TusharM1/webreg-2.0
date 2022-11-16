@@ -1,18 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Container } from "react-bootstrap";
-import { DataContext } from "../contexts/DataContext";
 import { ScheduleContext } from "../contexts/ScheduleContext";
 
 export function ScheduleInformation() {
-	const { data } = useContext(DataContext);
-	const [loaded, setLoaded] = useState(false);
-
-	const { schedule, initializeSchedule } = useContext(ScheduleContext);
-
-	if (!loaded) {
-		initializeSchedule(data.token);
-		setLoaded(true);
-	}
+	const { schedule } = useContext(ScheduleContext);
 
 	let courses = []
 	for (let i = 0; i < schedule.length; i++) {

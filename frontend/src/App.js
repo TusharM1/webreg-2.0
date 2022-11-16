@@ -17,7 +17,8 @@ function App() {
 
 	const token = data["token"];
 	const path = location.pathname;
-	console.log("Location: " + path + ", Data: " + token);
+	console.log("Location: " + path + ", " +
+		(token === "loading" ? "Loading user information" : "Loading user information complete"));
 
 	if (path === "/home") {
 		return <Navigate replace to="/"/>;
