@@ -1,11 +1,11 @@
 const express = require("express");
-const { getUserFromToken } = require("../../../controllers/User");
 const { findEnrollments } = require("../../../controllers/student/Schedule");
+const { findCourse, findSection } = require("../../../controllers/Search");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-	const { token } = req.body;
-	const { netID } = await getUserFromToken(token);
+	const netID = req.webreg_user.netID;
+
 	const enrollments = await findEnrollments(netID);
 
 	res.json(enrollments);

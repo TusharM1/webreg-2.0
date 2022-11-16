@@ -9,22 +9,32 @@ export function ScheduleInformation() {
 
 	const { schedule, initializeSchedule } = useContext(ScheduleContext);
 
-	// useEffect(() => {
-	//     const stuff = async () => {
-	//         await initializeSchedule(data.token);
-	//     }
-	//     stuff().then(() => {});
-	// });
-
 	if (!loaded) {
 		initializeSchedule(data.token);
 		setLoaded(true);
 	}
 
+	let courses = []
+	for (let i = 0; i < schedule.length; i++) {
+		courses.push(
+			<li className="list-group-item" key={i}>
+				{[schedule[i].courseString,
+					schedule[i].name,
+					schedule[i].number,
+					schedule[i].professor,
+					schedule[i].sectionType,
+					schedule[i].numberOfCredits,
+					schedule[i].grade].join(" | ")}
+			</li>
+		)
+	}
+
 	return (
 		<Container fluid>
 			<span>Schedule Information</span>
-			<span>{JSON.stringify(schedule)}</span>
+			<ul className="list-group">
+				{courses}
+			</ul>
 		</Container>
 	);
 }

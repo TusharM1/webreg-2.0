@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const tokenMiddleware = require("../../middleware/Token");
+router.use(tokenMiddleware);
+
 // --- COMMON API ---
 
 const searchRouter = require("./Search");

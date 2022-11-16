@@ -10,6 +10,7 @@ async function tokenMiddleware(req, res, next) {
 				}
 			}));
 			if (user) {
+				req.webreg_user = user;
 				next();
 				return;
 			}
