@@ -4,6 +4,7 @@ import axios from "axios";
 import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
+import { API_URL } from "../App";
 
 export function CourseEngine() {
 	const { data } = useContext(DataContext);
@@ -58,7 +59,7 @@ export function CourseEngine() {
 		console.log("Found " + courseList.length + " courses");
 
 		return (
-			<Accordion className={"overflow-scroll"} alwaysOpen style={{ height: "600px" }}>
+			<Accordion className={"overflow-scroll flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
 				{courseList}
 			</Accordion>
 		);
@@ -66,7 +67,7 @@ export function CourseEngine() {
 
 	const searchCourses = async (courseQuery) => {
 		console.log("Searching query: " + courseQuery);
-		axios.post("http://localhost:3001/search", {
+		axios.post(API_URL + "/search", {
 			token: data.token,
 			courseQuery: courseQuery
 		}).then((response) => {
@@ -94,7 +95,7 @@ export function CourseEngine() {
 					)}
 				</Formik>
 			</div>
-			<div className={"h-75"}>
+			<div className={"h-75 d-flex flex-column"}>
 				<span>View Courses</span>
 				<div className={"d-flex justify-content-between w-100"}>
 					<span>Course String</span>

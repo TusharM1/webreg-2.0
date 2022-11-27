@@ -5,12 +5,13 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { CourseEngine } from "../components/CourseEngine";
+import { API_URL } from "../App";
 
 export function AdminDashboard() {
 	const { data } = useContext(DataContext);
 
 	const createCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
-		axios.post("http://localhost:3001/admin/course/create", {
+		axios.post(API_URL + "/admin/course/create", {
 			token: data.token,
 			schoolNumber: schoolNumber,
 			departmentNumber: departmentNumber,
@@ -23,7 +24,7 @@ export function AdminDashboard() {
 	};
 
 	const removeCourse = async (schoolNumber, departmentNumber, courseNumber) => {
-		axios.post("http://localhost:3001/admin/course/remove", {
+		axios.post(API_URL + "/admin/course/remove", {
 			token: data.token,
 			schoolNumber: schoolNumber,
 			departmentNumber: departmentNumber,
@@ -34,7 +35,7 @@ export function AdminDashboard() {
 	};
 
 	const editCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
-		axios.post("http://localhost:3001/admin/course/edit", {
+		axios.post(API_URL + "/admin/course/edit", {
 			token: data.token,
 			schoolNumber: schoolNumber,
 			departmentNumber: departmentNumber,

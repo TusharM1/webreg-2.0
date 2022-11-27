@@ -6,13 +6,14 @@ import { Container } from "react-bootstrap";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import "../styles/login.css";
+import { API_URL } from "../App";
 
 const Login = () => {
 	const { saveData } = useContext(DataContext);
 
 	const navigate = useNavigate();
 	const loginUser = async (netID, password) => {
-		const data = await axios.post("http://localhost:3001/auth", {
+		const data = await axios.post(API_URL + "/auth", {
 			type: "login",
 			data: {
 				netID: netID,
@@ -23,11 +24,13 @@ const Login = () => {
 		if (saved) {
 			navigate("/dashboard");
 		}
-		console.log(data["message"]);
+		else {
+			console.log(data["message"]);
+		}
 	};
 
 	return (
-		<Container fluid>
+		<Container fluid className={"login"}>
 			<Formik initialValues={{ netID: "", password: "" }}
 					onSubmit={async (values, actions) => {
 						await loginUser(values["netID"], values["password"]);
@@ -38,7 +41,7 @@ const Login = () => {
 						password: Yup.string().required()
 					})}>
 				{(formik) => (
-					<div className={"login"}>
+					<div>
 						<Form className={"form"}>
 							<span>Login</span>
 							<label htmlFor="netID">NetID: </label>

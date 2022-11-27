@@ -32,13 +32,15 @@ const StudentDashboard = () => {
 									<Row style={{ height: "40%", background: "lightsalmon" }}><ScheduleInformation/></Row>
 								</Tab.Pane>
 								<Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
-									<Row style={{ height: "100%", background: "lightblue" }}><CourseEngine/></Row>
+									<Row style={{ height: "100%", background: "plum" }}><CourseEngine/></Row>
 								</Tab.Pane>
 							</Tab.Content>
 						</Tab.Container>
 					</Col>
 					<Col className={"h-100 d-flex flex-column"}>
-						<Row style={{ height: "100%", background: "lightgreen" }}><ViewSchedule/></Row>
+						<Row style={{ height: "100%"}}>
+							<ViewSchedule/>
+						</Row>
 					</Col>
 				</Row>
 			</Container>

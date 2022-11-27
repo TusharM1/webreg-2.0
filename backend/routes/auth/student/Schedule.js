@@ -1,6 +1,5 @@
 const express = require("express");
 const { findEnrollments } = require("../../../controllers/student/Schedule");
-const { findCourse, findSection } = require("../../../controllers/Search");
 const router = express.Router();
 
 router.post("/", async (req, res) => {

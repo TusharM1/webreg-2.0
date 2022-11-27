@@ -1,4 +1,4 @@
-const { Course, Section, Enrollment } = require("../models");
+const { Course, Section, Enrollment, SectionBlock } = require("../models");
 const { Op, Sequelize } = require("sequelize");
 
 const findCourse = async (courseString) => {
@@ -12,6 +12,15 @@ const findCourse = async (courseString) => {
 
 const findSection = async (sectionIndex) => {
 	return await Section.findOne({
+		where: {
+			sectionIndex: sectionIndex
+		},
+		raw: true
+	});
+}
+
+const findSectionBlocks = async (sectionIndex) => {
+	return await SectionBlock.findAll({
 		where: {
 			sectionIndex: sectionIndex
 		},
@@ -74,7 +83,8 @@ const searchCoursesAndSections = async (courseQuery) => {
 				professor: currentSection.professor,
 				filled: searchedSections[i][1][j],
 				capacity: currentSection.capacity,
-				comments: currentSection.comments
+				comments: currentSection.comments,
+
 			};
 			sections.push(section);
 		}
@@ -96,4 +106,4 @@ const searchCoursesAndSections = async (courseQuery) => {
 	return courses;
 };
 
-module.exports = { findCourse, findSection, searchCoursesAndSections };
+module.exports = { findCourse, findSection, findSectionBlocks, searchCoursesAndSections };

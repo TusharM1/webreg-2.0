@@ -11,6 +11,8 @@ import { DataContext } from "./contexts/DataContext";
 import { useData } from "./hooks/useData";
 import { AdminDashboard } from "./pages/AdminDashboard";
 
+export const API_URL = window.location.protocol + '//' + window.location.hostname + ":" + process.env.REACT_APP_API_PORT;
+
 function App() {
 	const [data, saveData, clearData] = useData();
 	const location = useLocation();
@@ -37,7 +39,7 @@ function App() {
 	return (
 		<DataContext.Provider value={{ data, saveData, clearData }}>
 			<Container fluid className={"h-100"}>
-				<Row className={"h-100 flex-column"}>
+				<Row className={"h-100 flex-column"} style={{flexFlow: "column"}}>
 					<Header path={path}/>
 					<main className={"flex-grow-1 bg-light-white"}>
 						<Routes>

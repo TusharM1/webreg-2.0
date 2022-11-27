@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { API_URL } from "../App";
 
 export const defaultData = {
 	token: "",
@@ -53,7 +54,7 @@ export function useData() {
 	};
 
 	const validate = async () => {
-		return (await axios.post("http://localhost:3001/auth", {
+		return (await axios.post(API_URL + "/auth", {
 			type: "token",
 			data: {
 				token: tokenValue

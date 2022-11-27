@@ -1,19 +1,30 @@
-table {
-	height: 100%;
+.schedule {
 	width: 100%;
-	table-layout: fixed;
+	height: 100%;
+	background: lightblue;
+	display: grid;
 }
 
-.tableHeader {
-	width: 80px;
-	position: relative;
-	text-align: end;
-	vertical-align: top;
-	top: -10px;
+.horizontal-line {
+	border-top: 1px solid darkgrey;
+	grid-column: 1 / -1;
+	width: 100%;
 }
 
-td {
-	border: 1px solid black;
-	border-collapse: collapse;
+.vertical-line {
+	border-left: 0.5px solid darkgrey;
+	border-right: 0.5px solid darkgrey;
+	grid-row: 1 / -1;
+	height: 100%;
 }
 
+.entry {
+	width: 100%;
+	box-sizing: border-box;
+	border: 0.5px solid black;
+}
+
+.information {
+	font-size: 12px;
+	margin: 0;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useMount } from "./useMount";
+import { API_URL } from "../App";
 
 export const defaultSchedule = {
 	status: "loading",
@@ -24,7 +25,7 @@ export function useSchedule(token) {
 
 	const initializeSchedule = () => {
 		const getInfo = async () => {
-			return await axios.post("http://localhost:3001/student/schedule", {
+			return await axios.post(API_URL + "/student/schedule", {
 				token: token
 			});
 		};
