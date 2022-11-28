@@ -3,7 +3,7 @@ import { DataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
-import { Container, Navbar, Form } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 
 const Header = ({ path }) => {
 	const { data, clearData } = useContext(DataContext);
@@ -18,12 +18,7 @@ const Header = ({ path }) => {
 						<>
 							{path === "/dashboard" ?
 								<>
-									<Navbar.Text>Semester: </Navbar.Text>
-									<Form.Select style={{ width: "auto" }} className="ms-2"
-												 aria-label="Select Semester">
-										<option value="Semester 1">Semester 1</option>
-										<option value="Semester 2">Semester 2</option>
-									</Form.Select>
+									<Navbar.Text>Semester: Spring 2023</Navbar.Text>
 								</> : <></>
 							}
 							<Navbar.Collapse className="justify-content-end">

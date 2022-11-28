@@ -1,14 +1,34 @@
 import React, { useContext, useState } from "react";
-import { Accordion, Container } from "react-bootstrap";
+import { Accordion, Card, Container, Button, useAccordionButton } from "react-bootstrap";
 import axios from "axios";
 import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
+import { ScheduleContext } from "../contexts/ScheduleContext";
 
 export function CourseEngine() {
 	const { data } = useContext(DataContext);
+	const { schedule } = useContext(ScheduleContext);
 	const [courses, setCourses] = useState([]);
+
+	function CardContainer({ children, eventKey }) {
+		return (
+			<div onClick={useAccordionButton(eventKey, () => {})}>
+				{children}
+			</div>
+		);
+	}
+
+	const addHandler = (e) => {
+		e.stopPropagation();
+		console.log("Add Handler")
+	}
+
+	const dropHandler = (e) => {
+		e.stopPropagation();
+		console.log("Drop Handler")
+	}
 
 	function CourseViewer() {
 		if (courses.length === 0)
@@ -22,18 +42,49 @@ export function CourseEngine() {
 
 			const sections = courses[i].sections;
 			let sectionList = [];
+			let openSections = 0;
 			for (let j = 0; j < sections.length; j++) {
+				let button;
+				if (schedule.some((course) => {
+					return course.courseString === courses[i].courseString &&
+						course.sectionNumber === sections[j].sectionNumber;
+				})) {
+					button = <Button className={"add-drop-button"} onClick={dropHandler}>Drop</Button>
+				}
+				else {
+					button = <Button className={"add-drop-button"} onClick={addHandler}>Add</Button>
+				}
+
+				if (sections[j].filled < sections[j].capacity)
+					openSections++;
+
 				const section = (
-					<Accordion.Item key={count.toString()} eventKey={count.toString()}>
-						<Accordion.Header>{sections[j].sectionNumber}</Accordion.Header>
-						<Accordion.Body>
-							<p>{sections[j].sectionType}</p>
-							<p>Taught by {sections[j].professor}</p>
-							<p>{courses[i].numberOfCredits} credits</p>
-							<p>{sections[j].filled} / {sections[j].capacity} spots filled</p>
-						</Accordion.Body>
-					</Accordion.Item>
+					<Card key={count.toString()}>
+						<Card.Header style={{padding: 0}}>
+							<CardContainer eventKey={count.toString()}>
+								<span>{[
+									sections[j].sectionNumber,
+									sections[j].sectionType,
+									"Taught by " + sections[j].professor,
+									courses[i].numberOfCredits + " credits"
+								].join(" | ")}
+								</span>
+								<div className={"d-inline-block float-end"}>
+									<span>
+										{sections[j].filled + " / " + sections[j].capacity + " spots filled"}
+									</span>
+									{button}
+								</div>
+							</CardContainer>
+						</Card.Header>
+						<Accordion.Collapse eventKey={count.toString()}>
+							<Card.Body>
+								{sections[j].comments}
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
 				);
+
 				count++;
 				sectionList.push(section);
 			}
@@ -42,8 +93,14 @@ export function CourseEngine() {
 				<Accordion.Item key={count.toString()} eventKey={courseEventKey.toString()}>
 					<Accordion.Header>
 						<div className={"d-flex justify-content-between w-100"}>
-							<span>{courses[i].courseString}</span>
-							<span>{courses[i].name}</span>
+							<span>
+								{courses[i].courseString}
+								{" | "}
+								{courses[i].name}
+							</span>
+							<span className={"float-right"}>
+								{openSections + " / " + sections.length + " open sections"}
+							</span>
 						</div>
 					</Accordion.Header>
 					<Accordion.Body>
@@ -90,7 +147,7 @@ export function CourseEngine() {
 							<Field type="text"
 								   name="courseQuery"
 								   onChange={formik.handleChange}/>
-							<button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</button>
+							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}
 				</Formik>
