@@ -41,7 +41,7 @@ export function ScheduleInformation() {
 	return (
 		<Container fluid className={"h-100 d-flex flex-column"}>
 			<span>Schedule Information</span>
-			<ul className="list-group overflow-scroll">
+			<ul className="list-group overflow-auto">
 				{courses}
 			</ul>
 		</Container>

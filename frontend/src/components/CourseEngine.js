@@ -116,7 +116,7 @@ export function CourseEngine() {
 		console.log("Found " + courseList.length + " courses");
 
 		return (
-			<Accordion className={"overflow-scroll flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
+			<Accordion className={"overflow-auto flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
 				{courseList}
 			</Accordion>
 		);

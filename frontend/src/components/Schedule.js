@@ -83,7 +83,7 @@ export function Schedule({schedule, config}) {
 									(sectionBlock.endMinute / (60 / config.subdivisions)) + 1),
 						background: locationMap[sectionBlock.location],
 						position: "relative",
-						overflow: "scroll"
+						overflow: "auto"
 					}}>
 						<div style={{position: "absolute"}}>
 							<p className={"information"}>{course.name}</p>
