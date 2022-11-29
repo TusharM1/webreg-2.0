@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "59aa6549-0dba-4e73-92d1-5d20d3b044dd",
+		"name": "Webreg",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8084311"
+	},
+	"item": [
+		{
+			"name": "Auth Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Person is Jane\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.netID).to.eql(\"tm757\");\r",
+							"    pm.expect(response.fullName).to.eql(\"Tushar Mahajan\");\r",
+							"    pm.expect(response.role).to.eql(\"student\");  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"login\",\r\n    \"data\": {\r\n        \"netID\": \"tm757\",\r\n        \"password\": \"password\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token login Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.netID).to.eql(\"bb123\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"token\",\r\n    \"data\": {\r\n        \"token\": \"3dfb0a98-6395-11ed-88f5-9828a62f034d\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Search_bar Check\", () => {\r",
+							"    var responseArray = pm.response.json();\r",
+							"    pm.expect(responseArray.length).to.be.not.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"3df9cc2b-6395-11ed-88f5-9828a62f034d\",\r\n    \"courseQuery\": \"Data\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Schedule Check\", () => {\r",
+							"    const responseArray = pm.response.json();\r",
+							"    pm.expect(responseArray.length).to.be.not.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"3df9cc2b-6395-11ed-88f5-9828a62f034d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/student/schedule",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"student",
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student drop to schedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Drop to Schedule Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"3df9cc2b-6395-11ed-88f5-9828a62f034d\",\r\n    \"sectionIndex\" : \"05938\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/student/schedule/drop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"student",
+						"schedule",
+						"drop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student add to schedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Add to Schedule Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\": \"3df9cc2b-6395-11ed-88f5-9828a62f034d\",\r\n    \"sectionIndex\" : \"05938\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/student/schedule/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"student",
+						"schedule",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Create Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Course Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"3dfb0a98-6395-11ed-88f5-9828a62f034d\",\r\n    \"schoolNumber\": \"01\",\r\n    \"departmentNumber\": \"198\",\r\n    \"courseNumber\":\"668\",\r\n    \"courseName\":\"Hell Decoding\",\r\n    \"numberOfCredits\":\"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/admin/course/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"course",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Edit Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Course Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"3dfb0a98-6395-11ed-88f5-9828a62f034d\",\r\n    \"schoolNumber\": \"01\",\r\n    \"departmentNumber\": \"198\",\r\n    \"courseNumber\":\"666\",\r\n    \"courseName\":\"Hell Security with Haskel\",\r\n    \"numberOfCredits\":\"3\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/admin/course/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"course",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Remove Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Course Check\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"3dfb0a98-6395-11ed-88f5-9828a62f034d\",\r\n    \"schoolNumber\": \"01\",\r\n    \"departmentNumber\": \"198\",\r\n    \"courseNumber\":\"666\",\r\n    \"courseName\":\"Hell Security\",\r\n    \"numberOfCredits\":\"3\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/admin/course/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"admin",
+						"course",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
