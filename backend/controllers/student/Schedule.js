@@ -72,6 +72,7 @@ const findEnrollments = async (netID) => {
 			courseString: enrollment["courseString"],
 			name: course["name"],
 			sectionNumber: section["sectionNumber"],
+			sectionIndex: section["sectionIndex"],
 			professor: section["professor"],
 			sectionType: section["sectionType"],
 			numberOfCredits: course["numberOfCredits"],

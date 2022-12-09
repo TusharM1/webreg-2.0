@@ -8,12 +8,6 @@ export const defaultData = {
 		netID: "",
 		fullName: "",
 		role: ""
-	},
-	semesters: {
-		selectedSemester: "",
-		register: [],
-		plan: [],
-		drop: []
 	}
 };
 

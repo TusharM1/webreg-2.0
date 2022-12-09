@@ -10,10 +10,10 @@ import { useSchedule } from "../hooks/useSchedule";
 
 const StudentDashboard = () => {
 	const { data } = useContext(DataContext);
-	const [ schedule, initializeSchedule ] = useSchedule(data.token);
+	const [ schedule, downloadSchedule, addHandler, dropHandler ] = useSchedule(data.token);
 
 	return (
-		<ScheduleContext.Provider value={{ schedule, initializeSchedule }}>
+		<ScheduleContext.Provider value={{ schedule, downloadSchedule, addHandler, dropHandler }}>
 			<Container fluid className={"h-100"}>
 				<Row className={"h-100"}>
 					<Col className={"h-100 d-flex flex-column"}>

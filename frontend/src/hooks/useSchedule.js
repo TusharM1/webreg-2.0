@@ -25,5 +25,38 @@ export function useSchedule(token) {
 
 	useMount(downloadSchedule);
 
-	return [schedule, downloadSchedule];
+	const addHandler = (e) => {
+		console.log("add")
+		e.stopPropagation();
+		axios.post(API_URL + "/student/schedule/add", {
+			token: token,
+			sectionIndex: e.target.value,
+		}).then((response) => {
+			if (response.data.status === "success") {
+				downloadSchedule();
+			}
+			else {
+				alert(JSON.stringify(response.data.message));
+			}
+		})
+	}
+
+	const dropHandler = (e) => {
+		console.log(e)
+		console.log(token)
+		e.stopPropagation();
+		axios.post(API_URL + "/student/schedule/drop", {
+			token: token,
+			sectionIndex: e.target.value,
+		}).then((response) => {
+			if (response.data.status === "success") {
+				downloadSchedule();
+			}
+			else {
+				alert(JSON.stringify(response.data.message));
+			}
+		})
+	}
+
+	return [schedule, downloadSchedule, addHandler, dropHandler];
 }

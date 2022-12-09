@@ -9,7 +9,7 @@ import { ScheduleContext } from "../contexts/ScheduleContext";
 
 export function CourseEngine() {
 	const { data } = useContext(DataContext);
-	const { schedule, initializeSchedule } = useContext(ScheduleContext);
+	const { schedule, addHandler, dropHandler } = useContext(ScheduleContext);
 	const [courses, setCourses] = useState([]);
 
 	function CardContainer({ children, eventKey }) {
@@ -18,37 +18,6 @@ export function CourseEngine() {
 				{children}
 			</div>
 		);
-	}
-
-	const addHandler = (e) => {
-		e.stopPropagation();
-		axios.post(API_URL + "/student/schedule/add", {
-			token: data.token,
-			sectionIndex: e.target.value,
-		}).then((response) => {
-			if (response.data.status === "success") {
-				initializeSchedule();
-			}
-			else {
-				alert(JSON.stringify(response.data.message));
-			}
-		})
-	}
-
-	const dropHandler = (e) => {
-		e.stopPropagation();
-		axios.post(API_URL + "/student/schedule/drop", {
-			token: data.token,
-			sectionIndex: e.target.value,
-		}).then((response) => {
-			if (response.data.status === "success") {
-				initializeSchedule();
-			}
-			else {
-				alert(JSON.stringify(response.data.message));
-			}
-		})
-		console.log(e.target.value);
 	}
 
 	function CourseViewer() {
