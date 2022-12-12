@@ -7,9 +7,12 @@ import * as Yup from "yup";
 import { CourseEngine } from "../components/CourseEngine";
 import { API_URL } from "../App";
 
+//Handles all the functionality for the admin user
 export function AdminDashboard() {
+	//Contains the User information
 	const { data } = useContext(DataContext);
 
+	//This function handles the creation of a new class to add to the database. Connects to the backend through a router.
 	const createCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
 		axios.post(API_URL + "/admin/course/create", {
 			token: data.token,
@@ -23,6 +26,7 @@ export function AdminDashboard() {
 		});
 	};
 
+	//This function handles the removal of a class from the database. Connects to the backend through a router.
 	const removeCourse = async (schoolNumber, departmentNumber, courseNumber) => {
 		axios.post(API_URL + "/admin/course/remove", {
 			token: data.token,
@@ -34,6 +38,7 @@ export function AdminDashboard() {
 		});
 	};
 
+	//This function handles the change of class information on the database. Connects to the backend through a router.
 	const editCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
 		axios.post(API_URL + "/admin/course/edit", {
 			token: data.token,
@@ -51,6 +56,7 @@ export function AdminDashboard() {
 		<Container fluid className={"h-100"}>
 			<Row className={"h-100"}>
 				<Col className={"h-100 d-flex flex-column"}>
+					//The different tabs handle the differnt user stories: Create course, edit course, and remove course
 					<Tab.Container transition={false} defaultActiveKey={"createCourse"}>
 						<Nav variant="tabs">
 							<Nav.Item>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { API_URL } from "../App";
 
+//Format for basic user information
 export const defaultData = {
 	token: "",
 	profile: {
@@ -18,7 +19,7 @@ export const cloneJSONAndOverride = (json, newData) => {
 	}
 	return copy;
 };
-
+//Gets the user data, saves the user data, authenticates the user data
 export function useData() {
 	const tokenValue = localStorage.getItem("token");
 	const [loading, setLoading] = useState(!!tokenValue);
@@ -26,11 +27,13 @@ export function useData() {
 	let loadingData = loading ? cloneJSONAndOverride(defaultData, { token: "loading" }) : defaultData;
 	const [data, setData] = useState(loadingData);
 
+	//This function clears the user data from local storage
 	const clearData = () => {
 		setData(defaultData);
 		localStorage.removeItem("token");
 	};
 
+	//This function saves the user data to the local storage
 	const saveData = (newData) => {
 		if (newData && !newData["error"]) {
 			const profile = {
@@ -47,6 +50,7 @@ export function useData() {
 		}
 	};
 
+	//This function autheticates user token by checking it against the database. Connect to backend through a router
 	const validate = async () => {
 		return (await axios.post(API_URL + "/auth", {
 			type: "token",

@@ -6,7 +6,9 @@ import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
 
+//This function handles the search courses, create courses, drop courses user stories
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
+	//Gets user basic data
 	const { data } = useContext(DataContext);
 	const [ courses, setCourses ] = useState([]);
 
@@ -116,6 +118,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 		);
 	}
 
+	//This function connects to the database to search for courses. Connects to the backend through a router
 	const searchCourses = async (courseQuery) => {
 		console.log("Searching query: " + courseQuery);
 		axios.post(API_URL + "/search", {

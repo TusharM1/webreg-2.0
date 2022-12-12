@@ -8,9 +8,13 @@ import { DataContext } from "../contexts/DataContext";
 import { ScheduleContext } from "../contexts/ScheduleContext";
 import { useSchedule } from "../hooks/useSchedule";
 
+//This function handles the page for a Student user
 const StudentDashboard = () => {
+	//This data keeps track of the token
 	const { data } = useContext(DataContext);
+	//This keeps track of the student's schedule information.
 	const [ schedule, downloadSchedule, addHandler, dropHandler ] = useSchedule(data.token);
+
 
 	return (
 		<ScheduleContext.Provider value={{ schedule, downloadSchedule, addHandler, dropHandler }}>
@@ -28,11 +32,14 @@ const StudentDashboard = () => {
 							</Nav>
 							<Tab.Content className={"flex-grow-1"}>
 								<Tab.Pane className={"h-100"} eventKey="degreeNavigator" title="DegreeNavigator">
+									// the element that shows degree navigation
 									<Row style={{ height: "60%", background: "lightpink" }}><DegreeNavigator/></Row>
+									//the tab element that shows the schedule information
 									<Row style={{ height: "40%", background: "lightsalmon" }}><ScheduleInformation/></Row>
 								</Tab.Pane>
 								<Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
 									<Row style={{ height: "100%", background: "plum" }}>
+										//This handles the course search as well as the links to the add/drop functionality
 										<CourseEngine schedule={schedule} addHandler={addHandler} dropHandler={dropHandler}/>
 									</Row>
 								</Tab.Pane>

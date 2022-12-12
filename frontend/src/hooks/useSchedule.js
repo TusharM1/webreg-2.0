@@ -6,7 +6,7 @@ import { API_URL } from "../App";
 export const defaultSchedule = {
 	status: "loading"
 };
-
+//Creates the functionality for using and manipulating the user's schedule more easily in the rest of the frontend.
 export function useSchedule(token) {
 	const [schedule, setSchedule] = useState(defaultSchedule);
 

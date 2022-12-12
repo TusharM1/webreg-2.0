@@ -4,10 +4,14 @@ import { DataContext } from "../contexts/DataContext";
 import { ScheduleContext } from "../contexts/ScheduleContext";
 import { useDegreeInformation } from "../hooks/useDegreeInformation";
 
+//This function handles the degree navigator functionality
 export function DegreeNavigator() {
+	//Gets the User basic data
 	const { data } = useContext(DataContext);
+	//Gets the User's schedule data
 	const { schedule } = useContext(ScheduleContext);
 
+	//The four following functions get the user's degree navigator information
 	const [ degreeInformation ] = useDegreeInformation(data.token);
 	const studyPrograms = degreeInformation["studyPrograms"]
 	const schoolEnrollment = degreeInformation["schoolEnrollment"]
@@ -28,6 +32,7 @@ export function DegreeNavigator() {
 
 	console.log(degreeInformation)
 
+	//Displays the user degree navigator information
 	return (
 		<Container fluid className={"d-flex flex-column"}>
 			<strong>Degree Navigator</strong>

@@ -22,7 +22,7 @@ function App() {
 	const path = location.pathname;
 	console.log("Location: " + path + ", " +
 		(token === "loading" ? "Loading user information" : "Loading user information complete"));
-
+	
 	if (path === "/home") {
 		return <Navigate replace to="/"/>;
 	}
@@ -31,6 +31,7 @@ function App() {
 		return <div></div>;
 	}
 
+	//Handles the path if token isn't provided
 	if (path === "/login" && token) {
 		return <Navigate replace to="/dashboard"/>;
 	} else if (path === "/dashboard" && !token) {
