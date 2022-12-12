@@ -12,6 +12,8 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
 	const [ courses, setCourses ] = useState([]);
 	const [ schools, departments, downloadDept ] = useSearch(data.token);
+	// const [ selectedDepartment, setSelectedDepartment ] = useState();
+	let selectedDepartment = null;
 
 	function CardContainer({ children, eventKey }) {
 		return (
@@ -139,6 +141,8 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	});
 	const changeSchoolSelection = (selectedOption) => {
 		downloadDept(selectedOption.value);
+		// setSelectedDepartment(null);
+		selectedDepartment=null;
 	}
 	return (
 		<Container fluid>
@@ -158,7 +162,12 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 							<label>School Name:</label>
 							<Select options={schoolList}
 								onChange={changeSchoolSelection}/>
-							<Select options={departmentsList}/>
+							<Select options={departmentsList}
+								defaultValue={selectedDepartment}
+								onChange={(selectedOption)=>{
+									selectedDepartment=selectedOption.value
+									// setSelectedDepartment(selectedOption.value)
+								}}/>
 							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}
