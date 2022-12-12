@@ -1,4 +1,5 @@
-import request from "request";
+// import request from "request";
+const request = require('request');
 
 let counter = 0;
 let arr = [];
@@ -6,7 +7,8 @@ for (let major = 0; major < 1000; major++) {
 	let zeroMajor = "";
 	if (major < 100) {
 		zeroMajor = "0" + major;
-	} else {
+	}
+	else {
 		zeroMajor = major;
 	}
 
@@ -32,7 +34,8 @@ for (let major = 0; major < 1000; major++) {
 
 			if (body.length === 0) {
 				// console.log("zero"); aka DO NOTHING
-			} else {
+			}
+			else {
 				console.log(arr.includes(zeroMajor) + "" + counter);
 				arr[counter] = zeroMajor;
 				counter += 1;
@@ -48,25 +51,31 @@ for (let major = 0; major < 1000; major++) {
 					let contentDescription;
 					if (body[i]["courseDescription"] != null) {
 						contentDescription = `'${body[i]["courseDescription"]}'`;
-					} else {
+					}
+					else {
 						contentDescription = `'null'`; //make this null later
 					}
 					let contentNumberOfCredits;
 					if (body[i]["credits"] != null) {
 						contentNumberOfCredits = `${body[i]["credits"]}`;
-					} else {
+					}
+					else {
 						contentNumberOfCredits = 0;
 					}
 
 					let contentPrerequisites;
 					if (body[i]["preReqNotes"] != null) {
 						contentPrerequisites = `'${body[i]["preReqNotes"]}'`;
-					} else {
+					}
+					else {
 						contentPrerequisites = `'null'`; //make this null later
 					}
 
 					let contentIsActive = true;
-					content = `INSERT INTO course VALUES(${contentCourseString},${contentSchoolNumber},${contentDepartmentNumber},${contentCourseNumber},${contentName},${contentDescription},${contentNumberOfCredits},${contentPrerequisites},${contentIsActive});\n`;
+					content = `INSERT INTO course
+                               VALUES (${contentCourseString}, ${contentSchoolNumber}, ${contentDepartmentNumber},
+                                       ${contentCourseNumber}, ${contentName}, ${contentDescription},
+                                       ${contentNumberOfCredits}, ${contentPrerequisites}, ${contentIsActive});  `;
 					fs.appendFile("./csCourses_INACCURATE_OLD_DO_NOT_USE.txt", content, err => {
 						if (err) {
 							console.error(err);
@@ -98,8 +107,7 @@ for (let major = 0; major < 1000; major++) {
 						const In_Person = 0;
 						let sectionMeetingTypeCounter = 0;
 
-						for (k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++) { //section meeting times aka section BLOCK
-
+						for (let k = 0; k < body[i]["sections"][j]["meetingTimes"].length; k++) { //section meeting times aka section BLOCK
 
 							let sectionIndex = `'${body[i]["sections"][j]["index"]}'`; //String
 							let blockDay = `'${body[i]["sections"][j]["meetingTimes"][k]["meetingDay"]}'`; //String
@@ -108,7 +116,8 @@ for (let major = 0; major < 1000; major++) {
 							if (body[i]["sections"][j]["meetingTimes"][k]["startTime"] == null) {
 								blockStart = `${body[i]["sections"][j]["meetingTimes"][k]["startTime"]}`; //Time
 								blockEnd = `${body[i]["sections"][j]["meetingTimes"][k]["endTime"]}`; //Time
-							} else {
+							}
+							else {
 								let isAm = (body[i]["sections"][j]["meetingTimes"][k]["pmCode"] === "p");
 								if (!isAm) { //is a pm course
 									let hourStart = Number(body[i]["sections"][j]["meetingTimes"][k]["startTime"].substring(0, 2)) + 12;
@@ -123,7 +132,8 @@ for (let major = 0; major < 1000; major++) {
 									let minuteEnd = body[i]["sections"][j]["meetingTimes"][k]["endTime"].substring(2, 4);
 									blockStart = `'${hourStart}:${minuteStart}'`;
 									blockEnd = `'${hourEnd}:${minuteEnd}'`;
-								} else if (isAm) {
+								}
+								else if (isAm) {
 									let hourStart = Number(body[i]["sections"][j]["meetingTimes"][k]["startTime"].substring(0, 2));
 									let minuteStart = body[i]["sections"][j]["meetingTimes"][k]["startTime"].substring(2, 4);
 									let hourEnd = Number(body[i]["sections"][j]["meetingTimes"][k]["endTime"].substring(0, 2));
@@ -140,10 +150,13 @@ for (let major = 0; major < 1000; major++) {
 							if (location === `'O'` || location === `'null'`) {
 								meetingType = `'Online'`; //String
 								sectionMeetingTypeCounter++;
-							} else {
+							}
+							else {
 								meetingType = `'In-Person'`; //String
 							}
-							let SectionBlockPrint = `INSERT INTO sectionBlock VALUES ( uuid(), ${sectionIndex}, ${blockDay}, ${blockStart}, ${blockEnd}, ${location}, ${meetingType});\n`;
+							let SectionBlockPrint = `INSERT INTO sectionBlock
+                                                     VALUES (uuid(), ${sectionIndex}, ${blockDay}, ${blockStart},
+                                                             ${blockEnd}, ${location}, ${meetingType});  `;
 							fs.appendFile("./csSectionsBlocks.txt", SectionBlockPrint, err => {
 								if (err) {
 									console.error(err);
@@ -154,13 +167,17 @@ for (let major = 0; major < 1000; major++) {
 
 						if (sectionMeetingTypeCounter >= Asynchronous) {
 							sectionType = `'Asynchronous'`;
-						} else if (sectionMeetingTypeCounter <= 0) {
+						}
+						else if (sectionMeetingTypeCounter <= 0) {
 							sectionType = `'In-Person'`;
-						} else {
+						}
+						else {
 							sectionType = `'Hybrid'`;
 						}
 
-						sectionPrint = `INSERT INTO section VALUES ( ${sectionIndex}, ${courseString}, ${sectionNumber}, ${sectionType}, ${professor}, ${capacity}, ${comments});\n`;
+						sectionPrint = `INSERT INTO section
+                                        VALUES (${sectionIndex}, ${courseString}, ${sectionNumber}, ${sectionType},
+                                                ${professor}, ${capacity}, ${comments});  `;
 						fs.appendFile("./csSections.txt", sectionPrint, err => {
 							if (err) {
 								console.error(err);
