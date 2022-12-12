@@ -11,7 +11,7 @@ import { DataContext } from "./contexts/DataContext";
 import { useData } from "./hooks/useData";
 import { AdminDashboard } from "./pages/AdminDashboard";
 
-export const API_URL = window.location.protocol + '//' + window.location.hostname + ":" + process.env.REACT_APP_API_PORT;
+export const API_URL = window.location.protocol + "//" + window.location.hostname + ":" + process.env.REACT_APP_API_PORT;
 
 function App() {
 	const [data, saveData, clearData] = useData();
@@ -32,21 +32,22 @@ function App() {
 
 	if (path === "/login" && token) {
 		return <Navigate replace to="/dashboard"/>;
-	} else if (path === "/dashboard" && !token) {
+	}
+	else if (path === "/dashboard" && !token) {
 		return <Navigate replace to="/login"/>;
 	}
 
 	return (
 		<DataContext.Provider value={{ data, saveData, clearData }}>
 			<Container fluid className={"h-100"}>
-				<Row className={"h-100 flex-column"} style={{flexFlow: "column"}}>
+				<Row className={"h-100 flex-column"} style={{ flexFlow: "column" }}>
 					<Header path={path}/>
 					<main className={"flex-grow-1 bg-light-white overflow-scroll"}>
 						<Routes>
 							<Route path="/" element={<Home/>}/>
 							<Route path="/login" element={<Login/>}/>
 							{data.profile.role === "admin" ?
-								<Route path="/dashboard" element={<AdminDashboard/>}/>:
+								<Route path="/dashboard" element={<AdminDashboard/>}/> :
 								<Route path="/dashboard" element={<StudentDashboard/>}/>}
 						</Routes>
 					</main>

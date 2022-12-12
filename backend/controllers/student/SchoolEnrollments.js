@@ -3,7 +3,7 @@ const { School, SchoolEnrollment } = require("../../models");
 const findSchoolEnrollment = async (netID) => {
 	const schoolEnrollment = await SchoolEnrollment.findOne({
 		where: {
-			netID : netID
+			netID: netID
 		},
 		raw: true
 	});
@@ -18,8 +18,8 @@ const findSchoolEnrollment = async (netID) => {
 
 		return {
 			schoolEnrollment: schoolName
-		}
+		};
 	}
-}
+};
 
 module.exports = { findSchoolEnrollment };

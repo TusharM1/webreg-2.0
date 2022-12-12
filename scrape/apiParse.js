@@ -1,5 +1,5 @@
 // import request from "request";
-const request = require('request');
+const request = require("request");
 
 let counter = 0;
 let arr = [];

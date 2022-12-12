@@ -7,8 +7,8 @@ import Button from "react-bootstrap/Button";
 export function ScheduleInformation() {
 	const { schedule, dropHandler } = useContext(ScheduleContext);
 
-	let scheduleCourses = schedule.courses
-	let courses = []
+	let scheduleCourses = schedule.courses;
+	let courses = [];
 
 	if (schedule.courses) {
 		for (let i = 0; i < scheduleCourses.length; i++) {
@@ -43,7 +43,7 @@ export function ScheduleInformation() {
 					<Button style={{ margin: "auto 0", height: "fit-content" }} value={scheduleCourses[i].sectionIndex}
 							onClick={dropHandler}>Drop</Button>
 				</li>
-			)
+			);
 		}
 	}
 

@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
 	const netID = req.webreg_user.netID;
-	const result = await findSchoolEnrollment(netID)
+	const result = await findSchoolEnrollment(netID);
 	res.json(result);
 });
 

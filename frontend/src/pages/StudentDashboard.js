@@ -10,7 +10,7 @@ import { useSchedule } from "../hooks/useSchedule";
 
 const StudentDashboard = () => {
 	const { data } = useContext(DataContext);
-	const [ schedule, downloadSchedule, addHandler, dropHandler ] = useSchedule(data.token);
+	const [schedule, downloadSchedule, addHandler, dropHandler] = useSchedule(data.token);
 
 	return (
 		<ScheduleContext.Provider value={{ schedule, downloadSchedule, addHandler, dropHandler }}>
@@ -29,18 +29,22 @@ const StudentDashboard = () => {
 							<Tab.Content className={"flex-grow-1"}>
 								<Tab.Pane className={"h-100"} eventKey="degreeNavigator" title="DegreeNavigator">
 									<Row style={{ height: "60%", background: "lightpink" }}><DegreeNavigator/></Row>
-									<Row style={{ height: "40%", background: "lightsalmon" }}><ScheduleInformation/></Row>
+									<Row style={{
+										height: "40%",
+										background: "lightsalmon"
+									}}><ScheduleInformation/></Row>
 								</Tab.Pane>
 								<Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
 									<Row style={{ height: "100%", background: "plum" }}>
-										<CourseEngine schedule={schedule} addHandler={addHandler} dropHandler={dropHandler}/>
+										<CourseEngine schedule={schedule} addHandler={addHandler}
+													  dropHandler={dropHandler}/>
 									</Row>
 								</Tab.Pane>
 							</Tab.Content>
 						</Tab.Container>
 					</Col>
 					<Col className={"h-100 d-flex flex-column"}>
-						<Row style={{ height: "100%"}}>
+						<Row style={{ height: "100%" }}>
 							<ViewSchedule/>
 						</Row>
 					</Col>

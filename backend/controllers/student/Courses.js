@@ -6,7 +6,7 @@ const { findCourse } = require("../Search");
 const findCompletedCourses = async (netID) => {
 	const completedCourses = await Enrollment.findAll({
 		where: {
-			netID: netID,
+			netID: netID
 		},
 		include: [{
 			model: Semester,
@@ -17,26 +17,26 @@ const findCompletedCourses = async (netID) => {
 			},
 			attributes: []
 		}],
-		attributes: ['semesterName', 'courseString', 'grade'],
+		attributes: ["semesterName", "courseString", "grade"],
 		raw: true
 	});
 
-	let numberOfCreditsCompleted = 0
+	let numberOfCreditsCompleted = 0;
 	await Promise.all(completedCourses.map(async (enrollment) => {
 		const course = await findCourse(enrollment["courseString"]);
-		numberOfCreditsCompleted += course.numberOfCredits
+		numberOfCreditsCompleted += course.numberOfCredits;
 	}));
 
 	return {
 		numberOfCreditsCompleted: numberOfCreditsCompleted,
 		completedCourses: completedCourses
-	}
-}
+	};
+};
 
 const findAttemptingCourses = async (netID) => {
 	return await Enrollment.findAll({
 		where: {
-			netID: netID,
+			netID: netID
 		},
 		include: [{
 			model: Semester,
@@ -45,9 +45,9 @@ const findAttemptingCourses = async (netID) => {
 			},
 			attributes: []
 		}],
-		attributes: ['semesterName', 'courseString', 'grade'],
+		attributes: ["semesterName", "courseString", "grade"],
 		raw: true
 	});
-}
+};
 
 module.exports = { findCompletedCourses, findAttemptingCourses };

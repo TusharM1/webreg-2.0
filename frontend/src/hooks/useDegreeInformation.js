@@ -33,12 +33,12 @@ export function useDegreeInformation(token) {
 				schoolEnrollment: schoolEnrollmentResponse.data["schoolEnrollment"],
 				completedCourses: completedCoursesResponse.data,
 				attemptingCourses: attemptingCoursesResponse.data
-			}
-		}
+			};
+		};
 
 		downloadAllInformation().then(information => {
 			setStudyPrograms(information);
-		})
+		});
 	};
 
 	useMount(downloadStudyPrograms);

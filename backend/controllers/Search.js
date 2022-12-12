@@ -7,7 +7,7 @@ const findCourse = async (courseString) => {
 		},
 		raw: true
 	});
-}
+};
 
 const findSection = async (sectionIndex) => {
 	return await Section.findOne({
@@ -16,7 +16,7 @@ const findSection = async (sectionIndex) => {
 		},
 		raw: true
 	});
-}
+};
 
 const findSectionBlocks = async (sectionIndex) => {
 	return await SectionBlock.findAll({
@@ -25,9 +25,10 @@ const findSectionBlocks = async (sectionIndex) => {
 		},
 		raw: true
 	});
-}
+};
 
-const searchCoursesAndSections = async (courseQuery) => {
+const searchCoursesAndSections = async (courseQuery, schoolNumber, departmentNumber) => {
+	let parameters = [];
 	const searchedCourses = (await Course.findAll({
 		where: {
 			[Op.and]: [{
@@ -67,7 +68,7 @@ const searchCoursesAndSections = async (courseQuery) => {
 			}
 		}));
 
-		return [sections, registeredStudents]
+		return [sections, registeredStudents];
 	}));
 
 	let courses = [];
@@ -82,7 +83,7 @@ const searchCoursesAndSections = async (courseQuery) => {
 				professor: currentSection.professor,
 				filled: searchedSections[i][1][j],
 				capacity: currentSection.capacity,
-				comments: currentSection.comments,
+				comments: currentSection.comments
 
 			};
 			sections.push(section);
@@ -109,13 +110,13 @@ const getAllSchools = async () => {
 	return await School.findAll({
 		raw: true
 	});
-}
+};
 
 const getAllDepartments = async () => {
 	return await Department.findAll({
 		raw: true
 	});
-}
+};
 
 const getDepartmentsBySchool = async (schoolNumber) => {
 	return await Department.findAll({
@@ -128,6 +129,14 @@ const getDepartmentsBySchool = async (schoolNumber) => {
 		}],
 		raw: true
 	});
-}
+};
 
-module.exports = { getAllSchools, getAllDepartments, getDepartmentsBySchool, findCourse, findSection, findSectionBlocks, searchCoursesAndSections };
+module.exports = {
+	getAllSchools,
+	getAllDepartments,
+	getDepartmentsBySchool,
+	findCourse,
+	findSection,
+	findSectionBlocks,
+	searchCoursesAndSections
+};

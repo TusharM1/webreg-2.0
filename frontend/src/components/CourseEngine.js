@@ -5,19 +5,19 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
-import { useSearch } from "../hooks/useSearch"
+import { useSearch } from "../hooks/useSearch";
 import Select from "react-select";
 
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
-	const [ courses, setCourses ] = useState([]);
-	const [ schools, departments, downloadDept ] = useSearch(data.token);
-	// const [ selectedDepartment, setSelectedDepartment ] = useState();
-	let selectedDepartment = null;
+	const [courses, setCourses] = useState([]);
+	const [schools, departments, downloadDept] = useSearch(data.token);
+	const [selectedDepartment, setSelectedDepartment] = useState();
 
 	function CardContainer({ children, eventKey }) {
 		return (
-			<div onClick={useAccordionButton(eventKey, () => {})}>
+			<div onClick={useAccordionButton(eventKey, () => {
+			})}>
 				{children}
 			</div>
 		);
@@ -46,11 +46,11 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 							course.sectionNumber === sections[j].sectionNumber;
 					})) {
 						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
-										 onClick={dropHandler}>Drop</Button>
+										 onClick={dropHandler}>Drop</Button>;
 					}
 					else {
 						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
-										 onClick={addHandler}>Add</Button>
+										 onClick={addHandler}>Add</Button>;
 					}
 				}
 
@@ -59,7 +59,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 
 				const section = (
 					<Card key={count.toString()}>
-						<Card.Header style={{padding: 0}}>
+						<Card.Header style={{ padding: 0 }}>
 							<CardContainer eventKey={count.toString()}>
 								<span>{[
 									sections[j].sectionNumber,
@@ -118,6 +118,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			</Accordion>
 		);
 	}
+
 	const searchCourses = async (courseQuery) => {
 		console.log("Searching query: " + courseQuery);
 		axios.post(API_URL + "/search", {
@@ -127,23 +128,22 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			setCourses(response.data);
 		});
 	};
-	let schoolList = schools.map((school)=>{
+	let schoolList = schools.map((school) => {
 		return {
 			value: school.schoolNumber,
 			label: school.schoolName
-		}
+		};
 	});
-	let departmentsList = departments.map((dept)=>{
-		return{
+	let departmentsList = departments.map((dept) => {
+		return {
 			value: dept.departmentNumber,
 			label: dept.departmentName
-		}
+		};
 	});
 	const changeSchoolSelection = (selectedOption) => {
 		downloadDept(selectedOption.value);
-		// setSelectedDepartment(null);
-		selectedDepartment=null;
-	}
+		setSelectedDepartment(null);
+	};
 	return (
 		<Container fluid>
 			<div className={"h-25 bg-light-coral"}>
@@ -161,13 +161,11 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 								   onChange={formik.handleChange}/>
 							<label>School Name:</label>
 							<Select options={schoolList}
-								onChange={changeSchoolSelection}/>
+									onChange={changeSchoolSelection}/>
 							<Select options={departmentsList}
-								defaultValue={selectedDepartment}
-								onChange={(selectedOption)=>{
-									selectedDepartment=selectedOption.value
-									// setSelectedDepartment(selectedOption.value)
-								}}/>
+									key={selectedDepartment}
+									defaultValue={selectedDepartment}
+									onChange={selectedOption => setSelectedDepartment(selectedOption)}/>
 							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}

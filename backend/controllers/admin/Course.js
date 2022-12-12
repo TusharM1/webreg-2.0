@@ -10,7 +10,7 @@ function courseStringToNumbers(courseString) {
 		schoolNumber: numbers[0],
 		departmentNumber: numbers[1],
 		courseNumber: numbers[2]
-	}
+	};
 }
 
 const createCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {

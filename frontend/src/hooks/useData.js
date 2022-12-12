@@ -41,7 +41,8 @@ export function useData() {
 			setData(cloneJSONAndOverride(data, { token: newData.token, profile }));
 			localStorage.setItem("token", newData["token"]);
 			return true;
-		} else {
+		}
+		else {
 			clearData();
 			return false;
 		}
