@@ -20,13 +20,19 @@ export function useDegreeInformation(token) {
 				token: token
 			});
 
-			// const completedCoursesResponse = await axios.post(API_URL + "/student/course/completed", {
-			// 	token: token
-			// });
+			const completedCoursesResponse = await axios.post(API_URL + "/student/courses/completed", {
+				token: token
+			});
+
+			const attemptingCoursesResponse = await axios.post(API_URL + "/student/courses/attempting", {
+				token: token
+			});
 
 			return {
 				studyPrograms: studyProgramsResponse.data,
-				schoolEnrollment: schoolEnrollmentResponse.data["schoolEnrollment"]
+				schoolEnrollment: schoolEnrollmentResponse.data["schoolEnrollment"],
+				completedCoursesResponse: completedCoursesResponse.data,
+				attemptingCoursesResponse: attemptingCoursesResponse.data
 			}
 		}
 

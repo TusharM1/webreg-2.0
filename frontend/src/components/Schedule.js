@@ -8,7 +8,7 @@ export function convertTime(hours, minutes) {
 }
 
 export const colorMap = {
-	Blue: "lightblue",
+	Blue: "deepskyblue",
 	Yellow: "yellow",
 	Green: "lightgreen",
 	Orange: "orange"
@@ -17,7 +17,7 @@ export const colorMap = {
 export const locationMap = {
 	"Busch": colorMap.Blue,
 	"College Avenue": colorMap.Yellow,
-	"Cook / Douglass": colorMap.Green,
+	"Cook/Douglass": colorMap.Green,
 	"Livingston": colorMap.Orange
 }
 

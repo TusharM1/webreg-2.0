@@ -1,6 +1,6 @@
-const { Enrollment, Section } = require("../../models");
+const { Enrollment, Section, Semester } = require("../../models");
 const { findCourse, findSection, findSectionBlocks } = require("../Search");
-const { currentSemesterName } = require("./Semesters");
+const { currentSemesterName, currentSemesterStartDate } = require("./Semesters");
 
 const addSection = async (netID, sectionIndex) => {
 	const courseString = (await Section.findOne({
@@ -34,6 +34,13 @@ const findEnrollments = async (netID) => {
 		where: {
 			netID: netID
 		},
+		include: [{
+			model: Semester,
+			where: {
+				startDate: currentSemesterStartDate
+			},
+			attributes: []
+		}],
 		order: [
 			["courseString", "ASC"]
 		],

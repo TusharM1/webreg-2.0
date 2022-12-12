@@ -26,7 +26,7 @@ export function DegreeNavigator() {
 		}
 	}
 
-	// console.log(degreeInformation)
+	console.log(degreeInformation)
 
 	return (
 		<Container fluid className={"d-flex flex-column"}>
