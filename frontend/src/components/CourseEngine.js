@@ -5,10 +5,13 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
+import { useSearch } from "../hooks/useSearch"
+import Select from "react-select";
 
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
 	const [ courses, setCourses ] = useState([]);
+	const [ schools, departments, downloadDept ] = useSearch(data.token);
 
 	function CardContainer({ children, eventKey }) {
 		return (
@@ -106,16 +109,13 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			);
 			courseList.push(course);
 		}
-
 		console.log("Found " + courseList.length + " courses");
-
 		return (
 			<Accordion className={"overflow-auto flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
 				{courseList}
 			</Accordion>
 		);
 	}
-
 	const searchCourses = async (courseQuery) => {
 		console.log("Searching query: " + courseQuery);
 		axios.post(API_URL + "/search", {
@@ -125,7 +125,21 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			setCourses(response.data);
 		});
 	};
-
+	let schoolList = schools.map((school)=>{
+		return {
+			value: school.schoolNumber,
+			label: school.schoolName
+		}
+	});
+	let departmentsList = departments.map((dept)=>{
+		return{
+			value: dept.departmentNumber,
+			label: dept.departmentName
+		}
+	});
+	const changeSchoolSelection = (selectedOption) => {
+		downloadDept(selectedOption.value);
+	}
 	return (
 		<Container fluid>
 			<div className={"h-25 bg-light-coral"}>
@@ -141,6 +155,10 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 							<Field type="text"
 								   name="courseQuery"
 								   onChange={formik.handleChange}/>
+							<label>School Name:</label>
+							<Select options={schoolList}
+								onChange={changeSchoolSelection}/>
+							<Select options={departmentsList}/>
 							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}
