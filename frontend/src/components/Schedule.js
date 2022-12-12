@@ -72,7 +72,7 @@ export function Schedule({schedule, config}) {
 
 	let sectionBlocks = [];
 	if (schedule && schedule.status !== "loading") {
-		schedule.forEach((course) => {
+		schedule["courses"].forEach((course) => {
 			course["sectionBlocks"].forEach((sectionBlock) => {
 				sectionBlocks.push(
 					<div key={sectionBlocks.length} className={"entry"} style={{

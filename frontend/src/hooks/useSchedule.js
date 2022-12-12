@@ -4,8 +4,7 @@ import { useMount } from "./useMount";
 import { API_URL } from "../App";
 
 export const defaultSchedule = {
-	status: "loading",
-	courseSections: []
+	status: "loading"
 };
 
 export function useSchedule(token) {
@@ -19,7 +18,7 @@ export function useSchedule(token) {
 		};
 		getInfo().then(response => {
 			setSchedule(response.data);
-			console.log("Loading schedule information, found " + response.data.length + " courses");
+			console.log("Loading schedule information, found " + response.data["courses"].length + " courses");
 		});
 	};
 

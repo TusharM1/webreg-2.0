@@ -1,22 +1,22 @@
 const express = require("express");
-const { findStudyPrograms } = require("../../../controllers/student/StudyPrograms");
+const { findSchoolEnrollment } = require("../../../controllers/student/SchoolEnrollments");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
 	const netID = req.webreg_user.netID;
-	const result = await findStudyPrograms(netID)
+	const result = await findSchoolEnrollment(netID)
 	res.json(result);
 });
 
 router.post("/add", async (req, res) => {
 	res.json({
-		message: "Add Programs of Study"
+		message: "Add School Enrollment"
 	});
 });
 
 router.post("/remove", async (req, res) => {
 	res.json({
-		message: "Remove Programs of Study"
+		message: "Remove School Enrollment"
 	});
 });
 

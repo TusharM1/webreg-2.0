@@ -12,7 +12,7 @@ app.use("/", unauthRouter);
 
 // --- AUTHENTICATED API ---
 
-const authRouter = require("./routes/auth/authRouter");
+const authRouter = require("./routes/auth/AuthRouter");
 app.use("/", authRouter);
 
 const db = require("./models");

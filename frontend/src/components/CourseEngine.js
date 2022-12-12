@@ -35,7 +35,7 @@ export function CourseEngine() {
 			let openSections = 0;
 			for (let j = 0; j < sections.length; j++) {
 				let button;
-				if (schedule.some((course) => {
+				if (schedule["courses"].some((course) => {
 					return course.courseString === courses[i].courseString &&
 						course.sectionNumber === sections[j].sectionNumber;
 				})) {

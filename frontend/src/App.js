@@ -41,7 +41,7 @@ function App() {
 			<Container fluid className={"h-100"}>
 				<Row className={"h-100 flex-column"} style={{flexFlow: "column"}}>
 					<Header path={path}/>
-					<main className={"flex-grow-1 bg-light-white"}>
+					<main className={"flex-grow-1 bg-light-white overflow-scroll"}>
 						<Routes>
 							<Route path="/" element={<Home/>}/>
 							<Route path="/login" element={<Login/>}/>

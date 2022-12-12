@@ -1,5 +1,6 @@
 const { Enrollment, Section } = require("../../models");
 const { findCourse, findSection, findSectionBlocks } = require("../Search");
+const { currentSemesterName } = require("./Semesters");
 
 const addSection = async (netID, sectionIndex) => {
 	const courseString = (await Section.findOne({
@@ -11,7 +12,7 @@ const addSection = async (netID, sectionIndex) => {
 
 	return await Enrollment.create({
 		netID: netID,
-		semesterName: "Spring 2023",
+		semesterName: currentSemesterName,
 		courseString: courseString,
 		sectionIndex: sectionIndex,
 		grade: "N/A"
@@ -22,7 +23,7 @@ const dropSection = async (netID, sectionIndex) => {
 	return await Enrollment.destroy({
 		where: {
 			netID : netID,
-			semesterName: "Spring 2023",
+			semesterName: currentSemesterName,
 			sectionIndex: sectionIndex
 		}
 	});
@@ -39,7 +40,9 @@ const findEnrollments = async (netID) => {
 		raw: true
 	});
 
-	return Promise.all(enrollments.map(async (enrollment) => {
+	let numberOfCredits = 0;
+
+	const courses = await Promise.all(enrollments.map(async (enrollment) => {
 		const course = await findCourse(enrollment["courseString"]);
 		const section = await findSection(enrollment["sectionIndex"]);
 		const sectionBlocks = await findSectionBlocks(enrollment["sectionIndex"]);
@@ -68,6 +71,8 @@ const findEnrollments = async (netID) => {
 			})
 		}
 
+		numberOfCredits += course["numberOfCredits"];
+
 		return {
 			courseString: enrollment["courseString"],
 			name: course["name"],
@@ -80,6 +85,11 @@ const findEnrollments = async (netID) => {
 			sectionBlocks: meetingTimes
 		};
 	}));
+
+	return {
+		numberOfCreditsAttempting: numberOfCredits,
+		courses: courses
+	}
 };
 
 module.exports = { findEnrollments, addSection, dropSection };

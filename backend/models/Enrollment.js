@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define("Enrollment", {
+	const Enrollment = sequelize.define("Enrollment", {
 		netID: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -42,4 +42,10 @@ module.exports = (sequelize, DataTypes) => {
 		timestamps: false,
 		freezeTableName: true
 	});
+
+	Enrollment.associate = function (models) {
+		Enrollment.belongsTo(models.Semester, {foreignKey: 'semesterName'});
+	}
+
+	return Enrollment;
 };

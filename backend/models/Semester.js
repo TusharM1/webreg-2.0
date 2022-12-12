@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define("Semester", {
+	const Semester = sequelize.define("Semester", {
 		semesterName: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -25,4 +25,10 @@ module.exports = (sequelize, DataTypes) => {
 		timestamps: false,
 		freezeTableName: true
 	});
+
+	Semester.associate = function (models) {
+		Semester.hasOne(models.Enrollment, {foreignKey: 'semesterName'});
+	}
+
+	return Semester;
 };

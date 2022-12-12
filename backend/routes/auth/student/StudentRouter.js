@@ -8,6 +8,12 @@ const scheduleRouter = require("./Schedule");
 router.use("/schedule", scheduleRouter);
 
 const studyProgramsRouter = require("./StudyPrograms");
-router.use("/studyPrograms", studyProgramsRouter);
+router.use("/programs", studyProgramsRouter);
+
+const coursesRouter = require("./Courses");
+router.use("/courses", coursesRouter);
+
+const schoolEnrollmentRouter = require("./SchoolEnrollment");
+router.use("/school", schoolEnrollmentRouter);
 
 module.exports = router;
