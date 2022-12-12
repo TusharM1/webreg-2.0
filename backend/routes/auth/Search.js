@@ -1,4 +1,4 @@
-const { searchCoursesAndSections, getAllSchools, getAllDepartments } = require("../../controllers/Search");
+const { searchCoursesAndSections, getAllSchools, getAllDepartments, getDepartmentsBySchool } = require("../../controllers/Search");
 
 const express = require("express");
 const router = express.Router();
@@ -40,14 +40,12 @@ router.post("/schools", async (req, res) => {
 
 router.post("/departments", async (req, res) => {
 	if (req.body) {
-		// const school = req.body["school"];
-		// let schools;
-		// if (school)
-		// 	schools = await getDepartmentBySchool(school);
-		// else
-		// 	schools = await getAllDepartments();
-
-		const schools = await getAllDepartments();
+		const schoolNumber = req.body["schoolNumber"];
+		let schools;
+		if (schoolNumber)
+			schools = await getDepartmentsBySchool(schoolNumber);
+		else
+			schools = await getAllDepartments();
 
 		res.json(schools);
 		return;

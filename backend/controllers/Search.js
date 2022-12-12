@@ -1,6 +1,5 @@
-const { School, Department, Course, Section, Enrollment, SectionBlock } = require("../models");
+const { School, Department, SchoolDepartment, Course, Section, Enrollment, SectionBlock } = require("../models");
 const { Op, Sequelize } = require("sequelize");
-
 const findCourse = async (courseString) => {
 	return await Course.findOne({
 		where: {
@@ -118,13 +117,17 @@ const getAllDepartments = async () => {
 	});
 }
 
-// const getDepartmentsBySchool = async (school) => {
-// 	return await School.findAll({
-// 		where: {
-// 			schoolName: school
-// 		},
-// 		raw: true
-// 	});
-// }
+const getDepartmentsBySchool = async (schoolNumber) => {
+	return await Department.findAll({
+		include: [{
+			model: SchoolDepartment,
+			where: {
+				schoolNumber: schoolNumber
+			},
+			attributes: []
+		}],
+		raw: true
+	});
+}
 
-module.exports = { getAllSchools, getAllDepartments, findCourse, findSection, findSectionBlocks, searchCoursesAndSections };
+module.exports = { getAllSchools, getAllDepartments, getDepartmentsBySchool, findCourse, findSection, findSectionBlocks, searchCoursesAndSections };
