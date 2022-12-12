@@ -5,6 +5,8 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
+import { useSchools } from "../hooks/useSchools";
+
 
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
@@ -116,6 +118,29 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 		);
 	}
 
+	let schools = []
+	/*const listOfSchools = async (courseQuery) => {
+		axios.post(API_URL + "/search/schools", {
+			token: data.token,
+			courseQuery: courseQuery
+		}).then((response) => {
+			setCourses(response.data);
+		});*/
+	//};
+	const [ schoolInfo ] = useSchools(data.token);
+	const listOfSchools = schoolInfo["studyPrograms"]
+	
+	if (listOfSchools) {
+		for (let i = 0; i < listOfSchools.length; i++) {
+			schools.push(
+				<Accordion.Item key={i} eventKey={i.toString()}>
+					<Accordion.Header>{listOfSchools[i].name}T</Accordion.Header>
+					<Accordion.Body>{listOfSchools[i].studyProgramCode}</Accordion.Body>
+				</Accordion.Item>
+			)
+		}
+	}
+
 	const searchCourses = async (courseQuery) => {
 		console.log("Searching query: " + courseQuery);
 		axios.post(API_URL + "/search", {
@@ -145,6 +170,12 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 						</Form>
 					)}
 				</Formik>
+				<Container fluid className={"d-flex flex-column"}>
+						<strong>Search Schools</strong>
+						<Accordion alwaysOpen className={"flex-grow-1"}>
+							{schools}
+						</Accordion>
+				</Container>
 			</div>
 			<div className={"h-75 d-flex flex-column"}>
 				<span>View Courses</span>
