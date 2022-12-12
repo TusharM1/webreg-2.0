@@ -14,7 +14,7 @@ export function ViewSchedule() {
 	};
 
 	return (
-		<Container fluid className={"bg-light d-flex flex-column"}>
+		<Container fluid className={"d-flex flex-column"} style={{background: "lightgoldenrodyellow"}}>
 			<span>View Schedule</span>
 			<Schedule schedule={schedule} config={config}/>
 		</Container>

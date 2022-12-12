@@ -10,8 +10,8 @@ import Select from "react-select";
 
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
-	const [courses, setCourses] = useState([]);
-	const [schools, departments, downloadDept] = useSearch(data.token);
+	const [searchedCourses, setSearchedCourses] = useState([]);
+	const [schools, departments, downloadDepartments] = useSearch(data.token);
 	const [selectedDepartment, setSelectedDepartment] = useState();
 
 	function CardContainer({ children, eventKey }) {
@@ -26,23 +26,23 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const viewMode = schedule ? "student" : "admin";
 
 	function CourseViewer() {
-		if (courses.length === 0)
+		if (searchedCourses.length === 0)
 			return <></>;
 
 		let count = 0;
 		let courseList = [];
-		for (let i = 0; i < courses.length; i++) {
+		for (let i = 0; i < searchedCourses.length; i++) {
 			const courseEventKey = count;
 			count++;
 
-			const sections = courses[i].sections;
+			const sections = searchedCourses[i].sections;
 			let sectionList = [];
 			let openSections = 0;
 			for (let j = 0; j < sections.length; j++) {
 				let button = <></>;
 				if (viewMode === "student") {
 					if (schedule["courses"].some((course) => {
-						return course.courseString === courses[i].courseString &&
+						return course.courseString === searchedCourses[i].courseString &&
 							course.sectionNumber === sections[j].sectionNumber;
 					})) {
 						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
@@ -65,7 +65,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 									sections[j].sectionNumber,
 									sections[j].sectionType,
 									"Taught by " + sections[j].professor,
-									courses[i].numberOfCredits + " credits"
+									searchedCourses[i].numberOfCredits + " credits"
 								].join(" | ")}
 								</span>
 								<div className={"d-inline-block float-end"}>
@@ -93,9 +93,9 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 					<Accordion.Header>
 						<div className={"d-flex justify-content-between w-100"}>
 							<span>
-								{courses[i].courseString}
+								{searchedCourses[i].courseString}
 								{" | "}
-								{courses[i].name}
+								{searchedCourses[i].name}
 							</span>
 							<span className={"float-right"}>
 								{openSections + " / " + sections.length + " open sections"}
@@ -125,28 +125,32 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			token: data.token,
 			courseQuery: courseQuery
 		}).then((response) => {
-			setCourses(response.data);
+			setSearchedCourses(response.data);
 		});
 	};
-	let schoolList = schools.map((school) => {
+
+	let listOfSchools = schools.map((school) => {
 		return {
 			value: school.schoolNumber,
 			label: school.schoolName
 		};
 	});
-	let departmentsList = departments.map((dept) => {
+
+	let listOfDepartments = departments.map((department) => {
 		return {
-			value: dept.departmentNumber,
-			label: dept.departmentName
+			value: department.departmentNumber,
+			label: department.departmentName
 		};
 	});
+
 	const changeSchoolSelection = (selectedOption) => {
-		downloadDept(selectedOption.value);
+		downloadDepartments(selectedOption.value);
 		setSelectedDepartment(null);
 	};
+
 	return (
-		<Container fluid>
-			<div className={"h-25 bg-light-coral"}>
+		<Container fluid className={"d-flex flex-column"}>
+			<div className={"bg-light-coral"}>
 				<span>Search Courses</span>
 				<Formik initialValues={{ courseQuery: "" }}
 						onSubmit={async (values, actions) => {
@@ -155,23 +159,32 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 						}}>
 					{(formik) => (
 						<Form>
-							<label>Course Name:</label>
-							<Field type="text"
-								   name="courseQuery"
-								   onChange={formik.handleChange}/>
-							<label>School Name:</label>
-							<Select options={schoolList}
-									onChange={changeSchoolSelection}/>
-							<Select options={departmentsList}
-									key={selectedDepartment}
-									defaultValue={selectedDepartment}
-									onChange={selectedOption => setSelectedDepartment(selectedOption)}/>
+							<div>
+								<label>Course Name: </label>
+								<Field type="text"
+									   name="courseQuery"
+									   onChange={formik.handleChange}/><br/>
+							</div>
+							<div className={"d-flex"}>
+								<label className={"m-auto"}>Sort by School: </label>
+								<Select options={listOfSchools}
+										className={"flex-grow-1"}
+										onChange={changeSchoolSelection}/><br/>
+							</div>
+							<div className={"d-flex"}>
+								<label className={"m-auto"}>Sort by Department: </label>
+								<Select options={listOfDepartments}
+										className={"flex-grow-1"}
+										key={selectedDepartment}
+										defaultValue={selectedDepartment}
+										onChange={selectedOption => setSelectedDepartment(selectedOption)}/><br/>
+							</div>
 							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}
 				</Formik>
 			</div>
-			<div className={"h-75 d-flex flex-column"}>
+			<div className={"h-75 d-flex flex-column flex-grow-1"}>
 				<span>View Courses</span>
 				<div className={"d-flex justify-content-between w-100"}>
 					<span>Course String</span>

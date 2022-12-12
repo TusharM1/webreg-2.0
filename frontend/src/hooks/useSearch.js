@@ -3,21 +3,19 @@ import axios from "axios";
 import { useMount } from "./useMount";
 import { API_URL } from "../App";
 
-export const defaultSearch = [
-	{ status: "loading" }
-];
+export const defaultInformation = [];
 
 export function useSearch(token) {
-	const [school, setSchool] = useState(defaultSearch);
-	const [department, setDepartment] = useState(defaultSearch);
+	const [school, setSchool] = useState(defaultInformation);
+	const [department, setDepartment] = useState(defaultInformation);
 
-	const downloadSchool = () => {
-		const downloadAllInformation = async () => {
+	const downloadSchools = () => {
+		const getInformation = async () => {
 			return await axios.post(API_URL + "/search/schools", {
 				token: token
 			});
 		};
-		downloadAllInformation().then((information) => {
+		getInformation().then((information) => {
 			setSchool(information.data);
 			(axios.post(API_URL + "/search/departments", {
 				token: token
@@ -27,18 +25,18 @@ export function useSearch(token) {
 		});
 	};
 
-	useMount(downloadSchool);
+	useMount(downloadSchools);
 
-	const downloadDept = (schoolNumber) => {
-		const downloadAllInformation = async () => {
+	const downloadDepartments = (schoolNumber) => {
+		const getInformation = async () => {
 			return await axios.post(API_URL + "/search/departments", {
 				token: token,
 				schoolNumber: schoolNumber
 			});
 		};
-		downloadAllInformation().then(information => {
+		getInformation().then(information => {
 			setDepartment(information.data);
 		});
 	};
-	return [school, department, downloadDept];
+	return [school, department, downloadDepartments];
 }
