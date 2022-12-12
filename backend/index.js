@@ -17,6 +17,7 @@ app.use("/", unauthRouter);
 const authRouter = require("./routes/auth/AuthRouter");
 app.use("/", authRouter);
 
+// --- SEQUELIZE API ---
 const db = require("./models");
 const reload = false;
 db.sequelize.sync({ force: reload, logging: false }).then(() => {

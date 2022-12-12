@@ -1,3 +1,4 @@
+//This table represents all student course enrollments.
 module.exports = (sequelize, DataTypes) => {
 	const Enrollment = sequelize.define("Enrollment", {
 		netID: {

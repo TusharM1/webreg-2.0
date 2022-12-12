@@ -1,3 +1,4 @@
+//This table represents core requirements for any particular degree.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("CoreRequirement", {
 		courseString: {

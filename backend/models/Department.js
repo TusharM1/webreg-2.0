@@ -1,3 +1,4 @@
+//This table represents all departments across all schools.
 module.exports = (sequelize, DataTypes) => {
 	const Department =  sequelize.define("Department", {
 		departmentNumber: {

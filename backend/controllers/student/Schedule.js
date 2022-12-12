@@ -2,6 +2,7 @@ const { Enrollment, Section, Semester } = require("../../models");
 const { findCourse, findSection, findSectionBlocks } = require("../Search");
 const { currentSemesterName, currentSemesterStartDate } = require("./Semesters");
 
+//This async method adds a course section to a student's schedule for current semester, invoked when a student adds a course.
 const addSection = async (netID, sectionIndex) => {
 	const courseString = (await Section.findOne({
 		where: {
@@ -19,6 +20,7 @@ const addSection = async (netID, sectionIndex) => {
 	});
 }
 
+//This async method drops a section from a student's schedule for the current semester, invoked when a student drops a course.
 const dropSection = async (netID, sectionIndex) => {
 	return await Enrollment.destroy({
 		where: {
@@ -28,7 +30,7 @@ const dropSection = async (netID, sectionIndex) => {
 		}
 	});
 }
-
+//This async method finds and returns the student's current semester course enrollments so that we can display it into a schedule format.
 const findEnrollments = async (netID) => {
 	const enrollments = await Enrollment.findAll({
 		where: {

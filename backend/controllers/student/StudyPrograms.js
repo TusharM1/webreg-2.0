@@ -1,5 +1,6 @@
 const { StudyProgram, StudyProgramStudent } = require("../../models");
 
+//This async method finds and returns a student's degree study program, such as Computer Science.
 const findStudyPrograms = async (netID) => {
 	const enrolledStudyPrograms = await StudyProgramStudent.findAll({
 		where: {

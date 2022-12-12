@@ -1,9 +1,9 @@
 const { Course } = require("../../models");
-
+//This method concatenates course information into one string and returns it, to uniquely identify a course.
 function courseNumbersToString(schoolNumber, departmentNumber, courseNumber) {
 	return schoolNumber + ":" + departmentNumber + ":" + courseNumber;
 }
-
+//This method splits up a course string into three components, so we can access them individually.
 function courseStringToNumbers(courseString) {
 	const numbers = courseString.split(":");
 	return {
@@ -12,7 +12,7 @@ function courseStringToNumbers(courseString) {
 		courseNumber: numbers[2]
 	}
 }
-
+//This async method creates a course in the database using the parameters passed in by a webreg admin.
 const createCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
 	return await Course.create({
 		courseString: courseNumbersToString(schoolNumber, departmentNumber, courseNumber),
@@ -26,7 +26,7 @@ const createCourse = async (schoolNumber, departmentNumber, courseNumber, course
 		isActive: true
 	});
 };
-
+//This async method updates a course in the database depending on the parameters passed in by a webreg admin.
 const editCourse = async (schoolNumber, departmentNumber, courseNumber, courseName, numberOfCredits) => {
 	return await Course.update(
 		{
@@ -40,7 +40,7 @@ const editCourse = async (schoolNumber, departmentNumber, courseNumber, courseNa
 		}
 	);
 };
-
+//This async method finds and removes a course from the database using parameters passed in by a webreg admin.
 const removeCourse = async (schoolNumber, departmentNumber, courseNumber) => {
 	return await Course.destroy({
 		where: {

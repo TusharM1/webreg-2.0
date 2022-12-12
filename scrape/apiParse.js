@@ -1,6 +1,13 @@
 // import request from "request";
 const request = require('request');
 
+
+/* The purpose of this file is to parse the Rutgers Schedule of Classes API. It fetches every single course, section, and relevant info across all schools, majors, and departments at Rutgers.
+	It parses the API into javascript objects after cleaning and validating all data by removing edge cases such as courses with random NULL fields, departments or courses that don't exist,
+	or locations that are not traditionally offered for Rutgers courses . After formatting all course, section, and section info, we insert them into our database tables, which is the backbone
+	of Webreg 2.0. This comes out to about 30,000 INSERT statements and required a tremendous amount of data transformation to get it into a usable format, with no outlying edge cases. 
+*/
+
 let counter = 0;
 let arr = [];
 for (let major = 0; major < 1000; major++) {

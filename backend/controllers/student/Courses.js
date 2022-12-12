@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const { currentSemesterStartDate } = require("./Semesters");
 const { findCourse } = require("../Search");
 
+//This async method searches a student's enrollments to return all courses previously completed.
 const findCompletedCourses = async (netID) => {
 	const completedCourses = await Enrollment.findAll({
 		where: {
@@ -32,7 +33,7 @@ const findCompletedCourses = async (netID) => {
 		completedCourses: completedCourses
 	}
 }
-
+//This async method searches a student's enrollments to return all courses being taken in the current semester.
 const findAttemptingCourses = async (netID) => {
 	return await Enrollment.findAll({
 		where: {

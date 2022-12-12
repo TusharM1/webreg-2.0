@@ -1,3 +1,4 @@
+//This table represents sections for all courses across all schools and majors.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("Section", {
 		sectionIndex: {

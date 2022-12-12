@@ -13,6 +13,7 @@ import { AdminDashboard } from "./pages/AdminDashboard";
 
 export const API_URL = window.location.protocol + '//' + window.location.hostname + ":" + process.env.REACT_APP_API_PORT;
 
+//This function handles all website navigation. It directs users to their dashboard upon successfully logging in (or back to the login page if unsecessful). Dashboard display depends on whether the user is a student or admin.
 function App() {
 	const [data, saveData, clearData] = useData();
 	const location = useLocation();
