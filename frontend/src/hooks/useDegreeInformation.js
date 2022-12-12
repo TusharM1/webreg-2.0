@@ -31,8 +31,8 @@ export function useDegreeInformation(token) {
 			return {
 				studyPrograms: studyProgramsResponse.data,
 				schoolEnrollment: schoolEnrollmentResponse.data["schoolEnrollment"],
-				completedCoursesResponse: completedCoursesResponse.data,
-				attemptingCoursesResponse: attemptingCoursesResponse.data
+				completedCourses: completedCoursesResponse.data,
+				attemptingCourses: attemptingCoursesResponse.data
 			}
 		}
 

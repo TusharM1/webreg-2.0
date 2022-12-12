@@ -91,38 +91,38 @@ export function AdminDashboard() {
 										})}>
 										{(formik) => (
 											<Form>
-												<span>Create Course</span>
+												<span>Create Course</span><br/>
 
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="schoolNumber"
 													   placeholder="School Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="departmentNumber"
 													   placeholder="Department Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="courseNumber"
 													   placeholder="Course Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="courseName"
 													   placeholder="Course Name">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="numberOfCredits"
 													   placeholder="Number of Credits">
-												</Field>
+												</Field><br/>
 
 												<button type="submit"
 														id="createCourse"
@@ -161,38 +161,38 @@ export function AdminDashboard() {
 										})}>
 										{(formik) => (
 											<Form>
-												<span>Edit Course</span>
+												<span>Edit Course</span><br/>
 
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="schoolNumber"
 													   placeholder="School Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="departmentNumber"
 													   placeholder="Department Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="courseNumber"
 													   placeholder="Course Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="courseName"
 													   placeholder="New Course Name">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="numberOfCredits"
 													   placeholder="New Number of Credits">
-												</Field>
+												</Field><br/>
 
 												<button type="submit"
 														id="editCourse"
@@ -225,26 +225,26 @@ export function AdminDashboard() {
 										})}>
 										{(formik) => (
 											<Form>
-												<span>Remove Course</span>
+												<span>Remove Course</span><br/>
 
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="schoolNumber"
 													   placeholder="School Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="departmentNumber"
 													   placeholder="Department Number">
-												</Field>
+												</Field><br/>
 												<Field type="text"
 													   autoComplete="on"
 													   onChange={formik.handleChange}
 													   name="courseNumber"
 													   placeholder="Course Number">
-												</Field>
+												</Field><br/>
 
 												<button type="submit"
 														id="removeCourse"

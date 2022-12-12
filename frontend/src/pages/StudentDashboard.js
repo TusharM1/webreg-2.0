@@ -32,7 +32,9 @@ const StudentDashboard = () => {
 									<Row style={{ height: "40%", background: "lightsalmon" }}><ScheduleInformation/></Row>
 								</Tab.Pane>
 								<Tab.Pane className={"h-100"} eventKey="searchCourses" title="Search Courses">
-									<Row style={{ height: "100%", background: "plum" }}><CourseEngine/></Row>
+									<Row style={{ height: "100%", background: "plum" }}>
+										<CourseEngine schedule={schedule} addHandler={addHandler} dropHandler={dropHandler}/>
+									</Row>
 								</Tab.Pane>
 							</Tab.Content>
 						</Tab.Container>

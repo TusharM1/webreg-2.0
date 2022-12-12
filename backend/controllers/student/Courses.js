@@ -1,9 +1,10 @@
 const { Enrollment, Semester } = require("../../models");
 const { Op } = require("sequelize");
 const { currentSemesterStartDate } = require("./Semesters");
+const { findCourse } = require("../Search");
 
 const findCompletedCourses = async (netID) => {
-	return await Enrollment.findAll({
+	const completedCourses = await Enrollment.findAll({
 		where: {
 			netID: netID,
 		},
@@ -19,6 +20,17 @@ const findCompletedCourses = async (netID) => {
 		attributes: ['semesterName', 'courseString', 'grade'],
 		raw: true
 	});
+
+	let numberOfCreditsCompleted = 0
+	await Promise.all(completedCourses.map(async (enrollment) => {
+		const course = await findCourse(enrollment["courseString"]);
+		numberOfCreditsCompleted += course.numberOfCredits
+	}));
+
+	return {
+		numberOfCreditsCompleted: numberOfCreditsCompleted,
+		completedCourses: completedCourses
+	}
 }
 
 const findAttemptingCourses = async (netID) => {

@@ -35,7 +35,7 @@ export function DegreeNavigator() {
 				{data.profile.fullName}
 				{" | "}
 				{schoolEnrollment ? schoolEnrollment["schoolName"] + " | ": ""}
-				Completed {completedCourses ? completedCourses["numberOfCompletedCourses"] : "0"} Credits
+				Completed {completedCourses ? completedCourses["numberOfCreditsCompleted"] : "0"} Credits
 				{" | "}
 				Attempting {schedule["numberOfCreditsAttempting"]} Credits
 			</p>

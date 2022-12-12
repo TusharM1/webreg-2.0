@@ -5,12 +5,10 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
-import { ScheduleContext } from "../contexts/ScheduleContext";
 
-export function CourseEngine() {
+export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
-	const { schedule, addHandler, dropHandler } = useContext(ScheduleContext);
-	const [courses, setCourses] = useState([]);
+	const [ courses, setCourses ] = useState([]);
 
 	function CardContainer({ children, eventKey }) {
 		return (
@@ -19,6 +17,8 @@ export function CourseEngine() {
 			</div>
 		);
 	}
+
+	const viewMode = schedule ? "student" : "admin";
 
 	function CourseViewer() {
 		if (courses.length === 0)
@@ -34,15 +34,19 @@ export function CourseEngine() {
 			let sectionList = [];
 			let openSections = 0;
 			for (let j = 0; j < sections.length; j++) {
-				let button;
-				if (schedule["courses"].some((course) => {
-					return course.courseString === courses[i].courseString &&
-						course.sectionNumber === sections[j].sectionNumber;
-				})) {
-					button = <Button value={sections[j].sectionIndex} className={"add-drop-button"} onClick={dropHandler}>Drop</Button>
-				}
-				else {
-					button = <Button value={sections[j].sectionIndex} className={"add-drop-button"} onClick={addHandler}>Add</Button>
+				let button = <></>;
+				if (viewMode === "student") {
+					if (schedule["courses"].some((course) => {
+						return course.courseString === courses[i].courseString &&
+							course.sectionNumber === sections[j].sectionNumber;
+					})) {
+						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
+										 onClick={dropHandler}>Drop</Button>
+					}
+					else {
+						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
+										 onClick={addHandler}>Add</Button>
+					}
 				}
 
 				if (sections[j].filled < sections[j].capacity)
