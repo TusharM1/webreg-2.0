@@ -8,13 +8,13 @@ export function DegreeNavigator() {
 	const { data } = useContext(DataContext);
 	const { schedule } = useContext(ScheduleContext);
 
-	const [ degreeInformation ] = useDegreeInformation(data.token);
-	const studyPrograms = degreeInformation["studyPrograms"]
-	const schoolEnrollment = degreeInformation["schoolEnrollment"]
-	const completedCourses = degreeInformation["completedCourses"]
+	const [degreeInformation] = useDegreeInformation(data.token);
+	const studyPrograms = degreeInformation["studyPrograms"];
+	const schoolEnrollment = degreeInformation["schoolEnrollment"];
+	const completedCourses = degreeInformation["completedCourses"];
 
 
-	let programs = []
+	let programs = [];
 	if (studyPrograms) {
 		for (let i = 0; i < studyPrograms.length; i++) {
 			programs.push(
@@ -22,11 +22,11 @@ export function DegreeNavigator() {
 					<Accordion.Header>{studyPrograms[i].name}</Accordion.Header>
 					<Accordion.Body>{studyPrograms[i].studyProgramCode}</Accordion.Body>
 				</Accordion.Item>
-			)
+			);
 		}
 	}
 
-	console.log(degreeInformation)
+	console.log(degreeInformation);
 
 	return (
 		<Container fluid className={"d-flex flex-column"}>
@@ -34,7 +34,7 @@ export function DegreeNavigator() {
 			<p>
 				{data.profile.fullName}
 				{" | "}
-				{schoolEnrollment ? schoolEnrollment["schoolName"] + " | ": ""}
+				{schoolEnrollment ? schoolEnrollment["schoolName"] + " | " : ""}
 				Completed {completedCourses ? completedCourses["numberOfCreditsCompleted"] : "0"} Credits
 				{" | "}
 				Attempting {schedule["numberOfCreditsAttempting"]} Credits

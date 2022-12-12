@@ -4,13 +4,13 @@ const router = express.Router();
 
 router.post("/completed", async (req, res) => {
 	const netID = req.webreg_user.netID;
-	const result = await findCompletedCourses(netID)
+	const result = await findCompletedCourses(netID);
 	res.json(result);
 });
 
 router.post("/attempting", async (req, res) => {
 	const netID = req.webreg_user.netID;
-	const result = await findAttemptingCourses(netID)
+	const result = await findAttemptingCourses(netID);
 	res.json(result);
 });
 

@@ -3,12 +3,12 @@ const { StudyProgram, StudyProgramStudent } = require("../../models");
 const findStudyPrograms = async (netID) => {
 	const enrolledStudyPrograms = await StudyProgramStudent.findAll({
 		where: {
-			netID : netID
+			netID: netID
 		},
 		raw: true
 	});
 
-	let programInfo = []
+	let programInfo = [];
 	for (let enrolledStudyProgram of enrolledStudyPrograms) {
 		const studyProgram = await StudyProgram.findOne({
 			where: {
@@ -16,10 +16,10 @@ const findStudyPrograms = async (netID) => {
 			},
 			raw: true
 		});
-		programInfo.push(studyProgram)
+		programInfo.push(studyProgram);
 	}
 
-	return programInfo
-}
+	return programInfo;
+};
 
 module.exports = { findStudyPrograms };

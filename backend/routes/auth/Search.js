@@ -1,4 +1,9 @@
-const { searchCoursesAndSections, getAllSchools, getAllDepartments, getDepartmentsBySchool } = require("../../controllers/Search");
+const {
+	searchCoursesAndSections,
+	getAllSchools,
+	getAllDepartments,
+	getDepartmentsBySchool
+} = require("../../controllers/Search");
 
 const express = require("express");
 const router = express.Router();
@@ -6,8 +11,10 @@ const router = express.Router();
 router.post("/", async (req, res) => {
 	if (req.body) {
 		const courseQuery = req.body["courseQuery"];
-		if (courseQuery) {
-			const courses = await searchCoursesAndSections(courseQuery);
+		const schoolNumber = req.body["schoolNumber"];
+		const departmentNumber = req.body["departmentNumber"];
+		if (courseQuery || schoolNumber || departmentNumber) {
+			const courses = await searchCoursesAndSections(courseQuery, schoolNumber, departmentNumber);
 			if (!courses || courses.error) {
 				res.json({
 					status: "failure",
@@ -23,7 +30,7 @@ router.post("/", async (req, res) => {
 		}
 	}
 
-	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body)});
+	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body) });
 });
 
 
@@ -35,7 +42,7 @@ router.post("/schools", async (req, res) => {
 		return;
 	}
 
-	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body)});
+	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body) });
 });
 
 router.post("/departments", async (req, res) => {
@@ -51,9 +58,8 @@ router.post("/departments", async (req, res) => {
 		return;
 	}
 
-	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body)});
+	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body) });
 });
-
 
 
 module.exports = router;

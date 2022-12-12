@@ -5,14 +5,19 @@ import { DataContext } from "../contexts/DataContext";
 import { Field, Form, Formik } from "formik";
 import "../styles/viewer.css";
 import { API_URL } from "../App";
+import { useSearch } from "../hooks/useSearch";
+import Select from "react-select";
 
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
-	const [ courses, setCourses ] = useState([]);
+	const [searchedCourses, setSearchedCourses] = useState([]);
+	const [schools, departments, downloadDepartments] = useSearch(data.token);
+	const [selectedDepartment, setSelectedDepartment] = useState();
 
 	function CardContainer({ children, eventKey }) {
 		return (
-			<div onClick={useAccordionButton(eventKey, () => {})}>
+			<div onClick={useAccordionButton(eventKey, () => {
+			})}>
 				{children}
 			</div>
 		);
@@ -21,31 +26,31 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const viewMode = schedule ? "student" : "admin";
 
 	function CourseViewer() {
-		if (courses.length === 0)
+		if (searchedCourses.length === 0)
 			return <></>;
 
 		let count = 0;
 		let courseList = [];
-		for (let i = 0; i < courses.length; i++) {
+		for (let i = 0; i < searchedCourses.length; i++) {
 			const courseEventKey = count;
 			count++;
 
-			const sections = courses[i].sections;
+			const sections = searchedCourses[i].sections;
 			let sectionList = [];
 			let openSections = 0;
 			for (let j = 0; j < sections.length; j++) {
 				let button = <></>;
 				if (viewMode === "student") {
 					if (schedule["courses"].some((course) => {
-						return course.courseString === courses[i].courseString &&
+						return course.courseString === searchedCourses[i].courseString &&
 							course.sectionNumber === sections[j].sectionNumber;
 					})) {
 						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
-										 onClick={dropHandler}>Drop</Button>
+										 onClick={dropHandler}>Drop</Button>;
 					}
 					else {
 						button = <Button value={sections[j].sectionIndex} className={"add-drop-button"}
-										 onClick={addHandler}>Add</Button>
+										 onClick={addHandler}>Add</Button>;
 					}
 				}
 
@@ -54,13 +59,13 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 
 				const section = (
 					<Card key={count.toString()}>
-						<Card.Header style={{padding: 0}}>
+						<Card.Header style={{ padding: 0 }}>
 							<CardContainer eventKey={count.toString()}>
 								<span>{[
 									sections[j].sectionNumber,
 									sections[j].sectionType,
 									"Taught by " + sections[j].professor,
-									courses[i].numberOfCredits + " credits"
+									searchedCourses[i].numberOfCredits + " credits"
 								].join(" | ")}
 								</span>
 								<div className={"d-inline-block float-end"}>
@@ -88,9 +93,9 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 					<Accordion.Header>
 						<div className={"d-flex justify-content-between w-100"}>
 							<span>
-								{courses[i].courseString}
+								{searchedCourses[i].courseString}
 								{" | "}
-								{courses[i].name}
+								{searchedCourses[i].name}
 							</span>
 							<span className={"float-right"}>
 								{openSections + " / " + sections.length + " open sections"}
@@ -106,9 +111,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			);
 			courseList.push(course);
 		}
-
 		console.log("Found " + courseList.length + " courses");
-
 		return (
 			<Accordion className={"overflow-auto flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
 				{courseList}
@@ -122,13 +125,32 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			token: data.token,
 			courseQuery: courseQuery
 		}).then((response) => {
-			setCourses(response.data);
+			setSearchedCourses(response.data);
 		});
 	};
 
+	let listOfSchools = schools.map((school) => {
+		return {
+			value: school.schoolNumber,
+			label: school.schoolName
+		};
+	});
+
+	let listOfDepartments = departments.map((department) => {
+		return {
+			value: department.departmentNumber,
+			label: department.departmentName
+		};
+	});
+
+	const changeSchoolSelection = (selectedOption) => {
+		downloadDepartments(selectedOption.value);
+		setSelectedDepartment(null);
+	};
+
 	return (
-		<Container fluid>
-			<div className={"h-25 bg-light-coral"}>
+		<Container fluid className={"d-flex flex-column"}>
+			<div className={"bg-light-coral"}>
 				<span>Search Courses</span>
 				<Formik initialValues={{ courseQuery: "" }}
 						onSubmit={async (values, actions) => {
@@ -137,16 +159,32 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 						}}>
 					{(formik) => (
 						<Form>
-							<label>Course Name:</label>
-							<Field type="text"
-								   name="courseQuery"
-								   onChange={formik.handleChange}/>
+							<div>
+								<label>Course Name: </label>
+								<Field type="text"
+									   name="courseQuery"
+									   onChange={formik.handleChange}/><br/>
+							</div>
+							<div className={"d-flex"}>
+								<label className={"m-auto"}>Sort by School: </label>
+								<Select options={listOfSchools}
+										className={"flex-grow-1"}
+										onChange={changeSchoolSelection}/><br/>
+							</div>
+							<div className={"d-flex"}>
+								<label className={"m-auto"}>Sort by Department: </label>
+								<Select options={listOfDepartments}
+										className={"flex-grow-1"}
+										key={selectedDepartment}
+										defaultValue={selectedDepartment}
+										onChange={selectedOption => setSelectedDepartment(selectedOption)}/><br/>
+							</div>
 							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
 						</Form>
 					)}
 				</Formik>
 			</div>
-			<div className={"h-75 d-flex flex-column"}>
+			<div className={"h-75 d-flex flex-column flex-grow-1"}>
 				<span>View Courses</span>
 				<div className={"d-flex justify-content-between w-100"}>
 					<span>Course String</span>

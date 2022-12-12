@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	const SchoolDepartment =  sequelize.define("SchoolDepartment", {
+	const SchoolDepartment = sequelize.define("SchoolDepartment", {
 		schoolNumber: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	SchoolDepartment.associate = function (models) {
-		SchoolDepartment.belongsTo(models.Department, {foreignKey: 'departmentNumber'});
-	}
+		SchoolDepartment.belongsTo(models.Department, { foreignKey: "departmentNumber" });
+	};
 
 	return SchoolDepartment;
 };

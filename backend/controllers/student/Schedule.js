@@ -17,17 +17,17 @@ const addSection = async (netID, sectionIndex) => {
 		sectionIndex: sectionIndex,
 		grade: "N/A"
 	});
-}
+};
 
 const dropSection = async (netID, sectionIndex) => {
 	return await Enrollment.destroy({
 		where: {
-			netID : netID,
+			netID: netID,
 			semesterName: currentSemesterName,
 			sectionIndex: sectionIndex
 		}
 	});
-}
+};
 
 const findEnrollments = async (netID) => {
 	const enrollments = await Enrollment.findAll({
@@ -58,11 +58,11 @@ const findEnrollments = async (netID) => {
 		if (sectionBlocks.length > 1 || sectionBlocks[0].blockDay !== null) {
 			meetingTimes = sectionBlocks.map((sectionBlock) => {
 				const start = JSON.stringify(sectionBlock.blockStart)
-					.replaceAll(/"/g, '')
+					.replaceAll(/"/g, "")
 					.split(":")
 					.map((token) => Number(token));
 				const end = JSON.stringify(sectionBlock.blockEnd)
-					.replaceAll(/"/g, '')
+					.replaceAll(/"/g, "")
 					.split(":")
 					.map((token) => Number(token));
 
@@ -74,8 +74,8 @@ const findEnrollments = async (netID) => {
 					endMinute: end[1],
 					location: sectionBlock.location,
 					meetingType: sectionBlock.meetingType
-				}
-			})
+				};
+			});
 		}
 
 		numberOfCredits += course["numberOfCredits"];
@@ -96,7 +96,7 @@ const findEnrollments = async (netID) => {
 	return {
 		numberOfCreditsAttempting: numberOfCredits,
 		courses: courses
-	}
+	};
 };
 
 module.exports = { findEnrollments, addSection, dropSection };
