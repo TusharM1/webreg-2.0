@@ -11,7 +11,8 @@ import Select from "react-select";
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
 	const { data } = useContext(DataContext);
 	const [searchedCourses, setSearchedCourses] = useState([]);
-	const [schools, departments, downloadDepartments] = useSearch(data.token);
+	const [schools, departments, downloadDepartments, clearDepartments] = useSearch(data.token);
+	const [selectedSchool, setSelectedSchool] = useState();
 	const [selectedDepartment, setSelectedDepartment] = useState();
 
 	function CardContainer({ children, eventKey }) {
@@ -119,11 +120,19 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 		);
 	}
 
-	const searchCourses = async (courseQuery) => {
-		console.log("Searching query: " + courseQuery);
+	const searchCourses = async (courseQuery, selectedSchool, selectedDepartment) => {
+		const schoolNumber = (selectedSchool ? selectedSchool.value : null);
+		const departmentNumber = (selectedDepartment ? selectedDepartment.value : null);
+
+		const schoolName = (selectedSchool ? selectedSchool.label : null);
+		const departmentName = (selectedDepartment ? selectedDepartment.label : null);
+		console.log("Searching query: (" + courseQuery + ", " + schoolName + ", " + departmentName + ")");
+
 		axios.post(API_URL + "/search", {
 			token: data.token,
-			courseQuery: courseQuery
+			courseQuery: courseQuery,
+			schoolNumber: schoolNumber,
+			departmentNumber: departmentNumber
 		}).then((response) => {
 			setSearchedCourses(response.data);
 		});
@@ -136,16 +145,23 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 		};
 	});
 
-	let listOfDepartments = departments.map((department) => {
-		return {
-			value: department.departmentNumber,
-			label: department.departmentName
-		};
-	});
+	let listOfDepartments = [];
+	if (departments) {
+		listOfDepartments = departments.map((department) => {
+			return {
+				value: department.departmentNumber,
+				label: department.departmentName
+			};
+		});
+	}
 
 	const changeSchoolSelection = (selectedOption) => {
-		downloadDepartments(selectedOption.value);
+		if (selectedOption)
+			downloadDepartments(selectedOption.value);
+		else
+			clearDepartments();
 		setSelectedDepartment(null);
+		setSelectedSchool(selectedOption);
 	};
 
 	return (
@@ -153,9 +169,8 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			<div className={"bg-light-coral"}>
 				<span>Search Courses</span>
 				<Formik initialValues={{ courseQuery: "" }}
-						onSubmit={async (values, actions) => {
-							await searchCourses(values["courseQuery"]);
-							actions.resetForm();
+						onSubmit={async (values) => {
+							await searchCourses(values["courseQuery"], selectedSchool, selectedDepartment);
 						}}>
 					{(formik) => (
 						<Form>
@@ -169,17 +184,19 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 								<label className={"m-auto"}>Sort by School: </label>
 								<Select options={listOfSchools}
 										className={"flex-grow-1"}
+										isClearable={true}
 										onChange={changeSchoolSelection}/><br/>
 							</div>
 							<div className={"d-flex"}>
 								<label className={"m-auto"}>Sort by Department: </label>
 								<Select options={listOfDepartments}
 										className={"flex-grow-1"}
+										isClearable={true}
 										key={selectedDepartment}
 										defaultValue={selectedDepartment}
 										onChange={selectedOption => setSelectedDepartment(selectedOption)}/><br/>
 							</div>
-							<Button type="submit" disabled={!(formik.isValid && formik.dirty)}>Search</Button>
+							<Button type="submit" disabled={!(formik.isValid && formik.dirty) && !selectedDepartment && !selectedSchool}>Search</Button>
 						</Form>
 					)}
 				</Formik>

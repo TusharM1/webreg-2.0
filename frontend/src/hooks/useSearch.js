@@ -3,7 +3,7 @@ import axios from "axios";
 import { useMount } from "./useMount";
 import { API_URL } from "../App";
 
-export const defaultInformation = [];
+let defaultInformation = [];
 
 export function useSearch(token) {
 	const [school, setSchool] = useState(defaultInformation);
@@ -20,7 +20,8 @@ export function useSearch(token) {
 			(axios.post(API_URL + "/search/departments", {
 				token: token
 			})).then((response) => {
-				setDepartment(response.data);
+				defaultInformation = response.data
+				setDepartment(defaultInformation);
 			});
 		});
 	};
@@ -38,5 +39,10 @@ export function useSearch(token) {
 			setDepartment(information.data);
 		});
 	};
-	return [school, department, downloadDepartments];
+
+	const clearDepartments = () => {
+		setDepartment(defaultInformation);
+	}
+
+	return [school, department, downloadDepartments, clearDepartments];
 }

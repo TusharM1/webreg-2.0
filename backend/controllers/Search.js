@@ -1,5 +1,6 @@
 const { School, Department, SchoolDepartment, Course, Section, Enrollment, SectionBlock } = require("../models");
 const { Op, Sequelize } = require("sequelize");
+
 const findCourse = async (courseString) => {
 	return await Course.findOne({
 		where: {
@@ -28,11 +29,18 @@ const findSectionBlocks = async (sectionIndex) => {
 };
 
 const searchCoursesAndSections = async (courseQuery, schoolNumber, departmentNumber) => {
-	let parameters = [];
+	let parameters = {};
+	if (courseQuery)
+		parameters["name"] = Sequelize.where(Sequelize.fn("LOWER", Sequelize.col("name")), "LIKE", "%" + courseQuery + "%");
+	if (schoolNumber)
+		parameters["schoolNumber"] = schoolNumber;
+	if (departmentNumber)
+		parameters["departmentNumber"] = departmentNumber;
+
 	const searchedCourses = (await Course.findAll({
 		where: {
 			[Op.and]: [{
-				name: Sequelize.where(Sequelize.fn("LOWER", Sequelize.col("name")), "LIKE", "%" + courseQuery + "%"),
+				...parameters,
 				isActive: true
 			}]
 		},
