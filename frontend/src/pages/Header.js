@@ -21,13 +21,13 @@ const Header = ({ path }) => {
 						<>
 							{path === "/dashboard" ?
 								<>
-									//For a full realese outside the bounds of the project, this would be dependent on the page
+									{/*For a full realese outside the bounds of the project, this would be dependent on the page*/}
 									<Navbar.Text>Semester: Spring 2023</Navbar.Text>
 								</> : <></>
 							}
 							<Navbar.Collapse className="justify-content-end">
 								<Navbar.Text>{data.profile.fullName} ({data.profile.netID})</Navbar.Text>
-								//Logs the User out
+								{/*Logs the User out*/}
 								<Button className="ms-2" onClick={() => {
 									clearData();
 									navigate("/");
