@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+//These are all the necessary routes for student functionality including courses, schedule, study programs, school enrollment, as well as user validation.
 const studentMiddleware = require("../../../middleware/Student");
 router.use(studentMiddleware);
 

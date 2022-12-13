@@ -1,5 +1,6 @@
 const { School, SchoolEnrollment } = require("../../models");
 
+//This async method finds and returns a student's school enrollment, such as School of Arts and Sciences.
 const findSchoolEnrollment = async (netID) => {
 	const schoolEnrollment = await SchoolEnrollment.findOne({
 		where: {

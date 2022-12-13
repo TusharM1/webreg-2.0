@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/schedule.css";
 
+//This function converts the time to a more usable format
 export function convertTime(hours, minutes) {
 	const period = hours < 12 ? " AM" : " PM";
 	const hour = hours % 12 === 0 ? 12 : hours % 12;
 	return hour + ":" + minutes.toString().padStart(2, "0") + period;
 }
 
+//This configuration color codes the differnt colors
 export const colorMap = {
 	Blue: "deepskyblue",
 	Yellow: "yellow",
@@ -14,6 +16,7 @@ export const colorMap = {
 	Orange: "orange"
 };
 
+//Assigns different campuses to colors to allow user to understand the calender better
 export const locationMap = {
 	"Busch": colorMap.Blue,
 	"College Avenue": colorMap.Yellow,
@@ -21,6 +24,7 @@ export const locationMap = {
 	"Livingston": colorMap.Orange
 };
 
+//This function creates the legend for the calender. So Users who aren't familiar with the format can learn how to read it.
 export function Schedule({ schedule, config }) {
 	const legend = [];
 	legend.push(
@@ -37,6 +41,7 @@ export function Schedule({ schedule, config }) {
 		);
 	}
 
+	//This function handles the alignment and the size
 	const dayHeaders = (
 		<div className={"d-flex"} style={{ gridColumn: 2, textAlign: "center" }}>
 			{config.days.map((day) => {
@@ -45,6 +50,7 @@ export function Schedule({ schedule, config }) {
 		</div>
 	);
 
+	//This function handles the hour's alignment and placement in the days
 	const hours = [];
 	for (let hour = config.startingHour; hour < config.endingHour; hour++) {
 		hours.push(
@@ -53,12 +59,14 @@ export function Schedule({ schedule, config }) {
 			</div>
 		);
 	}
+	//This function handles the header's alignment in the hours.
 	const hourHeaders = (
 		<div className={"d-flex flex-column"} style={{ gridRow: 2, textAlign: "right" }}>
 			{hours}
 		</div>
 	);
 
+	//This function handles the row's aligment size
 	const rowLines = [];
 	for (let i = 0; i < config.endingHour - config.startingHour; i++) {
 		rowLines.push(
@@ -66,10 +74,12 @@ export function Schedule({ schedule, config }) {
 		);
 	}
 
+	//This function handles the column's aligment size
 	const columnLines = config.days.map((day, i) => {
 		return <div className="vertical-line" key={day} style={{ gridColumn: i + 1 }}></div>;
 	});
 
+	//Creates the section blocks that fit into the calender based on the User's schedule.
 	let sectionBlocks = [];
 	if (schedule && schedule.status !== "loading") {
 		schedule["courses"].forEach((course) => {

@@ -1,3 +1,4 @@
+//This table holds all user info that uniquely identifies a webreg 2.0 user.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("User", {
 		netID: {

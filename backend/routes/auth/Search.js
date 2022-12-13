@@ -7,7 +7,7 @@ const {
 
 const express = require("express");
 const router = express.Router();
-
+//This post sends the signal to search the database for a particular course given a course query, and returns and prints the courses matching the query.
 router.post("/", async (req, res) => {
 	if (req.body) {
 		const courseQuery = req.body["courseQuery"];
@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body) });
 });
 
-
+//This post sends the signal to search the database for all schools at Rutgers, and returns and prints them.
 router.post("/schools", async (req, res) => {
 	if (req.body) {
 		const schools = await getAllSchools();
@@ -44,7 +44,7 @@ router.post("/schools", async (req, res) => {
 
 	res.json({ error: true, message: "Invalid request body: " + JSON.stringify(req.body) });
 });
-
+//This post sends the signal to search the database for all departments at Rutgers, as well as departmetns by school, and returns and prints them.
 router.post("/departments", async (req, res) => {
 	if (req.body) {
 		const schoolNumber = req.body["schoolNumber"];

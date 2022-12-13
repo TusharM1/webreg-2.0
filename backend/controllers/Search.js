@@ -1,6 +1,7 @@
 const { School, Department, SchoolDepartment, Course, Section, Enrollment, SectionBlock } = require("../models");
 const { Op, Sequelize } = require("sequelize");
 
+//This async method searches the database for a course matching the passed in course string, invoked by the search bar.
 const findCourse = async (courseString) => {
 	return await Course.findOne({
 		where: {
@@ -10,6 +11,7 @@ const findCourse = async (courseString) => {
 	});
 };
 
+//This async method searches the database for a course section matching the passed in section index, invoked by the search bar.
 const findSection = async (sectionIndex) => {
 	return await Section.findOne({
 		where: {
@@ -19,6 +21,7 @@ const findSection = async (sectionIndex) => {
 	});
 };
 
+//This async method searches the database for a section blocks, matching the passed in section index, invoked by the search bar.
 const findSectionBlocks = async (sectionIndex) => {
 	return await SectionBlock.findAll({
 		where: {
@@ -28,6 +31,7 @@ const findSectionBlocks = async (sectionIndex) => {
 	});
 };
 
+//This async method searches the database for multiple courses matching the user's search query, and all sections of these courses, invoked by the search bar.
 const searchCoursesAndSections = async (courseQuery, schoolNumber, departmentNumber) => {
 	let parameters = {};
 	if (courseQuery)
@@ -114,18 +118,21 @@ const searchCoursesAndSections = async (courseQuery, schoolNumber, departmentNum
 	return courses;
 };
 
+//This async method finds and returns all schools at Rutgers, e.g. School of Arts and Sciences, School of Engineering, etc.
 const getAllSchools = async () => {
 	return await School.findAll({
 		raw: true
 	});
 };
 
+//This async method finds and returns all departments at Rutgers, e.g. Computer Science, Psychology, etc.
 const getAllDepartments = async () => {
 	return await Department.findAll({
 		raw: true
 	});
 };
 
+//This async method finds and returns all departments in a particular school, e.g. Computer Science, Psychology in School of Arts and Sciences, Biomedical/Electrical Engineering in School of Engineering, etc.v
 const getDepartmentsBySchool = async (schoolNumber) => {
 	return await Department.findAll({
 		include: [{

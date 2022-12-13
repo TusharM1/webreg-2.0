@@ -8,10 +8,14 @@ import * as Yup from "yup";
 import "../styles/login.css";
 import { API_URL } from "../App";
 
+//This page handles functionality for login: account checking and leads to the other pages depending on the user's designation (Student or Admin)
 const Login = () => {
+	//Stores user data
 	const { saveData } = useContext(DataContext);
 
 	const navigate = useNavigate();
+	//This function checks the netID and password against the database to determine if the user exists
+	//Sends a call to the backend router
 	const loginUser = async (netID, password) => {
 		const data = await axios.post(API_URL + "/auth", {
 			type: "login",
@@ -32,6 +36,7 @@ const Login = () => {
 	return (
 		<Container fluid className={"login"}>
 			<Formik initialValues={{ netID: "", password: "" }}
+					//calls the function above when the button is pressed and values are in the textboxes
 					onSubmit={async (values, actions) => {
 						await loginUser(values["netID"], values["password"]);
 						actions.resetForm();

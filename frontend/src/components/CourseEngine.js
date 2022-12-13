@@ -8,7 +8,9 @@ import { API_URL } from "../App";
 import { useSearch } from "../hooks/useSearch";
 import Select from "react-select";
 
+//This function handles the search courses, create courses, drop courses user stories
 export function CourseEngine({ schedule, addHandler, dropHandler }) {
+	//Gets user basic data
 	const { data } = useContext(DataContext);
 	const [searchedCourses, setSearchedCourses] = useState([]);
 	const [schools, departments, downloadDepartments, clearDepartments] = useSearch(data.token);
@@ -112,7 +114,9 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 			);
 			courseList.push(course);
 		}
+
 		console.log("Found " + courseList.length + " courses");
+
 		return (
 			<Accordion className={"overflow-auto flex-grow-1"} alwaysOpen style={{ flexBasis: 0 }}>
 				{courseList}
@@ -120,6 +124,7 @@ export function CourseEngine({ schedule, addHandler, dropHandler }) {
 		);
 	}
 
+	//This function connects to the database to search for courses. Connects to the backend through a router
 	const searchCourses = async (courseQuery, selectedSchool, selectedDepartment) => {
 		const schoolNumber = (selectedSchool ? selectedSchool.value : null);
 		const departmentNumber = (selectedDepartment ? selectedDepartment.value : null);

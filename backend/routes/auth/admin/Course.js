@@ -4,6 +4,7 @@ const express = require("express");
 const { courseNumbersToString } = require("../../../controllers/admin/Course");
 const router = express.Router();
 
+//This post is invoked when an admin creates a course on the admin page. It sends the signal to create a course in the database.
 router.post("/create", async (req, res) => {
 	if (req.body) {
 		const schoolNumber = req.body["schoolNumber"];
@@ -30,7 +31,7 @@ router.post("/create", async (req, res) => {
 
 	res.json({ status: "failure", message: "Invalid request body: " + JSON.stringify(req.body) });
 });
-
+//This post is invoked when an admin edits a course on the admin page. It sends the signal to edit a course in the database.
 router.post("/edit", async (req, res) => {
 	if (req.body) {
 		const schoolNumber = req.body["schoolNumber"];
@@ -57,7 +58,7 @@ router.post("/edit", async (req, res) => {
 
 	res.json({ status: "failure", message: "Invalid request body: " + JSON.stringify(req.body) });
 });
-
+//This post is invoked when an admin removes a course on the admin page. It sends the signal to remove a course in the database.
 router.post("/remove", async (req, res) => {
 	if (req.body) {
 		const schoolNumber = req.body["schoolNumber"];

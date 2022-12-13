@@ -1,3 +1,4 @@
+//This table represents all departments and their respective school at Rutgers.
 module.exports = (sequelize, DataTypes) => {
 	const SchoolDepartment = sequelize.define("SchoolDepartment", {
 		schoolNumber: {

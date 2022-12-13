@@ -1,3 +1,4 @@
+//This table represents all existing courses for the current semester.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("Course", {
 		courseString: {

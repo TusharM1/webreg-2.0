@@ -1,3 +1,4 @@
+//An admin user will traverse these routes to reach the admin page.
 const express = require("express");
 const router = express.Router();
 

@@ -4,7 +4,9 @@ import { ScheduleContext } from "../contexts/ScheduleContext";
 import { convertTime } from "./Schedule";
 import Button from "react-bootstrap/Button";
 
+//This function handles viewing the user schedule in a list format as well as allwoing the droping of courses
 export function ScheduleInformation() {
+	//Imports functions for schedule functionality
 	const { schedule, dropHandler } = useContext(ScheduleContext);
 
 	let scheduleCourses = schedule.courses;

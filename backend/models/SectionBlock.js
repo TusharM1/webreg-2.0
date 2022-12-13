@@ -1,3 +1,4 @@
+//This table represents all relevant information for every section, for every course at Rutgers.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("SectionBlock", {
 		id: {

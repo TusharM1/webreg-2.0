@@ -2,7 +2,7 @@ const { getUserFromCredentials, getUserFromToken } = require("../controllers/Use
 
 const express = require("express");
 const router = express.Router();
-
+//This post validates a user's credentials as well as their token before logging the user in. If there's a match, they proceed, if not, they are alerted and must try again.
 router.post("/", async (req, res) => {
 	const { data } = req.body;
 

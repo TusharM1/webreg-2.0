@@ -1,3 +1,4 @@
+//This table represents course information for transfer students, transferring credits from other Universities. 
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("TransferCredit", {
 		courseString: {

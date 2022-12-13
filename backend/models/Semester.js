@@ -1,3 +1,4 @@
+//This table holds Semesters (e.g Spring 2023), which entail what courses will be available.
 module.exports = (sequelize, DataTypes) => {
 	const Semester = sequelize.define("Semester", {
 		semesterName: {

@@ -1,3 +1,4 @@
+//This table represents all requirements for all degree study programs at Rutgers.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("StudyProgramRequirement", {
 		studyProgramCode: {

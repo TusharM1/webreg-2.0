@@ -1,3 +1,4 @@
+//This table represents all students and their respective degree study programs at Rutgers.
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define("StudyProgramStudent", {
 		netID: {
